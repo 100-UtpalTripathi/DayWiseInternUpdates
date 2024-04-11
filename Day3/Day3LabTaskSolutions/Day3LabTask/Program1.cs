@@ -43,9 +43,9 @@
             num2 = Console.ReadLine();
 
             double cleanNum2;
-            while (!double.TryParse(num2, out cleanNum2))
+            while (!double.TryParse(num2, out cleanNum2) || cleanNum2 == 0)
             {
-                Console.Write("This is not valid input. Please enter a numeric value: ");
+                Console.Write("This is not valid input. Please enter a non-zero numeric value: ");
                 num2 = Console.ReadLine();
             }
 
@@ -54,8 +54,9 @@
 
             double sum = Add(n1, n2);
             double subtraction = Subtract(n1, n2);
-            double division = Divide(n1, n2);
             double product = Multiply(n1, n2);
+
+            double division = Divide(n1, n2);
             double remainder = Remainder(n1, n2);
 
             Console.WriteLine($"Sum: {sum}");
