@@ -17,7 +17,8 @@
                 Salary = 40000
             };
 
-            Console.WriteLine(employee2.Salary);
+            Employee employee3 = new Employee(103, "Bimu", 123423, new DateTime(2000, 05, 07), "bimu@abcorp.com");
+            Console.WriteLine(employee3.Id + " " + employee3.Name);
             employee.Work();
         }
     }
