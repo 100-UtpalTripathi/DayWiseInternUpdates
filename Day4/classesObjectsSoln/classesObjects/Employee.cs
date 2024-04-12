@@ -26,6 +26,10 @@ namespace classesObjects
         }
         public DateTime DateOfBirth { get; set; }
         public string Email { get; set; }
+
+        /// <summary>
+        /// Default constructor Added!
+        /// </summary>
         public Employee()
         {
             Id = 0;
@@ -35,10 +39,23 @@ namespace classesObjects
             Salary = 0;
         }
 
+        /// <summary>
+        /// Parameterized constructor Added!
+        /// </summary>
+        /// <param name="id"> ID of the Employee</param>
         public Employee(int id)
         {
             Id = id;
         }
+
+        /// <summary>
+        /// Paramterized constructor calling another parametrized constructor, i.e. chaining
+        /// </summary>
+        /// <param name="id"> ID of the Employee</param>
+        /// <param name="name"> Name of the Employee</param>
+        /// <param name="salary"> Salary of the Employee</param>
+        /// <param name="dateOfBirth">DOB</param>
+        /// <param name="email">Email....</param>
 
         public Employee(int id, string name, double salary, DateTime dateOfBirth, string email) : this(id)
         {
