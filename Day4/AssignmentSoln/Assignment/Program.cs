@@ -48,17 +48,13 @@ namespace Assignment
         /// Creates a new Doctor instance by taking input from the console.
         /// </summary>
         /// <returns>A new Doctor instance created with user input.</returns>
-        Doctor CreateDoctorThroughConsole()
+        Doctor CreateDoctorThroughConsole(int id)
         {
-            int id;
             string name;
             int age;
             int exp;
             string qualification;
             string speciality;
-
-            Console.Write("Id: ");
-            id = TakingIntInput("Id");
 
             Console.Write("Name: ");
             name = TakingStringInput("Name");
@@ -118,7 +114,7 @@ namespace Assignment
             for (int i = 0; i < doctors.Length; i++)
             {
                 Console.WriteLine($"\nEnter details for Doctor {i + 1}:");
-                doctors[i] = p.CreateDoctorThroughConsole();
+                doctors[i] = p.CreateDoctorThroughConsole(1000 + i);
 
             }
 
