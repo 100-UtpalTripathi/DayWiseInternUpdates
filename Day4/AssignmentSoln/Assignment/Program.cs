@@ -5,7 +5,7 @@ namespace Assignment
     
     internal class Program
     {
-        string takingStringInput()
+        string TakingStringInput()
         {
             string? str;
             do
@@ -19,57 +19,66 @@ namespace Assignment
             return str;
 
         }
-        int takingIntInput()
+        int TakingIntInput()
         {
-            int? id;
+            int value;
+            while (!int.TryParse(Console.ReadLine(), out value) || value <= 0)
+            {
+                Console.Write("\nInvalid input! Please enter a valid integer:");
+            }
+            return value;
 
         }
-        Doctor createDoctors()
+        Doctor CreateDoctorThroughConsole()
         {
             int id;
-            string? name;
-            Console.Write("Id: ");
-
-            while (!int.TryParse(Console.ReadLine(), out id))
-            {
-                Console.WriteLine("Invalid input! Please enter a valid integer for Id:");
-            }
-
-
-            do
-            {
-                Console.Write("\nName: ");
-                name = Console.ReadLine();
-
-                if (string.IsNullOrWhiteSpace(name))
-                    Console.WriteLine("Invalid input. Please enter a valid name!\n");
-
-            } while (string.IsNullOrWhiteSpace(name));
-
+            string name;
             int age;
-            do
-            {
-                Console.Write("Age: ");
-            } while (!int.TryParse(Console.ReadLine(), out age) || age <= 0);
-
             int exp;
-            do
-            {
-                Console.Write("Experience (in years): ");
-            } while (!int.TryParse(Console.ReadLine(), out exp) || exp < 0);
+            string qualification;
+            string speciality;
+
+            Console.Write("Id: ");
+            id = TakingIntInput();
+
+            Console.Write("Name: ");
+            name = TakingStringInput();
+
+            Console.Write("Age: ");
+            age = TakingIntInput();
+
+            Console.Write("Experience: ");
+            exp = TakingIntInput();
+
+            Console.Write("Qualification: ");
+            qualification = TakingStringInput();
+
+            Console.Write("Speciality: ");
+            speciality = TakingStringInput();
 
 
-
-            Doctor d = new Doctor(id, name, age, exp, qualification, speciality);
-            return d;
+            Doctor TempDoctor = new Doctor(id, name, age, exp, qualification, speciality);
+            return TempDoctor;
         }
         static void Main(string[] args)
         {
-            Doctor[] doctors = new Doctor[3];
+            Program p = new Program();
+            Console.Write("Enter the Number of Doctors:");
+            int NumberOfDoctors = p.TakingIntInput();
+
+            Doctor[] doctors = new Doctor[NumberOfDoctors];
             
             for(int i = 0; i < doctors.Length; i++)
             {
                 Console.WriteLine($"Enter details for Doctor {i + 1}:");
+                doctors[i] = p.CreateDoctorThroughConsole();
+
+            }
+
+            for (int i = 0; i < doctors.Length; i++)
+            {
+                Console.WriteLine($"Details for Doctor {i + 1}:");
+                doctors[i].PrintDoctorDetails();
 
             }
         }

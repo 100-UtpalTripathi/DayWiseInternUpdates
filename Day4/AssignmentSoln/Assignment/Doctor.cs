@@ -33,14 +33,12 @@ namespace Assignment
             Qualification = qualification;
             Speciality = speciality;
         }
-        static void PrintDoctors(Doctor[] doctors)
+        public void PrintDoctorDetails()
         {
-            foreach (var doctor in doctors)
-            {
-                Console.WriteLine($"Id: {doctor.Id}, Name: {doctor.Name}, Age: {doctor.Age}, " +
-                    $"Exp: {doctor.Exp}, Qualification: {doctor.Qualification}, " +
-                    $"Speciality: {doctor.Speciality}");
-            }
+            Console.WriteLine($"Id: {Id}, Name: {Name}, Age: {Age}, " +
+                $"Exp: {Exp}, Qualification: {Qualification}, " +
+                $"Speciality: {Speciality}");
+            
         }
 
     }
