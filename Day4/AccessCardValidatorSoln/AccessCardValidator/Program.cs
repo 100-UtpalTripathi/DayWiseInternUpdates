@@ -5,6 +5,11 @@ namespace AccessCardValidator
 {
     internal class Program
     {
+        /// <summary>
+        /// Takes a string input from the user and validates it.
+        /// </summary>
+        /// <param name="PrintValue">The prompt message to be displayed to the user.</param>
+        /// <returns>The valid 16-digit numeric string entered by the user.</returns>
         static string TakingStringInput(string PrintValue)
         {
             string? str;
@@ -29,14 +34,24 @@ namespace AccessCardValidator
             return str;
         }
 
+        /// <summary>
+        /// Reverses the order of the digits in the card number.
+        /// </summary>
+        /// <param name="CardNumber">The 16-digit numeric card number.</param>
+        /// <returns>The reversed card number.</returns>
         static string ReverseCardNumber(string CardNumber)
         {
             return new string(CardNumber.Reverse().ToArray());
         }
 
+        /// <summary>
+        /// Checks the validity of the card number using the Luhn algorithm.
+        /// </summary>
+        /// <param name="CardNumber">The 16-digit numeric card number.</param>
+        /// <returns>True if the card number is valid, false otherwise.</returns>
         static bool CheckValidation(string CardNumber)
         {
-            // Ensure the card number is not all zeros
+            // Ensuring the card number is not all zeros, all zeros will fail this algorithm
             if (CardNumber.All(c => c == '0'))
             {
                 return false;
@@ -47,6 +62,11 @@ namespace AccessCardValidator
             return result % 10 == 0;
         }
 
+        /// <summary>
+        /// Calculates the checksum of the reversed card number using the Luhn algorithm.
+        /// </summary>
+        /// <param name="input">The reversed card number.</param>
+        /// <returns>The checksum calculated.</returns>
         static int CalculateChecksum(string input)
         {
             int sum = 0;
@@ -73,6 +93,11 @@ namespace AccessCardValidator
             return sum;
         }
 
+        /// <summary>
+        /// To find Sum of digits of given string input
+        /// </summary>
+        /// <param name="input"> CardNumber in string</param>
+        /// <returns></returns>
         static int SumOfDigits(string input)
         {
             int sum = 0;
