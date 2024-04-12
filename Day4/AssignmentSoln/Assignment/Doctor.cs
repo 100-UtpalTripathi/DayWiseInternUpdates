@@ -35,9 +35,9 @@ namespace Assignment
         }
         public void PrintDoctorDetails()
         {
-            Console.WriteLine($"Id: {Id}, Name: {Name}, Age: {Age}, " +
-                $"Exp: {Exp}, Qualification: {Qualification}, " +
-                $"Speciality: {Speciality}");
+            Console.WriteLine($"Id: {Id}\nName: {Name}\nAge: {Age}\n" +
+                $"Exp: {Exp}\nQualification: {Qualification}\n" +
+                $"Speciality: {Speciality}\n");
             
         }
 

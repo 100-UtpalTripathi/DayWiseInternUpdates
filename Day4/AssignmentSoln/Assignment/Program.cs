@@ -5,7 +5,7 @@ namespace Assignment
     
     internal class Program
     {
-        string TakingStringInput()
+        string TakingStringInput(string PrintValue)
         {
             string? str;
             do
@@ -13,18 +13,18 @@ namespace Assignment
                 str = Console.ReadLine();
 
                 if (string.IsNullOrWhiteSpace(str))
-                    Console.Write("\nInvalid input, Please Enter again:\n");
+                    Console.Write($"Invalid input, Please Enter {PrintValue} again:\n");
 
             } while (string.IsNullOrWhiteSpace(str));
             return str;
 
         }
-        int TakingIntInput()
+        int TakingIntInput(string PrintValue)
         {
             int value;
             while (!int.TryParse(Console.ReadLine(), out value) || value <= 0)
             {
-                Console.Write("\nInvalid input! Please enter a valid integer:");
+                Console.Write($"Invalid input! Please Enter {PrintValue} again:");
             }
             return value;
 
@@ -39,22 +39,22 @@ namespace Assignment
             string speciality;
 
             Console.Write("Id: ");
-            id = TakingIntInput();
+            id = TakingIntInput("Id");
 
             Console.Write("Name: ");
-            name = TakingStringInput();
+            name = TakingStringInput("Name");
 
             Console.Write("Age: ");
-            age = TakingIntInput();
+            age = TakingIntInput("Age");
 
             Console.Write("Experience: ");
-            exp = TakingIntInput();
+            exp = TakingIntInput("Experience");
 
             Console.Write("Qualification: ");
-            qualification = TakingStringInput();
+            qualification = TakingStringInput("Qualification");
 
             Console.Write("Speciality: ");
-            speciality = TakingStringInput();
+            speciality = TakingStringInput("Speciality");
 
 
             Doctor TempDoctor = new Doctor(id, name, age, exp, qualification, speciality);
@@ -64,20 +64,20 @@ namespace Assignment
         {
             Program p = new Program();
             Console.Write("Enter the Number of Doctors:");
-            int NumberOfDoctors = p.TakingIntInput();
+            int NumberOfDoctors = p.TakingIntInput("Number of Doctors");
 
             Doctor[] doctors = new Doctor[NumberOfDoctors];
             
             for(int i = 0; i < doctors.Length; i++)
             {
-                Console.WriteLine($"Enter details for Doctor {i + 1}:");
+                Console.WriteLine($"\nEnter details for Doctor {i + 1}:");
                 doctors[i] = p.CreateDoctorThroughConsole();
 
             }
 
             for (int i = 0; i < doctors.Length; i++)
             {
-                Console.WriteLine($"Details for Doctor {i + 1}:");
+                Console.WriteLine($"\nDetails for Doctor {i + 1}:");
                 doctors[i].PrintDoctorDetails();
 
             }
