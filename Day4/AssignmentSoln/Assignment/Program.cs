@@ -60,6 +60,24 @@ namespace Assignment
             Doctor TempDoctor = new Doctor(id, name, age, exp, qualification, speciality);
             return TempDoctor;
         }
+
+        public void PrintDoctorsBySpeciality(Doctor[] doctors, string speciality)
+        {
+            Console.WriteLine($"Doctors in {speciality}:");
+            bool found = false;
+            foreach (var doctor in doctors)
+            {
+                if (doctor.Speciality == speciality)
+                {
+                    Console.WriteLine($"Id: {doctor.Id}, Name: {doctor.Name}, Age: {doctor.Age}, Exp: {doctor.Exp}, Qualification: {doctor.Qualification}, Speciality: {doctor.Speciality}");
+                    found = true;
+                }
+            }
+            if (!found)
+            {
+                Console.WriteLine("No doctors found with the given speciality.");
+            }
+        }
         static void Main(string[] args)
         {
             Program p = new Program();
@@ -81,6 +99,11 @@ namespace Assignment
                 doctors[i].PrintDoctorDetails();
 
             }
+
+            Console.WriteLine("Enter the Speciality to search for Doctors: ");
+            string speciality = p.TakingStringInput("Speciality");
+
+            p.PrintDoctorsBySpeciality(doctors, speciality);
         }
     }
 }
