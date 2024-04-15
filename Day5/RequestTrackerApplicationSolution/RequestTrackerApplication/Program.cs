@@ -58,7 +58,7 @@ namespace RequestTrackerApplication
         {
             if (employees[employees.Length - 1] != null)
             {
-                Console.WriteLine("Sorry we have reached the maximum number of employees");
+                Console.WriteLine("Sorry we have reached the maximum number of employees.");
                 return;
             }
             for (int i = 0; i < employees.Length; i++)
@@ -81,6 +81,10 @@ namespace RequestTrackerApplication
                     PrintEmployee(employees[i]);
                 };
             }
+            if(flag == false)
+            {
+                Console.WriteLine("No Employees Available!");
+            }
         }
         Employee CreateEmployee(int id)
         {
@@ -99,7 +103,7 @@ namespace RequestTrackerApplication
         int GetIdFromConsole()
         {
             int id = 0;
-            Console.WriteLine("Please enter the employee Id");
+            Console.Write("Please Enter the employee Id: ");
             while (!int.TryParse(Console.ReadLine(), out id))
             {
                 Console.WriteLine("Invalid entry. Please try again");
