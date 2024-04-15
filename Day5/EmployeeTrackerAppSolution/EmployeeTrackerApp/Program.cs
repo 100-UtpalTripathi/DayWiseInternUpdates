@@ -89,6 +89,20 @@
                 count = Convert.ToInt32(Console.ReadLine());
             } while (count > 0);
         }
+        void UnderstandingArrays()
+        {
+            int[] numbers = { 444, 345, 666, 443, 455, 777 };
+            int k = 3;
+            int ThreeDigitNumbersHavingSameDigit = 0;
+            for(int i = 0; i < numbers.Length; i++)
+            {
+                string temp = numbers[i].ToString();
+                if(temp.Length == k && temp[0] == temp[1] && temp[1] == temp[2])
+                    ThreeDigitNumbersHavingSameDigit++;
+
+            }
+            Console.WriteLine("The count of numbers: " + ThreeDigitNumbersHavingSameDigit);
+        }
         static void Main(string[] args)
         {
             Program program = new Program();
@@ -96,8 +110,11 @@
             //program.UnderstandingSelectionWithIf();
             //program.UnderstandingSwitchCase();
             //program.UnderstandingIterationWithWhile();
-            program.UnderstandingIterationWithDoWhile();
+            //program.UnderstandingIterationWithDoWhile();
+            program.UnderstandingArrays();
 
         }
+
+        
     }
 }
