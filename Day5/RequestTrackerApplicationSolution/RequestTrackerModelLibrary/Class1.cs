@@ -41,11 +41,11 @@
 
         public void BuildEmployeeFromConsole()
         {
-            Console.WriteLine("Please enter the Name");
+            Console.WriteLine("Please Enter the Name : ");
             Name = Console.ReadLine() ?? String.Empty;
-            Console.WriteLine("Please enter the Date of birth");
+            Console.WriteLine("Please Enter the Date of birth: ");
             DateOfBirth = Convert.ToDateTime(Console.ReadLine());
-            Console.WriteLine("Please enter the Basic Salary");
+            Console.WriteLine("Please Enter the Basic Salary: ");
             Salary = Convert.ToDouble(Console.ReadLine());
         }
 
