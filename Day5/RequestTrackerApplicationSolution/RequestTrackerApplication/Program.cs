@@ -4,13 +4,24 @@ using System.Xml.Linq;
 
 namespace RequestTrackerApplication
 {
+    /// <summary>
+    /// Represents the main program class.
+    /// </summary>
     internal class Program
     {
         Employee[] employees;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Program"/> class.
+        /// </summary>
         public Program()
         {
             employees = new Employee[3];
         }
+
+        /// <summary>
+        /// Prints the main menu options.
+        /// </summary>
         void PrintMenu()
         {
             Console.WriteLine("1. Add Employee");
@@ -20,6 +31,10 @@ namespace RequestTrackerApplication
             Console.WriteLine("5. Search and Delete Employee by ID");
             Console.WriteLine("0. Exit");
         }
+
+        /// <summary>
+        /// Handles the interaction with the user for employee management.
+        /// </summary>
         void EmployeeInteraction()
         {
             int choice = 0;
@@ -54,6 +69,10 @@ namespace RequestTrackerApplication
                 }
             } while (choice != 0);
         }
+
+        /// <summary>
+        /// Adds a new employee to the system.
+        /// </summary>
         void AddEmployee()
         {
             if (employees[employees.Length - 1] != null)
@@ -70,6 +89,10 @@ namespace RequestTrackerApplication
             }
 
         }
+
+        /// <summary>
+        /// Prints details of all employees.
+        /// </summary>
         void PrintAllEmployees()
         {
             bool flag = false;
@@ -81,11 +104,17 @@ namespace RequestTrackerApplication
                     PrintEmployee(employees[i]);
                 };
             }
-            if(flag == false)
+            if (flag == false)
             {
                 Console.WriteLine("No Employees Available!");
             }
         }
+
+        /// <summary>
+        /// Creates a new employee object.
+        /// </summary>
+        /// <param name="id">The ID of the employee.</param>
+        /// <returns>The created <see cref="Employee"/> object.</returns>
         Employee CreateEmployee(int id)
         {
             Employee employee = new Employee();
@@ -94,22 +123,20 @@ namespace RequestTrackerApplication
             return employee;
         }
 
+        /// <summary>
+        /// Prints details of a single employee.
+        /// </summary>
+        /// <param name="employee">The employee to print.</param>
         void PrintEmployee(Employee employee)
         {
             Console.WriteLine("---------------------------");
             employee.PrintEmployeeDetails();
             Console.WriteLine("---------------------------");
         }
-        int GetIdFromConsole()
-        {
-            int id = 0;
-            Console.Write("Please Enter the employee Id: ");
-            while (!int.TryParse(Console.ReadLine(), out id))
-            {
-                Console.WriteLine("Invalid entry. Please try again");
-            }
-            return id;
-        }
+
+        /// <summary>
+        /// Prompts the user to enter an employee ID and searches for the corresponding employee.
+        /// </summary>
         void SearchAndPrintEmployee()
         {
             Console.WriteLine("Print One employee");
@@ -123,9 +150,12 @@ namespace RequestTrackerApplication
             PrintEmployee(employee);
         }
 
+        /// <summary>
+        /// Prompts the user to enter an employee ID and updates the name of the corresponding employee.
+        /// </summary>
         void SearchAndUpdateNameOfEmployeeById()
         {
-            Console.WriteLine("Enter the Employee ID to Update Name details: ");
+            Console.WriteLine("\nEnter the Employee ID to Update Name details: ");
             int id = GetIdFromConsole();
 
             Employee? employee = SearchEmployeeById(id);
@@ -134,7 +164,7 @@ namespace RequestTrackerApplication
                 Console.WriteLine("Sorry, Employee ID is invalid!");
                 return;
             }
-            Console.WriteLine("These are the details of Employee having ID - " + id + " :");
+            Console.WriteLine("\nThese are the details of Employee having ID - " + id + " :");
             PrintEmployee(employee);
             Console.WriteLine("Enter the New Name: ");
             string? name;
@@ -156,10 +186,12 @@ namespace RequestTrackerApplication
             }
         }
 
-
+        /// <summary>
+        /// Prompts the user to enter an employee ID and deletes the corresponding employee.
+        /// </summary>
         void SearchAndDeleteEmployeeById()
         {
-            Console.WriteLine("Enter the Employee ID to delete: ");
+            Console.WriteLine("\nEnter the Employee ID to delete: ");
             int id = GetIdFromConsole();
 
             for (int i = 0; i < employees.Length; i++)
@@ -173,12 +205,18 @@ namespace RequestTrackerApplication
             }
             Console.WriteLine("Sorry, Employee ID is invalid!");
         }
+
+        /// <summary>
+        /// Searches for an employee by ID.
+        /// </summary>
+        /// <param name="id">The ID of the employee to search for.</param>
+        /// <returns>The found <see cref="Employee"/> object, or null if not found.</returns>
         Employee? SearchEmployeeById(int id)
         {
             Employee? employee = null;
             for (int i = 0; i < employees.Length; i++)
             {
-       
+
                 if (employees[i] != null && employees[i].Id == id)
                 {
                     employee = employees[i];
@@ -188,6 +226,25 @@ namespace RequestTrackerApplication
             return employee;
         }
 
+        /// <summary>
+        /// Prompts the user to enter an employee ID and returns the parsed ID.
+        /// </summary>
+        /// <returns>The parsed employee ID.</returns>
+        int GetIdFromConsole()
+        {
+            int id = 0;
+            Console.Write("Please Enter the employee Id: ");
+            while (!int.TryParse(Console.ReadLine(), out id))
+            {
+                Console.WriteLine("Invalid entry. Please try again");
+            }
+            return id;
+        }
+
+        /// <summary>
+        /// The entry point of the program.
+        /// </summary>
+        /// <param name="args">The command-line arguments.</param>
         static void Main(string[] args)
         {
             Program program = new Program();
