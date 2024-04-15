@@ -57,12 +57,46 @@
                  
             }
         }
+        void UnderstandingIterationWithFor()
+        {
+            for (int i = 0; i < 5; i = i + 2)
+            {
+                Console.WriteLine("Hello " + i);
+
+            }
+        }
+        void UnderstandingIterationWithWhile()
+        {
+            int count = 10;
+            while (count > 0)
+            {
+                count--;
+                if (count == 7)
+                    continue;
+                Console.WriteLine("The value of count is: " + count);
+                if (count == 4)
+                    break;
+
+            }
+        }
+        void UnderstandingIterationWithDoWhile()
+        {
+            int count = -1;
+            do
+            {
+                Console.WriteLine("In Do while the value is:  " + count);
+                Console.WriteLine("Please Enter the number: ");
+                count = Convert.ToInt32(Console.ReadLine());
+            } while (count > 0);
+        }
         static void Main(string[] args)
         {
             Program program = new Program();
             //program.UnderstandingSequenceStatments();
             //program.UnderstandingSelectionWithIf();
-            program.UnderstandingSwitchCase();
+            //program.UnderstandingSwitchCase();
+            //program.UnderstandingIterationWithWhile();
+            program.UnderstandingIterationWithDoWhile();
 
         }
     }
