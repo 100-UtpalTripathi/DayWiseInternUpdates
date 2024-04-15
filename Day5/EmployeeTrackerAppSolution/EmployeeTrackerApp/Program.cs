@@ -26,11 +26,43 @@
                 Console.WriteLine("I don't know who you are. Get out...");
 
         }
+        void UnderstandingSwitchCase()
+        {
+            Console.Write("Please enter a number for day: ");
+            int choice = Convert.ToInt32(Console.ReadLine());
+            switch (choice)
+            {
+                case 1:
+                    Console.WriteLine("Monday");
+                    break;
+                case 2:
+                    Console.WriteLine("Tuesday");
+                    break;
+                case 3:
+                    Console.WriteLine("Wednesday");
+                    break;
+                case 4:
+                    Console.WriteLine("Thursday");
+                    break;
+                case 5:
+                    Console.WriteLine("Friday");
+                    break;
+                case 6:
+                case 7:
+                    Console.WriteLine("Weekend !!");
+                    break;
+                default:
+                    Console.WriteLine("You dont know the number of days in a week???");
+                    break;
+                 
+            }
+        }
         static void Main(string[] args)
         {
             Program program = new Program();
-            program.UnderstandingSequenceStatements();
-            program.UnderstandingSelectionWithIf();
+            //program.UnderstandingSequenceStatments();
+            //program.UnderstandingSelectionWithIf();
+            program.UnderstandingSwitchCase();
 
         }
     }
