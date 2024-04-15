@@ -89,6 +89,7 @@
                 count = Convert.ToInt32(Console.ReadLine());
             } while (count > 0);
         }
+
         void UnderstandingArrays()
         {
             int[] numbers = { 444, 345, 666, 443, 455, 777 };
@@ -97,6 +98,7 @@
             for(int i = 0; i < numbers.Length; i++)
             {
                 string temp = numbers[i].ToString();
+
                 if(temp.Length == k && temp[0] == temp[1] && temp[1] == temp[2])
                     ThreeDigitNumbersHavingSameDigit++;
 
