@@ -1,6 +1,6 @@
 ﻿namespace RequestTrackerModelLibrary
 {
-    public class Employee
+    public class Employee : IClientInteraction, IInternalCompanyWorking
     {
         public Department EmployeeDepartment { get; set; }
         int age;
@@ -55,6 +55,26 @@
             Console.WriteLine("Employee Name " + Name);
             Console.WriteLine("Date of birth : " + DateOfBirth);
             Console.WriteLine("Employee Age : " + Age);
+        }
+
+        public void GetOrder()
+        {
+            Console.WriteLine("Order fetched by " + Name);
+        }
+
+        public void GetPayment()
+        {
+            Console.WriteLine("Get the payment as per terms");
+        }
+
+        public void RaiseRequest()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void CloseRequest()
+        {
+            throw new NotImplementedException();
         }
     }
 }
