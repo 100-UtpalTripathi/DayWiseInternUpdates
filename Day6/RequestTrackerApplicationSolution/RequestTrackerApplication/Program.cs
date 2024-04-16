@@ -118,6 +118,12 @@ namespace RequestTrackerApplication
         Employee CreateEmployee(int id)
         {
             Employee employee = new Employee();
+            Console.WriteLine("Please Enter the type of employee : ");
+            string type = Console.ReadLine();
+            if (type == "Permanent")
+                employee = new PermanentEmployee();
+            else if (type == "Contract")
+                employee = new ContractEmployee();
             employee.Id = 101 + id;
             employee.BuildEmployeeFromConsole();
             return employee;
@@ -250,7 +256,8 @@ namespace RequestTrackerApplication
             Program program = new Program();
             //program.EmployeeInteraction();
 
-            ContractEmployee employee = new ContractEmployee(101, "Ramu", DateTime.Now, 123213, 1233);
+            ContractEmployee employee = new ContractEmployee();
+            employee.BuildEmployeeFromConsole();
             employee.PrintEmployeeDetails();
         }
     }
