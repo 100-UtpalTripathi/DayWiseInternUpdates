@@ -107,8 +107,10 @@ namespace RequestTrackerApplication
             {
                 if (employees[i] != null)
                 {
+                    Company company = new Company();
+                    company.EmployeeClientVisit(employees[i]);
                     PrintEmployee(employees[i]);
-                };
+                }
             }
             //if (flag == false)
             //{
