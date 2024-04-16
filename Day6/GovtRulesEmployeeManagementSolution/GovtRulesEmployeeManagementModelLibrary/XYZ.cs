@@ -28,5 +28,11 @@ namespace GovtRulesEmployeeManagementModelLibrary
         {
             return 0; // Gratuity NA
         }
+
+        public override void PrintEmployeeDetails()
+        {
+            base.PrintEmployeeDetails();
+            Console.WriteLine("Employer Name : " + EmployerName);
+        }
     }
 }
