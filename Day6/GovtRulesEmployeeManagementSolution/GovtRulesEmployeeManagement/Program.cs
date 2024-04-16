@@ -5,19 +5,37 @@ namespace GovtRulesEmployeeManagement
     {
         static void Main(string[] args)
         {
+            // Created instances of ABC and XYZ employees
             ABC abcEmployee = new ABC(1, "John", "IT", "Developer", 50000);
-            
+            XYZ xyzEmployee = new XYZ(2, "Jane", "HR", "Manager", 60000);
+
+            // Created an interface reference variable of type IGovtRules
+            IGovtRules govtRulesInterface;
+
+            // Assign ABC instance to the interface reference variable
+            govtRulesInterface = abcEmployee;
+
+            // Use the interface reference variable to call interface methods
             Console.WriteLine("\nABC Employee Details:");
-            abcEmployee.PrintEmployeeDetails(); // Print employee details
+            abcEmployee.PrintEmployeeDetails();
+            Console.WriteLine();
+            Console.WriteLine("Employee PF: " + govtRulesInterface.CalculateEmployeePF(abcEmployee.BasicSalary));
+            Console.WriteLine("Leave Details: " + govtRulesInterface.GetLeaveDetails());
+            Console.WriteLine("Gratuity Amount: " + govtRulesInterface.CalculateGratuityAmount(10, abcEmployee.BasicSalary));
 
             Console.WriteLine();
 
-            // Create an XYZ employee
-            XYZ xyzEmployee = new XYZ(2, "Jane", "HR", "Manager", 60000);
-            // xyzEmployee.BuildEmployeeFromConsole(); // Input employee details
-
+            // Assign XYZ instance to the interface reference variable
+            govtRulesInterface = xyzEmployee;
+            xyzEmployee.PrintEmployeeDetails();
+            Console.WriteLine();
+            // Use the same interface reference variable to call interface methods for XYZ
             Console.WriteLine("\nXYZ Employee Details:");
-            xyzEmployee.PrintEmployeeDetails(); // Print employee detail
+            Console.WriteLine("Employee PF: " + govtRulesInterface.CalculateEmployeePF(xyzEmployee.BasicSalary));
+            Console.WriteLine("Leave Details: " + govtRulesInterface.GetLeaveDetails());
+            Console.WriteLine("Gratuity Amount: " + govtRulesInterface.CalculateGratuityAmount(5, xyzEmployee.BasicSalary));
+
+            Console.ReadLine(); // Keep the console window open
         }
     }
 }
