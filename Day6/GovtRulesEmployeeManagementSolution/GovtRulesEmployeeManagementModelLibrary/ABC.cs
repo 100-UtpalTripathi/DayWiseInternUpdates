@@ -6,8 +6,15 @@ using System.Threading.Tasks;
 
 namespace GovtRulesEmployeeManagementModelLibrary
 {
-    public class ABC : IGovtRules
+    public class ABC : Employee, IGovtRules
     {
+        
+        public ABC(int empId, string name, string department, string designation, double basicSalary)
+            : base(empId, name, department, designation, basicSalary)
+        {
+            EmployerName = "ABC";
+        }
+
         public double CalculateEmployeePF(double basicSalary)
         {
             return basicSalary * 0.12; // Employee contribution: 12% of basic salary
@@ -20,7 +27,15 @@ namespace GovtRulesEmployeeManagementModelLibrary
 
         public double CalculateGratuityAmount(float serviceCompleted, double basicSalary)
         {
-            if (serviceCompleted > 5)
+            if (serviceCompleted > 20)
+            {
+                return 3 * basicSalary;
+            }
+            else if (serviceCompleted > 10)
+            {
+                return 2 * basicSalary;
+            }
+            else if (serviceCompleted > 5)
             {
                 return basicSalary;
             }

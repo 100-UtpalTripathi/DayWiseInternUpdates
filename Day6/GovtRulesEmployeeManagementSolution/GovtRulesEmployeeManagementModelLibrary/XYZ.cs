@@ -6,8 +6,14 @@ using System.Threading.Tasks;
 
 namespace GovtRulesEmployeeManagementModelLibrary
 {
-    public class XYZ : IGovtRules
+    public class XYZ : Employee, IGovtRules
     {
+        public XYZ(int empId, string name, string department, string designation, double basicSalary)
+            : base(empId, name, department, designation, basicSalary)
+        {
+            EmployerName = "XYZ";
+        }
+
         public double CalculateEmployeePF(double basicSalary)
         {
             return basicSalary * 0.12; // Employee contribution: 12% of basic salary
@@ -20,7 +26,7 @@ namespace GovtRulesEmployeeManagementModelLibrary
 
         public double CalculateGratuityAmount(float serviceCompleted, double basicSalary)
         {
-            return 0; // Gratuity not applicable for XYZ
+            return 0; // Gratuity NA
         }
     }
 }
