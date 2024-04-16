@@ -10,12 +10,13 @@ namespace RequestTrackerApplication
     internal class Program
     {
         Employee[] employees;
-
+        int NumberOfEmployees;
         /// <summary>
         /// Initializes a new instance of the <see cref="Program"/> class.
         /// </summary>
         public Program()
         {
+            NumberOfEmployees = 0;              
             employees = new Employee[3];
         }
 
@@ -24,7 +25,7 @@ namespace RequestTrackerApplication
         /// </summary>
         void PrintMenu()
         {
-            Console.WriteLine("1. Add Employee");
+            Console.WriteLine("\n1. Add Employee");
             Console.WriteLine("2. Print Employees");
             Console.WriteLine("3. Search Employee by ID");
             Console.WriteLine("4. Search and Update Employee Name by ID");
@@ -37,6 +38,7 @@ namespace RequestTrackerApplication
         /// </summary>
         void EmployeeInteraction()
         {
+            Console.WriteLine("\n    $$     Welcome to Employee Management APP!     $$");
             int choice = 0;
             do
             {
@@ -75,7 +77,7 @@ namespace RequestTrackerApplication
         /// </summary>
         void AddEmployee()
         {
-            if (employees[employees.Length - 1] != null)
+            if (NumberOfEmployees == 3)
             {
                 Console.WriteLine("Sorry we have reached the maximum number of employees.");
                 return;
@@ -84,6 +86,7 @@ namespace RequestTrackerApplication
             {
                 if (employees[i] == null)
                 {
+                    NumberOfEmployees++;
                     employees[i] = CreateEmployee(i);
                 }
             }
@@ -95,19 +98,22 @@ namespace RequestTrackerApplication
         /// </summary>
         void PrintAllEmployees()
         {
-            bool flag = false;
+            //bool flag = false;
+            if(NumberOfEmployees == 0)
+            {
+                Console.WriteLine("No Employees Available!");
+            }
             for (int i = 0; i < employees.Length; i++)
             {
                 if (employees[i] != null)
                 {
-                    flag = true;
                     PrintEmployee(employees[i]);
                 };
             }
-            if (flag == false)
-            {
-                Console.WriteLine("No Employees Available!");
-            }
+            //if (flag == false)
+            //{
+            //    Console.WriteLine("No Employees Available!");
+            //}
         }
 
         /// <summary>
@@ -145,7 +151,7 @@ namespace RequestTrackerApplication
         /// </summary>
         void SearchAndPrintEmployee()
         {
-            Console.WriteLine("Print One employee");
+            Console.WriteLine("");
             int id = GetIdFromConsole();
             Employee? employee = SearchEmployeeById(id);
             if (employee == null)
@@ -206,6 +212,7 @@ namespace RequestTrackerApplication
                 {
                     Console.WriteLine("Employee with ID " + id + " found and deleted!");
                     employees[i] = null; // Marking the Employee as deleted by assignig NULL
+                    NumberOfEmployees--;
                     return;
                 }
             }

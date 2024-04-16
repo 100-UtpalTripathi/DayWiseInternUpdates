@@ -28,14 +28,13 @@
 
         public Employee()
         {
-            Console.WriteLine("Employee class default constructor");
             Id = 0;
             Name = string.Empty;
             Salary = 0.0;
             DateOfBirth = new DateTime();
             Type = string.Empty;
         }
-        public Employee(int id, string name, DateTime dateOfBirth)
+        public Employee (int id, string name, DateTime dateOfBirth)
         {
             Console.WriteLine("Employee class prameterized constructor");
             Id = id;
@@ -45,9 +44,9 @@
 
         public virtual void BuildEmployeeFromConsole()
         {
-            Console.WriteLine("Please enter the Name");
+            Console.WriteLine("Please Enter the Name: ");
             Name = Console.ReadLine() ?? String.Empty;
-            Console.WriteLine("Please enter the Date of birth");
+            Console.WriteLine("Please Enter the Date of birth: ");
             DateOfBirth = Convert.ToDateTime(Console.ReadLine());
         }
 
