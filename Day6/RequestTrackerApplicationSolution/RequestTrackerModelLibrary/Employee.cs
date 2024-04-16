@@ -34,9 +34,8 @@
             DateOfBirth = new DateTime();
             Type = string.Empty;
         }
-        public Employee (int id, string name, DateTime dateOfBirth)
+        public Employee(int id, string name, DateTime dateOfBirth)
         {
-            Console.WriteLine("Employee class prameterized constructor");
             Id = id;
             Name = name;
             DateOfBirth = dateOfBirth;

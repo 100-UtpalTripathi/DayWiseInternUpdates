@@ -11,14 +11,12 @@ namespace RequestTrackerModelLibrary
         public double WagesPerDay { get; set; }
         public ContractEmployee()
         {
-            
             Type = "ContractEmployee";
-            Console.WriteLine("Contract employee constructor");
         }
         public ContractEmployee(int id, string name, DateTime dateOfBirth, double wagesPerDay) : base(id, name, dateOfBirth)
         {
-            WagesPerDay = 0;
-            Console.WriteLine("Contract Employee class prameterized constructor");
+            Type = "ContractEmployee";
+            //Console.WriteLine("Contract Employee class prameterized constructor");
             WagesPerDay = wagesPerDay;
         }
         public override void BuildEmployeeFromConsole()
@@ -37,6 +35,12 @@ namespace RequestTrackerModelLibrary
         {
             base.PrintEmployeeDetails();
             Console.WriteLine("Wages/Day : " + WagesPerDay);
+        }
+
+        public override string ToString()
+        {
+            return base.ToString()
+                + "\nWages/Day : " + WagesPerDay;
         }
     }
 }

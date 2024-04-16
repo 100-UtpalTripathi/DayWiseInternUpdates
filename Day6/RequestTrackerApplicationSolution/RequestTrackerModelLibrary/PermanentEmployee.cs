@@ -12,10 +12,10 @@ namespace RequestTrackerModelLibrary
         {
             Type = "PermanentEmployee";
         }
-        public PermanentEmployee(int id, string name, DateTime dateOfBirth, double salary)
+        public PermanentEmployee(int id, string name, DateTime dateOfBirth, double salary) : base(id, name, dateOfBirth)
         {
+            Type = "PermanentEmployee";
             Salary = salary;
-
         }
         public override void BuildEmployeeFromConsole()
         {
@@ -31,6 +31,12 @@ namespace RequestTrackerModelLibrary
         public void SpecialPermanentMethod()
         {
             Console.WriteLine("Special permanent method");
+        }
+
+        public override string ToString()
+        {
+            return base.ToString()
+                + "\nSalary : " + Salary;
         }
     }
 }

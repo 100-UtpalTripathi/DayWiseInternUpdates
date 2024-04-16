@@ -260,12 +260,14 @@ namespace RequestTrackerApplication
         /// <param name="args">The command-line arguments.</param>
         static void Main(string[] args)
         {
-            Program program = new Program();
-            program.EmployeeInteraction();
+            //Program program = new Program();
+            //program.EmployeeInteraction();
 
-            //ContractEmployee employee = new ContractEmployee();
-            //employee.BuildEmployeeFromConsole();
-            //employee.PrintEmployeeDetails();
+            ContractEmployee employee = new ContractEmployee();
+            employee.BuildEmployeeFromConsole();
+
+
+            Console.WriteLine(employee);
         }
     }
 }
