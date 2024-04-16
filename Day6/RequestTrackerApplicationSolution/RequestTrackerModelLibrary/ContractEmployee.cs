@@ -11,12 +11,13 @@ namespace RequestTrackerModelLibrary
         public double WagesPerDay { get; set; }
         public ContractEmployee()
         {
-            WagesPerDay = 0;
+            
             Type = "ContractEmployee";
             Console.WriteLine("Contract employee constructor");
         }
-        public ContractEmployee(int id, string name, DateTime dateOfBirth, double salary, double wagesPerDay) : base(id, name, dateOfBirth, salary)
+        public ContractEmployee(int id, string name, DateTime dateOfBirth, double salary, double wagesPerDay) : base(id, name, dateOfBirth)
         {
+            WagesPerDay = 0;
             Console.WriteLine("Contract Employee class prameterized constructor");
             WagesPerDay = wagesPerDay;
         }

@@ -254,11 +254,11 @@ namespace RequestTrackerApplication
         static void Main(string[] args)
         {
             Program program = new Program();
-            //program.EmployeeInteraction();
+            program.EmployeeInteraction();
 
-            ContractEmployee employee = new ContractEmployee();
-            employee.BuildEmployeeFromConsole();
-            employee.PrintEmployeeDetails();
+            //ContractEmployee employee = new ContractEmployee();
+            //employee.BuildEmployeeFromConsole();
+            //employee.PrintEmployeeDetails();
         }
     }
 }
