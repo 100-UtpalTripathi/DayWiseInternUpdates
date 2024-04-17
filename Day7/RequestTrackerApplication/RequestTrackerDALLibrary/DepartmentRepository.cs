@@ -1,5 +1,4 @@
 ﻿using RequestTrackerModelLibrary;
-using RequestTrakerModelLibrary;
 
 namespace RequestTrackerDALLibrary
 {
