@@ -13,6 +13,14 @@ namespace AppointmentManagementModelLibrary
         public string ContactNumber { get; set; }
         public string Email { get; set; }
 
+        public Patient()
+        {
+            Id = 0;
+            Name = string.Empty;
+            ContactNumber = string.Empty;
+            Email = string.Empty;
+        }
+
         public Patient(int id, string name, string contactNumber, string email)
         {
             Id = id;

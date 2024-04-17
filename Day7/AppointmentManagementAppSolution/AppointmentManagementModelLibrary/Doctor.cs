@@ -8,6 +8,15 @@
         public string ContactNumber { get; set; }
         public string Email { get; set; }
 
+        public Doctor()
+        {
+            Id = 0;
+            Name = string.Empty;
+            Specialization = string.Empty;
+            ContactNumber = string.Empty;
+            Email = string.Empty;
+        }
+
         public Doctor(int id, string name, string specialization, string contactNumber, string email)
         {
             Id = id;

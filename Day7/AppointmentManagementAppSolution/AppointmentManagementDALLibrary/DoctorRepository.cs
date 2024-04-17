@@ -21,7 +21,8 @@ namespace AppointmentManagementDALLibrary
             {
                 return null;
             }
-            _doctors.Add(GenerateId(), item);
+            item.Id = GenerateId();
+            _doctors.Add(item.Id, item);
             return item;
         }
 

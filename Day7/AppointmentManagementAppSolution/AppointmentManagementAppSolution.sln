@@ -5,6 +5,12 @@ VisualStudioVersion = 17.9.34723.18
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppointmentManagementApp", "AppointmentManagementApp\AppointmentManagementApp.csproj", "{458DBAA9-61EA-4693-8C25-257BDEB32C5A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppointmentManagementModelLibrary", "AppointmentManagementModelLibrary\AppointmentManagementModelLibrary.csproj", "{4BB8CDD9-5615-4E07-9B52-B5B47A11D78A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppointmentManagementDALLibrary", "AppointmentManagementDALLibrary\AppointmentManagementDALLibrary.csproj", "{C6DFA871-43C9-4D9A-B28E-67C59FCEF891}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppointmentManagementBLLibrary", "AppointmentManagementBLLibrary\AppointmentManagementBLLibrary.csproj", "{81FBB919-418A-437F-97EF-9D75A1124179}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +21,18 @@ Global
 		{458DBAA9-61EA-4693-8C25-257BDEB32C5A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{458DBAA9-61EA-4693-8C25-257BDEB32C5A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{458DBAA9-61EA-4693-8C25-257BDEB32C5A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4BB8CDD9-5615-4E07-9B52-B5B47A11D78A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4BB8CDD9-5615-4E07-9B52-B5B47A11D78A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4BB8CDD9-5615-4E07-9B52-B5B47A11D78A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4BB8CDD9-5615-4E07-9B52-B5B47A11D78A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C6DFA871-43C9-4D9A-B28E-67C59FCEF891}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C6DFA871-43C9-4D9A-B28E-67C59FCEF891}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C6DFA871-43C9-4D9A-B28E-67C59FCEF891}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C6DFA871-43C9-4D9A-B28E-67C59FCEF891}.Release|Any CPU.Build.0 = Release|Any CPU
+		{81FBB919-418A-437F-97EF-9D75A1124179}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{81FBB919-418A-437F-97EF-9D75A1124179}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{81FBB919-418A-437F-97EF-9D75A1124179}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{81FBB919-418A-437F-97EF-9D75A1124179}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
