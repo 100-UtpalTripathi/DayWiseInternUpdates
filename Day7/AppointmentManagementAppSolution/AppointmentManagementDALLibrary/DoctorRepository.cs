@@ -45,7 +45,7 @@ namespace AppointmentManagementDALLibrary
         {
             if (_doctors.Count == 0)
                 return null;
-            return _Doctors.Values.ToList();
+            return _doctors.Values.ToList();
         }
 
         public Doctor Update(Doctor item)
