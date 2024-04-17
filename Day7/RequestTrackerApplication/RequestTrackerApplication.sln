@@ -5,6 +5,8 @@ VisualStudioVersion = 17.9.34723.18
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RequestTrackerApplication", "RequestTrackerApplication\RequestTrackerApplication.csproj", "{5ED36259-E9AA-43BD-891D-33EB536A228E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RequestTrackerModelLibrary", "RequestTrackerModelLibrary\RequestTrackerModelLibrary.csproj", "{6F3D5AFA-0EE1-41FD-8717-6639A55E1FF0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{5ED36259-E9AA-43BD-891D-33EB536A228E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5ED36259-E9AA-43BD-891D-33EB536A228E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5ED36259-E9AA-43BD-891D-33EB536A228E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6F3D5AFA-0EE1-41FD-8717-6639A55E1FF0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6F3D5AFA-0EE1-41FD-8717-6639A55E1FF0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6F3D5AFA-0EE1-41FD-8717-6639A55E1FF0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6F3D5AFA-0EE1-41FD-8717-6639A55E1FF0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

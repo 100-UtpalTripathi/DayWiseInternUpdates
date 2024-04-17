@@ -4,9 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RequestTrackerModelLibrary
+namespace RequestTrakerModelLibrary
 {
-    internal class Request
+    public class Request
     {
+        public int Id { get; set; }
+        public string RequestText { get; set; }
+        public int Raised_By { get; set; }
+        public string Status { get; set; }
+        public int Closed_By { get; set; }
     }
 }
