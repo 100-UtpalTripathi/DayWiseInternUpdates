@@ -5,22 +5,25 @@ namespace RequestTrackerApp
 {
     internal class Program
     {
-        void UnderstaingList()
+        void UnderstandingList()
         {
-            ArrayList list = new ArrayList();
-            list.Add(100);
-            list.Add("Hiiii");
-            list.Add(23.4);
-            list.Add(90.3f);
-            list.Add(new Employee(101, "Stuart", new DateTime(), "HR"));
-            for (int i = 0; i < list.Count; i++)
+            List<int> list = new List<int>();
+            list.Add(0);
+            list.Add(1);
+            list.Add(2);    
+                
+            list.Add(3);
+            list.Add(4);
+            list.Add(5);
+
+            foreach(int num in list)
             {
-                Console.WriteLine(list[i]);
+                Console.WriteLine(num);
             }
         }
         static void Main(string[] args)
         {
-            new Program().UnderstaingList();
+            new Program().UnderstandingList();
 
         }
     }
