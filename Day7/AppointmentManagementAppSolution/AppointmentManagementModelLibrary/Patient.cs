@@ -6,7 +6,20 @@ using System.Threading.Tasks;
 
 namespace AppointmentManagementModelLibrary
 {
-    internal class Patient
+    public class Patient
     {
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string ContactNumber { get; set; }
+        public string Email { get; set; }
+
+        public Patient(int id, string name, string contactNumber, string email)
+        {
+            Id = id;
+            Name = name;
+            ContactNumber = contactNumber;
+            Email = email;
+        }
     }
+
 }
