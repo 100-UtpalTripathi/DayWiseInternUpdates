@@ -6,4 +6,9 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\RequestTrackerDALLibrary\RequestTrackerDALLibrary.csproj" />
+    <ProjectReference Include="..\RequestTrackerModelLibrary\RequestTrackerModelLibrary.csproj" />
+  </ItemGroup>
+
 </Project>
