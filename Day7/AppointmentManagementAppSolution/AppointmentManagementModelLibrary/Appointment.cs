@@ -16,6 +16,11 @@ namespace AppointmentManagementModelLibrary
         public Doctor Doctor { get; set; }
         public Patient Patient { get; set; }
 
+        public Appointment()
+        {
+
+        }
+
         public Appointment(int id, int doctorId, int patientId, DateTime appointmentDateTime)
         {
             Id = id;
