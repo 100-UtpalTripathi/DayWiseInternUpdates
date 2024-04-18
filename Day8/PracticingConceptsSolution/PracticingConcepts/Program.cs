@@ -11,6 +11,19 @@
             get { return skills[index]; }
             set { skills[index] = value; }
         }
+        public int this[string sname]
+        {
+            get
+            {
+                for (int i = 0; i < skills.Length; i++)
+                {
+                    if (skills[i] == sname)
+                        return i;
+                }
+                return -1;
+            }
+        }
+
         public override string ToString()
         {
             string data = Id + " " + Name + " ";
@@ -52,11 +65,18 @@
             //Console.WriteLine("Sum of 2, 3, and 4: " + sum2);
             //Console.WriteLine("Sum of 2.5 and 3.5: " + sum3);
 
-            Student student = new Student() { Name = "Ramu", Id = 101 };
-            student[0] = "C";
-            student[1] = "Java";
-            student[2] = "C#";
-            Console.WriteLine(student);
+            //Student student = new Student() { Name = "Ramu", Id = 101 };
+            //student[0] = "C";
+            //student[1] = "Java";
+            //student[2] = "C#";
+            //Console.WriteLine(student);
+
+            Student[] students = new Student[3];
+            students[0] = new Student() { Name = "Ramu", Id = 101 };
+            students[0][0] = "C";
+            students[0][1] = "Java";
+            students[0][2] = "C#";
+            Console.WriteLine(students[0]["Java"]);
         }
     }
 }
