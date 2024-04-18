@@ -13,7 +13,13 @@ namespace RequestTrackerBLLibrary
 
         public int AddDepartment(Department department)
         {
-            throw new NotImplementedException();
+            var result = _departmentRepository.Add(department);
+
+            if (result != null)
+            {
+                return result.Id;
+            }
+            throw new DuplicateDepartmentNameException();
         }
 
         public Department ChangeDepartmentName(string departmentOldName, string departmentNewName)
@@ -32,6 +38,11 @@ namespace RequestTrackerBLLibrary
         }
 
         public int GetDepartmentHeadId(int departmentId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<Department> GetDepartmentList()
         {
             throw new NotImplementedException();
         }
