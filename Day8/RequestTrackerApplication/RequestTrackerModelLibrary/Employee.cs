@@ -4,7 +4,7 @@ namespace RequestTrackerModelLibrary
 {
     public class Employee
     {
-        public string AllotedDepartment { get; set; }
+        public Department dept { get; set; }
         int age;
         DateTime dob;
         public int Id { get; set; }
@@ -77,9 +77,16 @@ namespace RequestTrackerModelLibrary
             Employee e2 = (Employee)obj;
             return Id.Equals(e2.Id);
         }
+
         public static bool operator == (Employee a, Employee b)
         {
-            return a.Id == b.Id;
+            if (ReferenceEquals(a, b))
+                return true;
+
+            if (ReferenceEquals(a, null) || ReferenceEquals(b, null))
+                return false;
+
+            return a.Equals(b);
 
         }
         public static bool operator != (Employee a, Employee b)

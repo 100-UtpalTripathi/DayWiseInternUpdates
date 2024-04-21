@@ -13,7 +13,7 @@ namespace RequestTrackerDALLibrary
 
             foreach(var emp in _data.Values)
             {
-                if(emp.AllotedDepartment == departmentName)
+                if(emp.dept.Name == departmentName)
                 {
                     employees.Add(emp);
                 }

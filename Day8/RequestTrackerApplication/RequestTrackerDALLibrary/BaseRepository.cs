@@ -38,7 +38,7 @@ namespace RequestTrackerDALLibrary
             int newId = GetNextId();
             dynamicEntity.Id = newId;
             _data.Add(newId, dynamicEntity);
-            return entity;
+            return dynamicEntity;
         }
 
         public virtual T Delete(int id)
