@@ -7,13 +7,12 @@ using System.Threading.Tasks;
 
 namespace RequestTrackerDALLibrary
 {
-    public interface IRepository<K, T> where T : class
+    public interface IRepository<T> where T : class
     {
         List<T> GetAll();
-        T Get(K key);
+        T Get(int id);
         T Add(T item);
         T Update(T item);
-        T Delete(K key);
-
+        T Delete(int id);
     }
 }

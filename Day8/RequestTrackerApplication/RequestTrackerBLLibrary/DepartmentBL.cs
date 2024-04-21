@@ -5,7 +5,7 @@ namespace RequestTrackerBLLibrary
 {
     public class DepartmentBL : IDepartmentService
     {
-        readonly IRepository<int, Department> _departmentRepository;
+        readonly DepartmentRepository _departmentRepository;
         public DepartmentBL()
         {
             _departmentRepository = new DepartmentRepository();
@@ -24,17 +24,40 @@ namespace RequestTrackerBLLibrary
 
         public Department ChangeDepartmentName(string departmentOldName, string departmentNewName)
         {
-            throw new NotImplementedException();
+            var department = _departmentRepository.GetDepartmentByName(departmentOldName);
+            if (department == null)
+            {
+                throw new DepartmentNotFoundException();
+            }
+
+            var existingDepartment = _departmentRepository.GetDepartmentByName(departmentNewName);
+            if (existingDepartment != null)
+            {
+                throw new DuplicateDepartmentNameException();
+            }
+
+            department.Name = departmentNewName;
+            return _departmentRepository.Update(department);
         }
 
         public Department GetDepartmentById(int id)
         {
-            throw new NotImplementedException();
+            var department = _departmentRepository.Get(id);
+            if (department == null)
+            {
+                throw new DepartmentNotFoundException();
+            }
+            return department;
         }
 
         public Department GetDepartmentByName(string departmentName)
         {
-            throw new NotImplementedException();
+            var department = _departmentRepository.GetDepartmentByName(departmentName);
+            if (department == null)
+            {
+                throw new DepartmentNotFoundException();
+            }
+            return department;
         }
 
         public int GetDepartmentHeadId(int departmentId)
@@ -44,7 +67,12 @@ namespace RequestTrackerBLLibrary
 
         public List<Department> GetDepartmentList()
         {
-            throw new NotImplementedException();
+            var departments = _departmentRepository.GetAll();
+            if (departments == null || departments.Count == 0)
+            {
+                throw new NoDepartmentsFoundException();
+            }
+            return departments;
         }
     }
 }

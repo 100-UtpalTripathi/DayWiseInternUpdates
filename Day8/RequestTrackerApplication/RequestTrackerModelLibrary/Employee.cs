@@ -4,7 +4,7 @@ namespace RequestTrackerModelLibrary
 {
     public class Employee
     {
-        public Department EmployeeDepartment { get; set; }
+        public string AllotedDepartment { get; set; }
         int age;
         DateTime dob;
         public int Id { get; set; }
@@ -50,8 +50,11 @@ namespace RequestTrackerModelLibrary
         {
             Console.WriteLine("Please enter the Name");
             Name = Console.ReadLine() ?? String.Empty;
-            Console.WriteLine("Please enter the Date of birth");
-            DateOfBirth = Convert.ToDateTime(Console.ReadLine());
+            Console.WriteLine("Please enter the Date of birth (yyyy-MM-dd)");
+            while (!DateTime.TryParse(Console.ReadLine(), out dob))
+            {
+                Console.WriteLine("Invalid date format. Please enter the Date of birth (yyyy-MM-dd)");
+            }
             Role = "Employee";
         }
 
@@ -67,18 +70,19 @@ namespace RequestTrackerModelLibrary
         }
         public override bool Equals(object? obj)
         {
-            Employee e1, e2;
-            e1 = this;
-            //e2 = (Employee)obj;//Casting
-            e2 = obj as Employee;//Casting in a more symanctic way
-            return e1.Id.Equals(e2.Id);
+            if (obj == null || !(obj is Employee))
+            {
+                return false;
+            }
+            Employee e2 = (Employee)obj;
+            return Id.Equals(e2.Id);
         }
-        public static bool operator ==(Employee a, Employee b)
+        public static bool operator == (Employee a, Employee b)
         {
             return a.Id == b.Id;
 
         }
-        public static bool operator !=(Employee a, Employee b)
+        public static bool operator != (Employee a, Employee b)
         {
             return a.Id != b.Id;
         }
