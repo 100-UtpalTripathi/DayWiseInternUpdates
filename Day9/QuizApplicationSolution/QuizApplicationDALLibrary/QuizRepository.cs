@@ -1,7 +1,9 @@
-﻿namespace QuizApplicationDALLibrary
-{
-    public class Class1
-    {
+﻿using QuizApplicationModelLibrary;
 
+namespace QuizApplicationDALLibrary
+{
+    public class QuizRepository : BaseRepository<Quiz>
+    {
+        
     }
 }

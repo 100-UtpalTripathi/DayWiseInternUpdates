@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using QuizApplicationModelLibrary;
 
 namespace QuizApplicationDALLibrary
 {
-    internal class UserRepository
+    public class UserRepository : BaseRepository<User>
     {
+
     }
 }
