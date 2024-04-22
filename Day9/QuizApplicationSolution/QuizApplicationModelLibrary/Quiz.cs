@@ -5,7 +5,7 @@ namespace QuizApplicationModelLibrary
     // Quiz class represents a quiz with a title, description, and a list of questions.
     public class Quiz
     {
-        public string Id { get; set; }
+        public int Id { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
 
