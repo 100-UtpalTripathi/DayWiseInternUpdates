@@ -14,6 +14,7 @@ namespace QuizApplicationBLLibrary
         List<Quiz> GetPublishedQuizzes();
         Quiz GetQuiz(int id);
         void PublishQuiz(int id);
+        List<Quiz> GetAllQuizzes();
     }
 
     

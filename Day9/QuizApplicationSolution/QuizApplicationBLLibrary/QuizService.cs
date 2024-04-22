@@ -5,11 +5,11 @@ namespace QuizApplicationBLLibrary
 {
     public class QuizService : IQuizService
     {
-        private readonly IRepository<Quiz> _quizRepository;
+        readonly QuizRepository _quizRepository;
 
-        public QuizService(IRepository<Quiz> quizRepository)
+        public QuizService()
         {
-            _quizRepository = quizRepository;
+            _quizRepository = new QuizRepository();
         }
 
         public Quiz CreateQuiz(string title, string description, List<Question> questions)
@@ -95,6 +95,16 @@ namespace QuizApplicationBLLibrary
             {
                 throw new KeyNotFoundException($"Quiz with id '{id}' not found.");
             }
+        }
+
+        public List<Quiz> GetAllQuizzes()
+        {
+            List<Quiz> allQuizzes = new List<Quiz>();
+
+            // Get all quizzes from the repository
+            allQuizzes.AddRange(_quizRepository.GetAll());
+
+            return allQuizzes;
         }
     }
 }

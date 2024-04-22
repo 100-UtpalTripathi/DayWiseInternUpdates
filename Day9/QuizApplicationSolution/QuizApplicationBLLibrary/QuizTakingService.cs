@@ -25,6 +25,9 @@ namespace QuizApplicationBLLibrary
                 Answers = new List<QuestionResponse>()
             };
 
+            int totalQuestions = quiz.Questions.Count;
+            int correctAnswers = 0;
+
             foreach (var question in quiz.Questions)
             {
                 Console.WriteLine($"Question: {question.Text}");
@@ -48,6 +51,11 @@ namespace QuizApplicationBLLibrary
                     IsCorrect = selectedOption - 1 == question.CorrectAnswerIndex
                 };
 
+                if (response.IsCorrect)
+                {
+                    correctAnswers++;
+                }
+
                 quizAttempt.Answers.Add(response);
             }
 
@@ -55,7 +63,12 @@ namespace QuizApplicationBLLibrary
             _quizAttempts.Add(quizAttempt);
 
             Console.WriteLine("Quiz completed successfully!");
+
+            // Calculate and display final score
+            double score = (double)correctAnswers / totalQuestions * 100;
+            Console.WriteLine($"Your final score: {correctAnswers} out of {totalQuestions} ({score}%).");
         }
+
 
         public void ReviewLastQuizAttempt()
         {
