@@ -12,7 +12,7 @@ namespace QuizApplicationDALLibrary
         List<T> GetAll();
         T Get(int id);
         T Add(T item);
-        T Update(T item);
+        T Update(int id, T item);
         T Delete(int id);
     }
 }

@@ -8,6 +8,8 @@ namespace QuizApplicationModelLibrary
         public string Id { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
+
+        public bool IsPublished { get; set; }
         public List<Question> Questions { get; set; }
 
         public Quiz(string title, string description, List<Question> questions)
@@ -15,6 +17,7 @@ namespace QuizApplicationModelLibrary
             Title = title;
             Description = description;
             Questions = questions;
+            IsPublished = false;
         }
     }
 }

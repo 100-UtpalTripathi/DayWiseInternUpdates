@@ -9,16 +9,12 @@ namespace QuizApplicationBLLibrary
     public interface IQuizService
     {
         Quiz CreateQuiz(string title, string description, List<Question> questions);
-        void EditQuiz(string title, Quiz updatedQuiz);
-        void DeleteQuiz(string title);
+        void EditQuiz(int id, Quiz updatedQuiz);
+        void DeleteQuiz(int id);
         List<Quiz> GetPublishedQuizzes();
-        Quiz GetQuiz(string title);
-        void PublishQuiz(string title);
+        Quiz GetQuiz(int id);
+        void PublishQuiz(int id);
     }
 
-    public interface IQuizTakingService
-    {
-        void TakeQuiz(Quiz quiz);
-        void ReviewLastQuizAttempt();
-    }
+    
 }

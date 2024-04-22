@@ -61,23 +61,22 @@ namespace QuizApplicationDALLibrary
         {
             return _data.Values.ToList();
         }
-        public virtual T Update(T entity)
+        public T Update(int id, T updatedEntity)
         {
-            if (entity == null)
+            if (updatedEntity == null)
             {
-                throw new ArgumentNullException(nameof(entity));
+                throw new ArgumentNullException(nameof(updatedEntity));
             }
-
-            dynamic dynamicEntity = entity;
-            int id = dynamicEntity.Id;
 
             if (_data.ContainsKey(id))
             {
-                _data[id] = entity;
+                _data[id] = updatedEntity;
                 return _data[id];
             }
             else
+            {
                 return null;
+            }
         }
     }
 }
