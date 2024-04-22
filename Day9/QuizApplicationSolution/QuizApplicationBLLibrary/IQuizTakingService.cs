@@ -10,6 +10,6 @@ namespace QuizApplicationBLLibrary
     public interface IQuizTakingService
     {
         void TakeQuiz(Quiz quiz);
-        void ReviewLastQuizAttempt();
+        void ReviewLastQuizAttempt(IQuizService quizService);
     }
 }

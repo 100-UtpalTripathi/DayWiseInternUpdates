@@ -72,20 +72,37 @@ namespace QuizApplicationBLLibrary
         }
 
 
-        public void ReviewLastQuizAttempt()
+        public void ReviewLastQuizAttempt(IQuizService quizService)
         {
             if (_quizAttempts.Any())
             {
                 var lastAttempt = _quizAttempts.Last();
-                Console.WriteLine("Reviewing last quiz attempt:");
-                Console.WriteLine($"Quiz ID: {lastAttempt.QuizId}");
+                Console.WriteLine("\nReviewing last quiz attempt:");
+                Console.WriteLine($"\nQuiz ID: {lastAttempt.QuizId}");
                 Console.WriteLine($"Start Time: {lastAttempt.StartTime}");
                 Console.WriteLine($"End Time: {lastAttempt.EndTime}");
                 Console.WriteLine("Question-wise responses:");
 
                 foreach (var response in lastAttempt.Answers)
                 {
-                    Console.WriteLine($"Question ID: {response.QuestionId}, Selected Option: {response.SelectedOption}, Correct: {response.IsCorrect}");
+                    var question = quizService.GetQuiz(lastAttempt.QuizId).Questions.Find(q => q.Id == response.QuestionId);
+
+                    if (question != null)
+                    {
+                        Console.Write($"Question ID: {response.QuestionId}, Selected Option: {response.SelectedOption}, Correct: {response.IsCorrect}");
+                        if (!response.IsCorrect)
+                        {
+                            Console.WriteLine($"Correct Option was: {question.Options[question.CorrectAnswerIndex]}");
+                        }
+                        else
+                        {
+                            Console.WriteLine();
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine($"Question ID: {response.QuestionId}, Selected Option: {response.SelectedOption}, Correct: {response.IsCorrect}, Correct Answer: Not found");
+                    }
                 }
             }
             else
@@ -93,5 +110,7 @@ namespace QuizApplicationBLLibrary
                 Console.WriteLine("No quiz attempts found for review.");
             }
         }
+
+
     }
 }

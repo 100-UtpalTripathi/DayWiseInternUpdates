@@ -186,7 +186,7 @@ namespace QuizApplication
         {
             try
             {
-                quizTakingService.ReviewLastQuizAttempt();
+                quizTakingService.ReviewLastQuizAttempt(quizService);
             }
             catch(Exception ex)
             {
