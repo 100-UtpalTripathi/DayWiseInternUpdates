@@ -7,12 +7,12 @@ using QuizApplicationModelLibrary;
 
 namespace QuizApplicationDALLibrary
 {
-    public interface IRepository<T>
+    public interface IRepository<T> where T : class
     {
-        void Add(T entity);
-        T Get(string id);
         List<T> GetAll();
-        void Update(string id, T updatedEntity);
-        void Delete(string id);
+        T Get(int id);
+        T Add(T item);
+        T Update(T item);
+        T Delete(int id);
     }
 }
