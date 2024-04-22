@@ -45,7 +45,7 @@ namespace QuizApplicationBLLibrary
                 {
                     QuestionId = question.Id,
                     SelectedOption = question.Options[selectedOption - 1],
-                    IsCorrect = question.CorrectOption == question.Options[selectedOption - 1]
+                    IsCorrect = selectedOption - 1 == question.CorrectAnswerIndex
                 };
 
                 quizAttempt.Answers.Add(response);
