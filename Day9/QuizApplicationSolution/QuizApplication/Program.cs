@@ -93,14 +93,25 @@ namespace QuizApplication
 
         static void PublishQuiz()
         {
-            ShowAllQuizzes();   
-            Console.Write("Enter quiz ID to publish: ");
-            int id = Convert.ToInt32(Console.ReadLine());
-            quizService.PublishQuiz(id);
+            try
+            {
+                bool res = ShowAllQuizzes();
+                if (!res)
+                {
+                    return;
+                }
+                Console.Write("Enter quiz ID to publish: ");
+                int id = Convert.ToInt32(Console.ReadLine());
+                quizService.PublishQuiz(id);
+            }
+            catch (KeyNotFoundException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
         }
         static void EditQuiz()
         {
-            ShowAllQuizzes();
+            bool res = ShowAllQuizzes();
             Console.Write("Enter quiz ID to edit: ");
             int id = Convert.ToInt32(Console.ReadLine());
             var quiz = quizService.GetQuiz(id);
@@ -123,42 +134,87 @@ namespace QuizApplication
 
         static void DeleteQuiz()
         {
-            ShowAllQuizzes();
-            Console.Write("Enter quiz ID to delete: ");
-            int id = Convert.ToInt32(Console.ReadLine());
-            quizService.DeleteQuiz(id);
+            try
+            {
+                bool res = ShowAllQuizzes();
+                if (!res)
+                {
+                    return;
+                }
+                Console.Write("Enter quiz ID to delete: ");
+                int id = Convert.ToInt32(Console.ReadLine());
+                quizService.DeleteQuiz(id);
+            }
+            catch (KeyNotFoundException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
         }
         static void TakeQuiz()
         {
-            ShowAllPublishedQuizzes();
-            Console.Write("Enter quiz ID to take: ");
-            int id = Convert.ToInt32(Console.ReadLine());
-            var quiz = quizService.GetQuiz(id);
-            quizTakingService.TakeQuiz(quiz);
+            try
+            {
+                bool res = ShowAllPublishedQuizzes();
+                if(!res)
+                {
+                    return;
+                }   
+                Console.Write("Enter quiz ID to take: ");
+                int id = Convert.ToInt32(Console.ReadLine());
+                var quiz = quizService.GetQuiz(id);
+                quizTakingService.TakeQuiz(quiz);
+            }
+            catch (KeyNotFoundException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
         }
 
         static void ReviewLastQuizAttempt()
         {
-            quizTakingService.ReviewLastQuizAttempt();
+            try
+            {
+                quizTakingService.ReviewLastQuizAttempt();
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine($"An error occurred while reviewing the last quiz attempt: {ex.Message}");
+            }
+            
         }
 
-        static void ShowAllPublishedQuizzes()
+        static bool ShowAllPublishedQuizzes()
         {
-            Console.WriteLine("List of All Quizzes:");
+            Console.WriteLine("List of All Published Quizzes:");
+            bool flag = false;
             foreach (var quiz in quizService.GetPublishedQuizzes())
             {
+                flag = true;
                 Console.WriteLine($"ID: {quiz.Id}, Title: {quiz.Title}, Description: {quiz.Description}");
             }
+
+            if(flag == false)
+            {
+                Console.WriteLine("No published quizzes found.");
+            }
             Console.WriteLine();
+            return flag;
         }
-        static void ShowAllQuizzes()
+        static bool ShowAllQuizzes()
         {
             Console.WriteLine("List of All Quizzes:");
+            bool flag = false;
             foreach (var quiz in quizService.GetAllQuizzes())
             {
+                flag = true;
                 Console.WriteLine($"ID: {quiz.Id}, Title: {quiz.Title}, Description: {quiz.Description}");
             }
+            if (flag == false)
+            {
+                Console.WriteLine("No quizzes found.");
+            }
             Console.WriteLine();
+            return flag;
         }   
     }
 }
