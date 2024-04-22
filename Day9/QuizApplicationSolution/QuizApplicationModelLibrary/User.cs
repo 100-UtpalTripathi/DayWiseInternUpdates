@@ -19,4 +19,10 @@ namespace QuizApplicationModelLibrary
             Role = role;
         }
     }
+
+    public enum UserRole
+    {
+        Creator,
+        Participant
+    }
 }
