@@ -17,7 +17,7 @@ namespace QuizApplicationBLLibrary
 
         public void TakeQuiz(Quiz quiz)
         {
-            Console.WriteLine($"Taking quiz: {quiz.Title}");
+            Console.WriteLine($"\nTaking quiz: {quiz.Title}\n");
             var quizAttempt = new QuizAttempt
             {
                 QuizId = quiz.Id,
@@ -31,12 +31,14 @@ namespace QuizApplicationBLLibrary
             foreach (var question in quiz.Questions)
             {
                 Console.WriteLine($"Question: {question.Text}");
+                int optionNumber = 1;
                 foreach (var option in question.Options)
                 {
-                    Console.WriteLine($"- {option}");
+                    Console.WriteLine($"{optionNumber} - {option}");
+                    optionNumber++;
                 }
 
-                Console.Write("Your answer (enter the option number): ");
+                Console.Write("Your answer (Enter the option number): ");
                 int selectedOption;
                 while (!int.TryParse(Console.ReadLine(), out selectedOption) || selectedOption < 1 || selectedOption > question.Options.Count)
                 {
@@ -64,9 +66,9 @@ namespace QuizApplicationBLLibrary
 
             Console.WriteLine("Quiz completed successfully!");
 
-            // Calculate and display final score
+       
             double score = (double)correctAnswers / totalQuestions * 100;
-            Console.WriteLine($"Your final score: {correctAnswers} out of {totalQuestions} ({score}%).");
+            Console.WriteLine($"\nYour final score: {correctAnswers} out of {totalQuestions} ({score}%).\n");
         }
 
 
@@ -80,6 +82,7 @@ namespace QuizApplicationBLLibrary
                 Console.WriteLine($"Start Time: {lastAttempt.StartTime}");
                 Console.WriteLine($"End Time: {lastAttempt.EndTime}");
                 Console.WriteLine("Question-wise responses:");
+
                 foreach (var response in lastAttempt.Answers)
                 {
                     Console.WriteLine($"Question ID: {response.QuestionId}, Selected Option: {response.SelectedOption}, Correct: {response.IsCorrect}");

@@ -16,7 +16,7 @@ namespace QuizApplicationBLLibrary
         {
             var quiz = new Quiz(title, description, questions)
             {
-                IsPublished = false // Initialize IsPublished to false
+                IsPublished = false
             };
             return _quizRepository.Add(quiz);
         }

@@ -10,6 +10,7 @@ namespace QuizApplication
         static void Main(string[] args)
         {
             bool isRunning = true;
+            Console.WriteLine("    $$    Welcome to the Quiz Application!    $$   \n");
             while (isRunning)
             {
                 Console.WriteLine("1. Create Quiz");
@@ -54,9 +55,9 @@ namespace QuizApplication
 
         static void CreateQuiz()
         {
-            Console.Write("Enter quiz title: ");
+            Console.Write("Enter the Quiz title: ");
             string title = Console.ReadLine();
-            Console.Write("Enter quiz description: ");
+            Console.Write("Enter the Quiz description: ");
             string description = Console.ReadLine();
             List<Question> questions = new List<Question>();
 
@@ -111,25 +112,36 @@ namespace QuizApplication
         }
         static void EditQuiz()
         {
-            bool res = ShowAllQuizzes();
-            Console.Write("Enter quiz ID to edit: ");
-            int id = Convert.ToInt32(Console.ReadLine());
-            var quiz = quizService.GetQuiz(id);
+            try
+            {
+                bool res = ShowAllQuizzes();
+                if (!res)
+                {
+                    return;
+                }   
+                Console.Write("Enter quiz ID to edit: ");
+                int id = Convert.ToInt32(Console.ReadLine());
+                var quiz = quizService.GetQuiz(id);
 
-            // Display current quiz details
-            Console.WriteLine($"Current Quiz Title: {quiz.Title}");
-            Console.WriteLine($"Current Quiz Description: {quiz.Description}");
+                // Display current quiz details
+                Console.WriteLine($"Current Quiz Title: {quiz.Title}");
+                Console.WriteLine($"Current Quiz Description: {quiz.Description}");
 
-            // Get new quiz details from user
-            Console.Write("Enter new quiz title: ");
-            string newTitle = Console.ReadLine();
-            Console.Write("Enter new quiz description: ");
-            string newDescription = Console.ReadLine();
+                // Get new quiz details from user
+                Console.Write("Enter new quiz title: ");
+                string newTitle = Console.ReadLine();
+                Console.Write("Enter new quiz description: ");
+                string newDescription = Console.ReadLine();
 
-            // Update quiz
-            quiz.Title = newTitle;
-            quiz.Description = newDescription;
-            quizService.EditQuiz(id, quiz);
+                // Update quiz
+                quiz.Title = newTitle;
+                quiz.Description = newDescription;
+                quizService.EditQuiz(id, quiz);
+            }
+            catch (KeyNotFoundException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
         }
 
         static void DeleteQuiz()

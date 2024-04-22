@@ -8,10 +8,10 @@ namespace QuizApplicationModelLibrary
 {
     public class QuizAttempt
     {
-        public int Id { get; set; } // Unique identifier for the attempt
-        public int QuizId { get; set; } // ID of the quiz being attempted
-        public DateTime StartTime { get; set; } // Start time of the attempt
-        public DateTime EndTime { get; set; } // End time of the attempt
-        public List<QuestionResponse> Answers { get; set; } // User responses for each question
+        public int Id { get; set; } // Unique Attempt ID
+        public int QuizId { get; set; } 
+        public DateTime StartTime { get; set; } 
+        public DateTime EndTime { get; set; }
+        public List<QuestionResponse> Answers { get; set; } 
     }
 }
