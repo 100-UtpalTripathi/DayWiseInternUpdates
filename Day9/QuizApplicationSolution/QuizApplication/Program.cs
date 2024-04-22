@@ -10,7 +10,7 @@ namespace QuizApplication
         static void Main(string[] args)
         {
             bool isRunning = true;
-            Console.WriteLine("    $$    Welcome to the Quiz Application!    $$   \n");
+            Console.WriteLine("    $$    Welcome to the Console Based Quiz Application!    $$   \n");
             while (isRunning)
             {
                 Console.WriteLine("1. Create Quiz");
@@ -75,7 +75,7 @@ namespace QuizApplication
                     options.Add(option);
                     option = Console.ReadLine();
                 }
-                Console.Write("Enter index of correct answer(1 to ...): ");
+                Console.Write("Enter correct answer Option Number(1 to ...): ");
                 int correctAnswerIndex = Convert.ToInt32(Console.ReadLine()) - 1;
 
                 questions.Add(new Question(questionText, options, correctAnswerIndex));
