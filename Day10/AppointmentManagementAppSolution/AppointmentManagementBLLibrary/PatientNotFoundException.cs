@@ -6,14 +6,14 @@ using System.Threading.Tasks;
 
 namespace AppointmentManagementBLLibrary
 {
-    public class DoctorNotFoundException : Exception
+    public class PatientNotFoundException : Exception
     {
         string message;
-        public DoctorNotFoundException()
+        public PatientNotFoundException()
         {
-            message = "No Doctor with such name";
+            message = "No Patient with such name";
         }
-        public DoctorNotFoundException(string name)
+        public PatientNotFoundException(string name)
         {
             message = name;
         }

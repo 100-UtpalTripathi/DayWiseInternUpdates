@@ -42,20 +42,12 @@ namespace AppointmentManagementBLLibrary
             if (doctor == null)
                 throw new ArgumentNullException(nameof(doctor), "Doctor object cannot be null.");
 
-            // Additional validation can be performed here
-            if (string.IsNullOrWhiteSpace(doctor.Name))
-                throw new ArgumentException("Doctor name cannot be null or empty.", nameof(doctor.Name));
-
             var existingDoctor = _doctorRepository.Get(doctor.Id);
             if (existingDoctor == null)
                 throw new DoctorNotFoundException($"Doctor with ID {doctor.Id} not found.");
 
             // Update doctor information in the repository
             var updatedDoctor = _doctorRepository.Update(doctor);
-
-            // Check if the update was successful
-            if (updatedDoctor == null)
-                throw new DoctorUpdateFailedException($"Failed to update doctor with ID {doctor.Id}.");
 
             return updatedDoctor;
         }
@@ -79,28 +71,7 @@ namespace AppointmentManagementBLLibrary
         }
 
 
-        [Test]
-        public void GetDoctorById_Pass()
-        {
-            // Arrange
-            var doctor = new Doctor(1, "John Doe", "Pediatrician", "1234567890", "john.doe@example.com");
-            _doctorService.RegisterDoctor(doctor);
 
-            // Act
-            var result = _doctorService.GetDoctorById(1);
-
-            // Assert
-            Assert.IsNotNull(result);
-            Assert.AreEqual(doctor, result);
-        }
-
-        [Test]
-        public void GetDoctorById_Fail()
-        {
-            // Arrange & Act & Assert
-            var exception = Assert.Throws<DoctorNotFoundException>(() => _doctorService.GetDoctorById(1));
-            Assert.AreEqual("Doctor with ID 1 not found.", exception.Message);
-        }
     }
 
     

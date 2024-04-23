@@ -6,16 +6,16 @@ using System.Threading.Tasks;
 
 namespace AppointmentManagementBLLibrary
 {
-    public class DoctorUpdateFailedException : Exception
+    public class DuplicatePatientStoreException : Exception
     {
         string message;
-        public DoctorUpdateFailedException()
+        public DuplicatePatientStoreException()
         {
-            message = "Doctor Update Failed!";
+            message = "Patient Already Registered!";
         }
-        public DoctorUpdateFailedException(string name)
+        public DuplicatePatientStoreException(string name)
         {
-            message = $" Doctor with name {name} Update Failed!";
+            message = $"No Patient with name {name}";
         }
         public override string Message => message;
     }

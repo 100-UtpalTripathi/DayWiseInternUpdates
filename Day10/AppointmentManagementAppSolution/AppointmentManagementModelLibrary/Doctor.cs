@@ -25,6 +25,21 @@
             ContactNumber = contactNumber;
             Email = email;
         }
+
+        public override bool Equals(object obj)
+        {
+            if (obj == null || GetType() != obj.GetType())
+            {
+                return false;
+            }
+
+            Doctor otherDoctor = (Doctor)obj;
+            return Id == otherDoctor.Id &&
+                   Name == otherDoctor.Name &&
+                   Specialization == otherDoctor.Specialization &&
+                   ContactNumber == otherDoctor.ContactNumber &&
+                   Email == otherDoctor.Email;
+        }
     }
 
 }
