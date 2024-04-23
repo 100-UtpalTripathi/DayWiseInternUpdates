@@ -15,7 +15,7 @@ namespace AppointmentManagementBLLibrary
         }
         public DuplicatePatientStoreException(string name)
         {
-            message = $"No Patient with name {name}";
+            message = $"Patient with name {name} is already Registered!";
         }
         public override string Message => message;
     }

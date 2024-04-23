@@ -19,7 +19,7 @@ namespace AppointmentManagementApplicationTest
         public void RegisterDoctor_Pass()
         {
             // Arrange
-            var doctor = new Doctor(1, "John Doe", "Pediatrician", "1234567890", "john.doe@example.com");
+            var doctor = new Doctor(1, "Somu Op", "Pediatrician", "1234567890", "somu.op@example.com");
 
             // Act
             var registeredDoctor = _doctorService.RegisterDoctor(doctor);
@@ -33,14 +33,14 @@ namespace AppointmentManagementApplicationTest
         public void RegisterDoctor_Fail()
         {
             // Arrange
-            var doctor = new Doctor(1, "John Doe", "Pediatrician", "1234567890", "john.doe@example.com");
+            var doctor = new Doctor(1, "Somu Op", "Pediatrician", "1234567890", "somu.op@example.com");
 
             // Add the same doctor twice to intentionally fail
             _doctorService.RegisterDoctor(doctor);
 
             // Act & Assert
             var exception = Assert.Throws<DuplicateDoctorStoreException>(() => _doctorService.RegisterDoctor(doctor));
-            Assert.AreEqual("No Doctor with name John Doe", exception.Message);
+            Assert.AreEqual("Doctor with name Somu Op is already Registered!", exception.Message);
         }
 
         [Test]
@@ -53,8 +53,8 @@ namespace AppointmentManagementApplicationTest
         public void SearchDoctorsBySpecialization_Pass()
         {
             // Arrange
-            var doctor1 = new Doctor(1, "John Doe", "Pediatrician", "1234567890", "john.doe@example.com");
-            var doctor2 = new Doctor(2, "Jane Smith", "Cardiologist", "9876543210", "jane.smith@example.com");
+            var doctor1 = new Doctor(1, "Somu Op", "Pediatrician", "1234567890", "somu.op@example.com");
+            var doctor2 = new Doctor(2, "Ramu Op", "Cardiologist", "9876543210", "ramu.op@example.com");
             _doctorService.RegisterDoctor(doctor1);
             _doctorService.RegisterDoctor(doctor2);
 
@@ -71,8 +71,8 @@ namespace AppointmentManagementApplicationTest
         public void SearchDoctorsBySpecialization_Fail()
         {
             // Arrange
-            var doctor1 = new Doctor(1, "John Doe", "Pediatrician", "1234567890", "john.doe@example.com");
-            var doctor2 = new Doctor(2, "Jane Smith", "Cardiologist", "9876543210", "jane.smith@example.com");
+            var doctor1 = new Doctor(1, "Somu Op", "Pediatrician", "1234567890", "Somu.op@example.com");
+            var doctor2 = new Doctor(2, "Ramu Op", "Cardiologist", "9876543210", "Ramu.op@example.com");
             _doctorService.RegisterDoctor(doctor1);
             _doctorService.RegisterDoctor(doctor2);
 
@@ -95,9 +95,9 @@ namespace AppointmentManagementApplicationTest
         public void UpdateDoctorInformation_Pass()
         {
             // Arrange
-            var doctor = new Doctor(1, "John Doe", "Pediatrician", "1234567890", "john.doe@example.com");
+            var doctor = new Doctor(1, "Somu Op", "Pediatrician", "1234567890", "somu.op@example.com");
             _doctorService.RegisterDoctor(doctor);
-            var updatedDoctor = new Doctor(1, "John Doe Updated", "Cardiologist", "1234567890", "john.doe@example.com");
+            var updatedDoctor = new Doctor(1, "Somu Op Updated", "Cardiologist", "1234567890", "somu.op@example.com");
 
             // Act
             var result = _doctorService.UpdateDoctorInformation(updatedDoctor);
@@ -111,9 +111,9 @@ namespace AppointmentManagementApplicationTest
         public void UpdateDoctorInformation_Fail()
         {
             // Arrange
-            var doctor = new Doctor(1, "John Doe", "Pediatrician", "1234567890", "john.doe@example.com");
+            var doctor = new Doctor(1, "Somu Op", "Pediatrician", "1234567890", "somu.op@example.com");
             _doctorService.RegisterDoctor(doctor);
-            var updatedDoctor = new Doctor(2, "John Doe Updated", "Cardiologist", "1234567890", "john.doe@example.com");
+            var updatedDoctor = new Doctor(2, "Somu Op Updated", "Cardiologist", "1234567890", "somu.op@example.com");
 
             // Act & Assert
             var exception = Assert.Throws<DoctorNotFoundException>(() => _doctorService.UpdateDoctorInformation(updatedDoctor));
@@ -131,7 +131,7 @@ namespace AppointmentManagementApplicationTest
         public void GetDoctorById_Pass()
         {
             // Arrange
-            var doctor = new Doctor(1, "John Doe", "Pediatrician", "1234567890", "john.doe@example.com");
+            var doctor = new Doctor(1, "Somu Op", "Pediatrician", "1234567890", "somu.op@example.com");
             _doctorService.RegisterDoctor(doctor);
 
             // Act
@@ -155,7 +155,7 @@ namespace AppointmentManagementApplicationTest
         public void GetDoctorById_Exception()
         {
             // Arrange
-            var doctor = new Doctor(1, "John Doe", "Pediatrician", "1234567890", "john.doe@example.com");
+            var doctor = new Doctor(1, "Somu Op", "Pediatrician", "1234567890", "somu.op@example.com");
             _doctorService.RegisterDoctor(doctor);
 
             // Act & Assert
@@ -167,7 +167,7 @@ namespace AppointmentManagementApplicationTest
         public void DeleteDoctor_Pass()
         {
             // Arrange
-            var doctor = new Doctor(1, "John Doe", "Pediatrician", "1234567890", "john.doe@example.com");
+            var doctor = new Doctor(1, "Somu Op", "Pediatrician", "1234567890", "somu.op@example.com");
             _doctorService.RegisterDoctor(doctor);
 
             // Act
@@ -189,7 +189,7 @@ namespace AppointmentManagementApplicationTest
         public void DeleteDoctor_Exception()
         {
             // Arrange
-            var doctor = new Doctor(1, "John Doe", "Pediatrician", "1234567890", "john.doe@example.com");
+            var doctor = new Doctor(1, "Somu Op", "Pediatrician", "1234567890", "somu.op@example.com");
             _doctorService.RegisterDoctor(doctor);
 
             // Act & Assert
