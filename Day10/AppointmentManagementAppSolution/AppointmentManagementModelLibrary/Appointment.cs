@@ -25,5 +25,12 @@ namespace AppointmentManagementModelLibrary
             PatientId = patientId;
             AppointmentDateTime = appointmentDateTime;
         }
+
+        public Appointment(int doctorId, int patientId, DateTime appointmentDateTime)
+        {
+            DoctorId = doctorId;
+            PatientId = patientId;
+            AppointmentDateTime = appointmentDateTime;
+        }
     }
 }

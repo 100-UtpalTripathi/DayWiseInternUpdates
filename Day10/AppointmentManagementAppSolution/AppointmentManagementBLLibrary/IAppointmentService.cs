@@ -15,6 +15,5 @@ namespace AppointmentManagementBLLibrary
         List<Appointment> GetDoctorAppointments(int doctorId, DateTime startDate, DateTime endDate);
         List<Appointment> GetPatientAppointments(int patientId, DateTime startDate, DateTime endDate);
         Appointment GetAppointmentDetails(int appointmentId);
-        Appointment GenerateAppointmentReport(int appointmentId);
     }
 }
