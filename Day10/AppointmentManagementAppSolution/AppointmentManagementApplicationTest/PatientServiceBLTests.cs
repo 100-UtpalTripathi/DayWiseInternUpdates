@@ -6,7 +6,7 @@ using System;
 
 namespace AppointmentManagementApplicationTest
 {
-    public class PatientServiceBLTest
+    public class PatientServiceBLTests
     {
         IPatientService _patientService;
         IRepository<int, Patient> _patientRepository;
