@@ -44,13 +44,13 @@ namespace RequestTrackerDALLibery
         public Department Get(int key)
         {
             //return _departments.ContainsKey(key) ? _departments[key] : null;
-            return _departments[key]??null;
+            return _departments.ContainsKey(key) ? _departments[key] : null;
         }
 
         public List<Department> GetAll()
         {
             if (_departments.Count == 0)
-                return null;
+                return new List<Department>();
             return _departments.Values.ToList();
         }
 
