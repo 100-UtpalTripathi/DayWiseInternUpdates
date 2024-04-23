@@ -3,12 +3,13 @@ using RequestTrackerModelLibery;
 
 namespace RequestTrackerBLLibery
 {
-    public class DepartmentBL:IDepartmentService
+    public class DepartmentBL : IDepartmentService
     {
         readonly IRepository<int, Department> _departmentRepository;
-        public DepartmentBL()
+        public DepartmentBL(IRepository<int, Department> departmentRepository)
         {
-            _departmentRepository = new DepartmentRepository();
+            //_departmentRepository = new DepartmentRepository();//Tight coupling
+            _departmentRepository = departmentRepository;//Loose coupling
         }
 
         public int AddDepartment(Department department)
@@ -19,13 +20,11 @@ namespace RequestTrackerBLLibery
             {
                 return result.Id;
             }
-
             throw new DuplicateDepartmentNameException();
         }
 
         public Department ChangeDepartmentName(string departmentOldName, string departmentNewName)
         {
-
             throw new NotImplementedException();
         }
 
@@ -36,12 +35,11 @@ namespace RequestTrackerBLLibery
 
         public Department GetDepartmentByName(string departmentName)
         {
-            var result = _departmentRepository.Get(departmentName);
-            if (result != null)
-            {
-
-            }
-            throw new NotImplementedException();
+            var departments = _departmentRepository.GetAll();
+            for (int i = 0; i < departments.Count; i++)
+                if (departments[i].Name == departmentName)
+                    return departments[i];
+            throw new DepartmentNotFoundException();
         }
 
         public int GetDepartmentHeadId(int departmentId)
