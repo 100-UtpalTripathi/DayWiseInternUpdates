@@ -18,7 +18,7 @@ namespace ShoppingModelLibrary
         // Default constructor
         public Cart()
         {
-            // Initialize collections if needed
+         
             CartItems = new List<CartItem>();
         }
 
@@ -27,7 +27,7 @@ namespace ShoppingModelLibrary
         {
             Id = id;
             CustomerId = customerId;
-            CartItems = new List<CartItem>(); // Initialize collections if needed
+            CartItems = new List<CartItem>(); 
         }
 
         public override string ToString()

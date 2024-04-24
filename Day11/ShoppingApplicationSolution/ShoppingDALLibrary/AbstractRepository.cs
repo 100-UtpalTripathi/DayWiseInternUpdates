@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ShoppingModelLibrary.Exceptions;
 
 namespace ShoppingDALLibrary
 {
@@ -11,9 +12,9 @@ namespace ShoppingDALLibrary
         protected IList<T> items = new List<T>();
         public T Add(T item)
         {
-            if (items.Any(existingItem => existingItem.Equals(item)))
+            if (items.Contains(item))
             {
-                throw new InvalidOperationException("Item already exists in the repository.");
+                throw new DuplicateItemFound("Item already exists in the repository.");
             }
             items.Add(item);
             return item;

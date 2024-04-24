@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ShoppingModelLibrary.Exceptions
+namespace ShoppingApplicationTests
 {
-    internal class Class4
+    internal class ProductBLTests
     {
-
     }
 }

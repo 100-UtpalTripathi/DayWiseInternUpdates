@@ -31,7 +31,8 @@ namespace ShoppingDALLibrary
             Customer customer = GetByKey(item.Id);
             if (customer != null)
             {
-                customer = item;
+                customer.Phone = item.Phone;
+                customer.Age = item.Age;
                 return customer;
             }
             throw new NoItemWithGivenIdException($"No Customer with ID {item.Id} found!");

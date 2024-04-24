@@ -22,7 +22,7 @@ namespace ShoppingModelLibrary
         {
         }
 
-        // Parameterized constructor
+    
         public CartItem(int cartId, int productId, int quantity, double price, double discount, DateTime priceExpiryDate)
         {
             CartId = cartId;
@@ -33,7 +33,6 @@ namespace ShoppingModelLibrary
             PriceExpiryDate = priceExpiryDate;
         }
 
-        // Override ToString method to provide a string representation of the object
         public override string ToString()
         {
             return $"CartId: {CartId}, ProductId: {ProductId}, Quantity: {Quantity}, Price: {Price}, Discount: {Discount}, PriceExpiryDate: {PriceExpiryDate}";
