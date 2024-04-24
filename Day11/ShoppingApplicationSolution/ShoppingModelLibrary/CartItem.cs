@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace ShoppingModelLibrary
 {
-    public class CartItem
+    public class CartItem : IEquatable<CartItem>
     {
         public int CartId { get; set; }//Navigation property
         public int ProductId { get; set; }
@@ -15,5 +16,32 @@ namespace ShoppingModelLibrary
         public double Price { get; set; }
         public double Discount { get; set; }
         public DateTime PriceExpiryDate { get; set; }
+
+
+        public CartItem()
+        {
+        }
+
+        // Parameterized constructor
+        public CartItem(int cartId, int productId, int quantity, double price, double discount, DateTime priceExpiryDate)
+        {
+            CartId = cartId;
+            ProductId = productId;
+            Quantity = quantity;
+            Price = price;
+            Discount = discount;
+            PriceExpiryDate = priceExpiryDate;
+        }
+
+        // Override ToString method to provide a string representation of the object
+        public override string ToString()
+        {
+            return $"CartId: {CartId}, ProductId: {ProductId}, Quantity: {Quantity}, Price: {Price}, Discount: {Discount}, PriceExpiryDate: {PriceExpiryDate}";
+        }
+
+        public bool Equals(CartItem? other)
+        {
+            return this.CartId.Equals(other.CartId) && this.ProductId.Equals(other.ProductId);
+        }
     }
 }
