@@ -39,7 +39,11 @@ namespace ShoppingDALLibrary
             {
                 throw new NoItemWithGivenIdException($"Product with the ID {item.Id} was not found.");
             }
-            product = item;
+            product.Price = item.Price;
+            product.Name = item.Name;
+            product.Image = item.Image;
+            product.QuantityInHand = item.QuantityInHand;
+
             return product;
         }
 
