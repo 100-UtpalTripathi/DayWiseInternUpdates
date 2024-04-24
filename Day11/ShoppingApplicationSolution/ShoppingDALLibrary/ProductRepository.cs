@@ -10,33 +10,39 @@ namespace ShoppingDALLibrary
 {
     public class ProductRepository : AbstractRepository<int, Product>
     {
+
         public override Product Delete(int key)
         {
-            Product Product = GetByKey(key);
-            if (Product != null)
+            Product product = items.FirstOrDefault(p => p.Id == key);
+            if (product != null)
             {
-                items.Remove(Product);
+                items.Remove(product);
+                return product;
             }
-            return Product;
+            throw new NoItemWithGivenIdException($"No Product with ID {key} found to delete!");
         }
 
         public override Product GetByKey(int key)
         {
-            for (int i = 0; i < items.Count; i++)
+            Product product = items.FirstOrDefault(p => p.Id == key);
+            if (product == null)
             {
-                if (items[i].Id == key)
-                    return items[i];
+                throw new NoItemWithGivenIdException($"Product with the ID {key} was not found.");
             }
-            throw new NoProductWithGivenIdException();
+            return product;
         }
 
         public override Product Update(Product item)
         {
-            Product Product = GetByKey(item.Id);
-            if (Product != null)
+            Product product = items.FirstOrDefault(p => p.Id == item.Id);
+            if (product == null)
             {
-                Product = item;
+                throw new NoItemWithGivenIdException($"Product with the ID {item.Id} was not found.");
             }
-            return Product;
+            product = item;
+            return product;
         }
+
+
     }
+}

@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ShoppingModelLibrary.Exceptions
+namespace ShoppingDALLibrary
 {
-    internal class Class4
+    internal class CardItemRepository
     {
-
     }
 }

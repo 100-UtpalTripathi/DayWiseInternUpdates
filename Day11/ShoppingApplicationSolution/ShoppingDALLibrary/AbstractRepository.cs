@@ -11,9 +11,14 @@ namespace ShoppingDALLibrary
         protected IList<T> items = new List<T>();
         public T Add(T item)
         {
+            if (items.Any(existingItem => existingItem.Equals(item)))
+            {
+                throw new InvalidOperationException("Item already exists in the repository.");
+            }
             items.Add(item);
             return item;
         }
+
         public ICollection<T> GetAll()
         {
             return items.ToList<T>();

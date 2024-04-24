@@ -6,12 +6,16 @@ using System.Threading.Tasks;
 
 namespace ShoppingModelLibrary.Exceptions
 {
-    public class NoProductWithGivenIdException : Exception
+    public class NoItemWithGivenIdException : Exception
     {
         string message;
-        public NoProductWithGivenIdException()
+        public NoItemWithGivenIdException()
         {
-            message = "Customer with the given Id is not present!";
+            message = "Item with the given Id is not present!";
+        }
+        public NoItemWithGivenIdException(string msg)
+        {
+            message = msg;
         }
         public override string Message => message;
     }
