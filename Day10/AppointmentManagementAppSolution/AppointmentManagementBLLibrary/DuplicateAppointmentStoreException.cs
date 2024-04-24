@@ -11,11 +11,11 @@ namespace AppointmentManagementBLLibrary
         string message;
         public DuplicateAppointmentStoreException()
         {
-            message = "Doctor Already Registered!";
+            message = "Appointment Already Registered!";
         }
         public DuplicateAppointmentStoreException(int id)
         {
-            message = $"Doctor with id {id} is already Registered!";
+            message = $"Appointment with id {id} is already Registered!";
         }
         public override string Message => message;
     }

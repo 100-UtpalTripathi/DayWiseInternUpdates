@@ -23,12 +23,22 @@ namespace AppointmentManagementDALLibrary
 
         public Appointment Add(Appointment item)
         {
-            if (_appointments.ContainsValue(item))
+            foreach (var appointment in _appointments.Values)
             {
-                return null;
+                if (appointment.DoctorId == item.DoctorId &&
+                    appointment.PatientId == item.PatientId &&
+                    appointment.AppointmentDateTime == item.AppointmentDateTime)
+                {
+                    return null;
+                }
             }
+
+            // Generate a unique Id for the appointment
             item.Id = GenerateId();
+
+            // Add the appointment to the repository
             _appointments.Add(item.Id, item);
+
             return item;
         }
 

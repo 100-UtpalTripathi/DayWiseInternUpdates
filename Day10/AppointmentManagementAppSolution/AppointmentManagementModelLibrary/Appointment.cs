@@ -28,9 +28,21 @@ namespace AppointmentManagementModelLibrary
 
         public Appointment(int doctorId, int patientId, DateTime appointmentDateTime)
         {
+            Id = 0;
             DoctorId = doctorId;
             PatientId = patientId;
             AppointmentDateTime = appointmentDateTime;
         }
+
+
+        public override bool Equals(object? obj)
+        {
+            Appointment e1, e2;
+            e1 = this;
+            //e2 = (Appointment)obj;//Casting
+            e2 = obj as Appointment;//Casting in a more symanctic way
+            return e1.Id.Equals(e2.Id);
+        }
+        
     }
 }
