@@ -14,15 +14,15 @@ namespace ShoppingApplicationTests
         {
             repository = new CustomerRepository();
             // Initialize repository with some initial data if needed
-            repository.Add(new Customer(1, "1234567890", 30));
-            repository.Add(new Customer(2, "9876543210", 25));
+            repository.Add(new Customer(1, "Somu", "1234567890", 30));
+            repository.Add(new Customer(2, "Ramu", "9876543210", 25));
         }
 
         [Test]
         public void Add_ValidCustomer_ReturnsAddedCustomer()
         {
             // Arrange
-            Customer newCustomer = new Customer(3, "4561237890", 35);
+            Customer newCustomer = new Customer(3, "Somu", "4561237890", 35);
 
             // Act
             Customer addedCustomer = repository.Add(newCustomer);
@@ -36,7 +36,7 @@ namespace ShoppingApplicationTests
         public void Add_DuplicateCustomer_ThrowsException()
         {
             // Arrange
-            Customer existingCustomer = new Customer(1, "1234567890", 30);
+            Customer existingCustomer = new Customer(1, "Somu", "1234567890", 30);
 
             // Assert
             Assert.Throws<DuplicateItemFound>(() => repository.Add(existingCustomer));
@@ -95,7 +95,7 @@ namespace ShoppingApplicationTests
         {
             // Arrange
             int existingCustomerId = 1;
-            Customer updatedCustomer = new Customer(existingCustomerId, "9999999999", 40);
+            Customer updatedCustomer = new Customer(existingCustomerId, "Somu Op", "9999999999", 40);
 
             // Act
             Customer returnedCustomer = repository.Update(updatedCustomer);
@@ -110,7 +110,7 @@ namespace ShoppingApplicationTests
         public void Update_NonExistingCustomer_ThrowsException()
         {
             // Arrange
-            Customer nonExistingCustomer = new Customer(100, "1231231234", 50);
+            Customer nonExistingCustomer = new Customer(100, "Somu", "1231231234", 50);
 
             // Assert
             Assert.Throws<NoItemWithGivenIdException>(() => repository.Update(nonExistingCustomer));

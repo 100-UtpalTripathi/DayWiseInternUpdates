@@ -11,6 +11,8 @@ namespace ShoppingModelLibrary
     public class Customer : IEquatable<Customer>
     {
         public int Id { get; set; }
+
+        public string Name { get; set; }
         public string Phone { get; set; } = String.Empty;
         public int Age { get; set; }
 
@@ -20,9 +22,10 @@ namespace ShoppingModelLibrary
             
         }
 
-        public Customer(int id, string phone, int age)
+        public Customer(int id, string name, string phone, int age)
         {
             Id = id;
+            Name = name;
             Phone = phone;
             Age = age;
         }
@@ -31,8 +34,9 @@ namespace ShoppingModelLibrary
         public override string ToString()
         {
             return "Id : " + Id +
-                "\nPhone : " + Phone +
-                "\nAge : " + Age;
+                ", Name : " + Name +
+                ", Phone : " + Phone +
+                ", Age : " + Age;
         }
 
         public bool Equals(Customer? other)
@@ -40,5 +44,23 @@ namespace ShoppingModelLibrary
             return this.Id.Equals(other.Id);
         }
 
+        public int CompareTo(Customer? other)
+        {
+            if (this.Age == other.Age)
+                return 0;
+            else if (this.Age < other.Age)
+                return -1;
+            else
+                return 1;
+            //return this.Age.CompareTo(other.Age);
+        }
+
+        public class SortCustomerByName : IComparer<Customer>
+        {
+            public int Compare(Customer? x, Customer? y)
+            {
+                return x.Name.CompareTo(y.Name);
+            }
+        }
     }
 }

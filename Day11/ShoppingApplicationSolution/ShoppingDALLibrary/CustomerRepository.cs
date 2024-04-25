@@ -31,6 +31,7 @@ namespace ShoppingDALLibrary
             Customer customer = GetByKey(item.Id);
             if (customer != null)
             {
+                customer.Name = item.Name;  
                 customer.Phone = item.Phone;
                 customer.Age = item.Age;
                 return customer;
