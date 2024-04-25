@@ -1,12 +1,20 @@
-﻿using System;
+﻿using ShoppingModelLibrary;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ShoppingBLLibrary
 {
-    internal interface ICartService
-    {
+    public interface ICartService
+    { 
+        Cart AddProductToCart(int cartId, int productId, int quantity);
+
+        Cart RemoveProductFromCart(int cartId, int productId);
+
+        Cart GetCartById(int cartId);
+
+        IEnumerable<Cart> GetAllCarts();
+
+        double CalculateShippingCharges(double totalPurchaseValue);
+        double ApplyDiscounts(Cart cart);
+        bool ExceedsMaxQuantityLimit(Cart cart, int productId, int quantity);
     }
 }
