@@ -13,7 +13,7 @@ namespace ShoppingBLLibrary
 
         IEnumerable<Cart> GetAllCarts();
 
-        double CalculateShippingCharges(double totalPurchaseValue);
+        double CalculateShippingCharges(Cart cart);
         double ApplyDiscounts(Cart cart);
         bool ExceedsMaxQuantityLimit(Cart cart, int productId, int quantity);
     }

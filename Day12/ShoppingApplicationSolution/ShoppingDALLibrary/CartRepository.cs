@@ -13,7 +13,7 @@ namespace ShoppingDALLibrary
                 items.Remove(cart);
                 return cart;
             }
-            throw new KeyNotFoundException($"No cart with ID {key} found to delete!");
+            throw new CartNotFoundException($"No cart with ID {key} found to delete!");
         }
 
         public override Cart GetByKey(int key)
@@ -26,7 +26,7 @@ namespace ShoppingDALLibrary
                     return cart;
                 }
             }
-            throw new KeyNotFoundException($"Cart with ID {key} was not found.");
+            throw new CartNotFoundException($"Cart with ID {key} was not found.");
         }
 
         public override Cart Update(Cart item)
@@ -43,7 +43,7 @@ namespace ShoppingDALLibrary
             }
 
             // If cart is not found, throw an exception
-            throw new KeyNotFoundException($"Cart with ID {item.Id} was not found to update!");
+            throw new CartNotFoundException($"Cart with ID {item.Id} was not found to update!");
         }
     }
 }
