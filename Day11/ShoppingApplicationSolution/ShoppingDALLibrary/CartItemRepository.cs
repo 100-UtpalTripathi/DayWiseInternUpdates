@@ -1,4 +1,5 @@
 ﻿using ShoppingModelLibrary;
+using ShoppingModelLibrary.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,48 +8,53 @@ using System.Threading.Tasks;
 
 namespace ShoppingDALLibrary
 {
-    public class CartItemRepository : AbstractRepository<int, CartItem>
+    public class CartItemRepository : ICartItemRepository
     {
-        public override CartItem Delete(int key)
+        private IList<CartItem> items = new List<CartItem>();
+
+        public CartItem Add(CartItem item)
         {
-            CartItem cartItem = GetByKey(key);
-
-            if (cartItem != null)
+            if (items.Contains(item))
             {
-                items.Remove(cartItem);
-                return cartItem;
+                throw new DuplicateItemFound("Cart Item already exists in the repository.");
             }
-
-            throw new KeyNotFoundException($"No cart item with ID {key} found to delete!");
+            items.Add(item);
+            return item;
         }
 
-        public override CartItem GetByKey(int key)
+        public ICollection<CartItem> GetAll()
         {
-            CartItem cartItem = items.FirstOrDefault(ci => ci.CartId == key);
-
-            if (cartItem == null)
-            {
-                throw new KeyNotFoundException($"Cart item with ID {key} was not found.");
-            }
-
-            return cartItem;
+            return items.ToList();
         }
 
-        public override CartItem Update(CartItem item)
+        public CartItem Delete(int cartId, int productId)
         {
-            CartItem existingCartItem = GetByKey(item.CartId);
-
-            if (existingCartItem != null)
+            CartItem item = GetByKey(cartId, productId);
+            if (item != null)
             {
-                existingCartItem.ProductId = item.ProductId;
-                existingCartItem.Quantity = item.Quantity;
-                existingCartItem.Price = item.Price;
-                existingCartItem.Discount = item.Discount;
-                existingCartItem.PriceExpiryDate = item.PriceExpiryDate;
-                return existingCartItem;
+                items.Remove(item);
+                return item;
             }
+            throw new KeyNotFoundException($"CartItem with CartId: {cartId} and ProductId: {productId} not found.");
+        }
 
-            throw new KeyNotFoundException($"Cart item with ID {item.CartId} was not found to update!");
+        public CartItem Update(CartItem item)
+        {
+            CartItem existingItem = GetByKey(item.CartId, item.ProductId);
+            if (existingItem != null)
+            {
+                existingItem.Quantity = item.Quantity;
+                existingItem.Price = item.Price;
+                existingItem.Discount = item.Discount;
+                existingItem.PriceExpiryDate = item.PriceExpiryDate;
+                return existingItem;
+            }
+            throw new KeyNotFoundException($"CartItem with CartId: {item.CartId} and ProductId: {item.ProductId} not found.");
+        }
+
+        public CartItem GetByKey(int cartId, int productId)
+        {
+            return items.FirstOrDefault(item => item.CartId == cartId && item.ProductId == productId);
         }
     }
 }
