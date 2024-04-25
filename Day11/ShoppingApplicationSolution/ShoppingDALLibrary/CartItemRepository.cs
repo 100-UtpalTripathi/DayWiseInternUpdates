@@ -16,7 +16,7 @@ namespace ShoppingDALLibrary
         {
             if (items.Contains(item))
             {
-                throw new DuplicateItemFound("Cart Item already exists in the repository.");
+                throw new DuplicateItemFoundException("Cart Item already exists in the repository.");
             }
             items.Add(item);
             return item;

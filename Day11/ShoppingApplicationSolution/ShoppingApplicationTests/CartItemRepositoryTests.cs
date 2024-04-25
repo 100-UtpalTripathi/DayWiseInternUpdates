@@ -46,7 +46,7 @@ namespace ShoppingApplicationTests
             CartItem existingCartItem = new CartItem { CartId = 1, ProductId = 101, Quantity = 2, Price = 10.99, Discount = 1.5, PriceExpiryDate = DateTime.Today.AddDays(7) };
 
             // Assert
-            Assert.Throws<DuplicateItemFound>(() => repository.Add(existingCartItem));
+            Assert.Throws<DuplicateItemFoundException>(() => repository.Add(existingCartItem));
         }
 
         [Test]

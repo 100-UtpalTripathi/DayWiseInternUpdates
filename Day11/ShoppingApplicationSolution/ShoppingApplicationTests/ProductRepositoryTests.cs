@@ -40,7 +40,7 @@ namespace ShoppingApplicationTests
             Product existingProduct = new Product(1, 10.0, "Product1", 100);
 
             // Assert
-            Assert.Throws<DuplicateItemFound>(() => repository.Add(existingProduct));
+            Assert.Throws<DuplicateItemFoundException>(() => repository.Add(existingProduct));
         }
 
         [Test]

@@ -48,7 +48,7 @@ namespace ShoppingApplicationTests
             Cart existingCart = new Cart { Id = 1, CustomerId = 101, Customer = new Customer { Id = 101, Phone = "1234567890", Age = 30 }, CartItems = new List<CartItem>() };
 
             // Assert
-            Assert.Throws<DuplicateItemFound>(() => repository.Add(existingCart));
+            Assert.Throws<DuplicateItemFoundException>(() => repository.Add(existingCart));
         }
 
         [Test]

@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ShoppingModelLibrary.Exceptions
+namespace ShoppingBLLibrary
 {
-    internal class Class1
+    internal interface ICartItemService
     {
     }
 }

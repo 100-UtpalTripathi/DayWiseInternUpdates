@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ShoppingBLLibrary
 {
-    internal interface Interface1
+    internal interface IProductService
     {
     }
 }

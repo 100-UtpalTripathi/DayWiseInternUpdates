@@ -39,7 +39,7 @@ namespace ShoppingApplicationTests
             Customer existingCustomer = new Customer(1, "Somu", "1234567890", 30);
 
             // Assert
-            Assert.Throws<DuplicateItemFound>(() => repository.Add(existingCustomer));
+            Assert.Throws<DuplicateItemFoundException>(() => repository.Add(existingCustomer));
         }
 
         [Test]

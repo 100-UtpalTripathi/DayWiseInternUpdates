@@ -6,14 +6,14 @@ using System.Threading.Tasks;
 
 namespace ShoppingModelLibrary.Exceptions
 {
-    public class DuplicateItemFound : Exception
+    public class CustomerNotFoundException : Exception
     {
         string message;
-        public DuplicateItemFound()
+        public CustomerNotFoundException()
         {
-            message = "Item with the given Id is not present!";
+            message = "Customer with the given Id is not present!";
         }
-        public DuplicateItemFound(string msg)
+        public CustomerNotFoundException(string msg)
         {
             message = msg;
         }
