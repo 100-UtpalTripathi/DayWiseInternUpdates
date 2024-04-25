@@ -4,7 +4,7 @@ using ShoppingModelLibrary;
 using ShoppingModelLibrary.Exceptions;
 using System;
 
-namespace ShoppingDALLibraryTests
+namespace ShoppingApplicationTests
 {
     public class ProductRepositoryTests
     {
