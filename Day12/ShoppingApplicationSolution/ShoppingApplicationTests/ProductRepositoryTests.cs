@@ -64,7 +64,7 @@ namespace ShoppingApplicationTests
             int nonExistingProductId = 100;
 
             // Assert
-            Assert.Throws<NoItemWithGivenIdException>(() => repository.Delete(nonExistingProductId));
+            Assert.Throws<ProductNotFoundException>(() => repository.Delete(nonExistingProductId));
         }
 
         [Test]
@@ -88,7 +88,7 @@ namespace ShoppingApplicationTests
             int nonExistingProductId = 100;
 
             // Assert
-            Assert.Throws<NoItemWithGivenIdException>(() => repository.GetByKey(nonExistingProductId));
+            Assert.Throws<ProductNotFoundException>(() => repository.GetByKey(nonExistingProductId));
         }
 
         [Test]
@@ -115,7 +115,7 @@ namespace ShoppingApplicationTests
             Product nonExistingProduct = new Product(100, 100.0, "NonExistingProduct", 1000);
 
             // Assert
-            Assert.Throws<NoItemWithGivenIdException>(() => repository.Update(nonExistingProduct));
+            Assert.Throws<ProductNotFoundException>(() => repository.Update(nonExistingProduct));
         }
     }
 }
