@@ -54,7 +54,12 @@ namespace ShoppingDALLibrary
 
         public CartItem GetByKey(int cartId, int productId)
         {
-            return items.FirstOrDefault(item => item.CartId == cartId && item.ProductId == productId);
+            CartItem cartItem = items.FirstOrDefault(item => item.CartId == cartId && item.ProductId == productId);
+            if (cartItem == null)
+            {
+                throw new KeyNotFoundException($"Cart item with CartId: {cartId} and ProductId: {productId} was not found.");
+            }
+            return cartItem;
         }
     }
 }
