@@ -63,7 +63,7 @@ namespace ShoppingApplicationTests
             int nonExistingCustomerId = 100;
 
             // Assert
-            Assert.Throws<NoItemWithGivenIdException>(() => repository.Delete(nonExistingCustomerId));
+            Assert.Throws<CustomerNotFoundException>(() => repository.Delete(nonExistingCustomerId));
         }
 
         [Test]
@@ -87,7 +87,7 @@ namespace ShoppingApplicationTests
             int nonExistingCustomerId = 100;
 
             // Assert
-            Assert.Throws<NoItemWithGivenIdException>(() => repository.GetByKey(nonExistingCustomerId));
+            Assert.Throws<CustomerNotFoundException>(() => repository.GetByKey(nonExistingCustomerId));
         }
 
         [Test]
@@ -113,7 +113,7 @@ namespace ShoppingApplicationTests
             Customer nonExistingCustomer = new Customer(100, "Somu", "1231231234", 50);
 
             // Assert
-            Assert.Throws<NoItemWithGivenIdException>(() => repository.Update(nonExistingCustomer));
+            Assert.Throws<CustomerNotFoundException>(() => repository.Update(nonExistingCustomer));
         }
     }
 }

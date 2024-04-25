@@ -13,7 +13,7 @@ namespace ShoppingDALLibrary
                 items.Remove(customer);
                 return customer;
             }
-            throw new NoItemWithGivenIdException($"No Customer with ID {key} found to delete!");
+            throw new CustomerNotFoundException($"No Customer with ID {key} found to delete!");
         }
 
         public override Customer GetByKey(int key)
@@ -23,7 +23,7 @@ namespace ShoppingDALLibrary
                 if (items[i].Id == key)
                     return items[i];
             }
-            throw new NoItemWithGivenIdException($"No Customer with ID {key} found!");
+            throw new CustomerNotFoundException($"No Customer with ID {key} found!");
         }
 
         public override Customer Update(Customer item)
@@ -36,7 +36,7 @@ namespace ShoppingDALLibrary
                 customer.Age = item.Age;
                 return customer;
             }
-            throw new NoItemWithGivenIdException($"No Customer with ID {item.Id} found!");
+            throw new CustomerNotFoundException($"No Customer with ID {item.Id} found!");
         }
     }
 }
