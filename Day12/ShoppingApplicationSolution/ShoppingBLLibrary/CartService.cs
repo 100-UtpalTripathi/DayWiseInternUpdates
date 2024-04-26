@@ -20,14 +20,13 @@ namespace ShoppingBLLibrary
 
         public Cart AddProductToCart(int cartId, int productId, int quantity)
         {
-            // Check if cart exists
+           
             Cart cart = _cartRepository.GetByKey(cartId);
             if (cart == null)
             {
                 throw new CartNotFoundException($"Cart with ID {cartId} not found.");
             }
 
-            // Check if product exists
             Product product = _productRepository.GetByKey(productId);
             if (product == null)
             {
@@ -35,16 +34,14 @@ namespace ShoppingBLLibrary
             }
             
 
-            
-
-            // Check if adding the product exceeds the maximum quantity limit
+           // Checking if adding the product exceeds the maximum quantity limit
             if (ExceedsMaxQuantityLimit(cart, productId, quantity))
             {
                 throw new MaxQuantityExceededException($"Adding product to cart exceeds maximum quantity limit.");
             }
 
             // Add the product to the cart
-            cart.CartItems.Add(new CartItem(cartId, productId, quantity, product.Price, 0, DateTime.Now));
+            cart.CartItems.Add(new CartItem(cartId, productId, quantity, product.Price, 0, DateTime.Now.AddDays(7)));
 
             return _cartRepository.Update(cart);
         }
@@ -88,24 +85,24 @@ namespace ShoppingBLLibrary
         }
 
         public double CalculateShippingCharges(Cart cart)
-{
-    // Calculate the total purchase value
-    double totalPurchaseValue = 0;
-    foreach (var cartItem in cart.CartItems)
-    {
-        totalPurchaseValue += cartItem.Price * cartItem.Quantity;
-    }
+        {
+  
+            double totalPurchaseValue = 0;
+            foreach (var cartItem in cart.CartItems)
+            {
+                totalPurchaseValue += cartItem.Price * cartItem.Quantity;
+            }
 
-    // Check if the total purchase value is below 100
-    if (totalPurchaseValue < 100)
-    {
-        return 100; // Rs. 100 shipping charge for purchases below 100
-    }
-    else
-    {
-        return 0; // No shipping charge for purchases of 100 or more
-    }
-}
+           
+            if (totalPurchaseValue < 100)
+            {
+                return 100;
+            }
+            else
+            {
+                return 0;
+            }
+        }
 
         public double ApplyDiscounts(Cart cart)
         {
@@ -113,18 +110,18 @@ namespace ShoppingBLLibrary
 
             if (cart.CartItems.Count == 3 && totalValue >= 1500)
             {
-                return totalValue * 0.05; // 5% discount if order value is 1500 or more with 3 items
+                return totalValue * 0.05;
             }
             else
             {
-                return 0; // No discount applied
+                return 0; 
             }
         }
 
         public bool ExceedsMaxQuantityLimit(Cart cart, int productId, int quantity)
         {
             int currentQuantity = cart.CartItems.Where(item => item.ProductId == productId).Sum(item => item.Quantity);
-            return currentQuantity + quantity > 5; // Maximum quantity limit for a product in cart is 5
+            return currentQuantity + quantity > 5; 
         }
     }
 }
