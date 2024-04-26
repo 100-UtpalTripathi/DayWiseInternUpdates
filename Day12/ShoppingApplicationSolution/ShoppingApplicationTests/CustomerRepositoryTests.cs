@@ -19,18 +19,22 @@ namespace ShoppingApplicationTests
         }
 
         [Test]
-        public void Add_ValidCustomer_ReturnsAddedCustomer()
+        public async Task Add_ValidCustomer_ReturnsAddedCustomer()
         {
             // Arrange
             Customer newCustomer = new Customer(3, "Somu", "4561237890", 35);
 
             // Act
-            Customer addedCustomer = repository.Add(newCustomer);
+            Customer addedCustomer = await repository.Add(newCustomer);
 
             // Assert
             Assert.AreEqual(newCustomer, addedCustomer);
-            Assert.IsTrue(repository.GetAll().Contains(newCustomer));
+
+            // Await GetAll() before using Contains()
+            IEnumerable<Customer> allCustomers = await repository.GetAll();
+            Assert.IsTrue(allCustomers.Contains(newCustomer));
         }
+
 
         [Test]
         public void Add_DuplicateCustomer_ThrowsException()
@@ -43,18 +47,24 @@ namespace ShoppingApplicationTests
         }
 
         [Test]
-        public void Delete_ExistingCustomerId_RemovesCustomer()
+        public async Task Delete_ExistingCustomerId_RemovesCustomer()
         {
             // Arrange
             int customerIdToDelete = 1;
 
             // Act
-            Customer deletedCustomer = repository.Delete(customerIdToDelete);
+            Customer deletedCustomer = await repository.Delete(customerIdToDelete);
 
             // Assert
-            Assert.AreEqual(1, repository.GetAll().Count);
-            Assert.IsFalse(repository.GetAll().Contains(deletedCustomer));
+            // Check that the deleted customer is returned by the Delete method
+            Assert.IsNotNull(deletedCustomer);
+
+            // Await GetAll() before checking the count and presence of the deleted customer
+            IEnumerable<Customer> allCustomers = await repository.GetAll();
+            Assert.AreEqual(1, allCustomers.Count());
+            Assert.IsFalse(allCustomers.Contains(deletedCustomer));
         }
+
 
         [Test]
         public void Delete_NonExistingCustomerId_ThrowsException()
@@ -67,13 +77,13 @@ namespace ShoppingApplicationTests
         }
 
         [Test]
-        public void GetByKey_ExistingCustomerId_ReturnsCustomer()
+        public async Task GetByKey_ExistingCustomerId_ReturnsCustomer()
         {
             // Arrange
             int existingCustomerId = 2;
 
             // Act
-            Customer retrievedCustomer = repository.GetByKey(existingCustomerId);
+            Customer retrievedCustomer = await repository.GetByKey(existingCustomerId);
 
             // Assert
             Assert.IsNotNull(retrievedCustomer);
@@ -91,20 +101,25 @@ namespace ShoppingApplicationTests
         }
 
         [Test]
-        public void Update_ExistingCustomer_ReturnsUpdatedCustomer()
+        public async Task Update_ExistingCustomer_ReturnsUpdatedCustomer()
         {
             // Arrange
             int existingCustomerId = 1;
             Customer updatedCustomer = new Customer(existingCustomerId, "Somu Op", "9999999999", 40);
 
             // Act
-            Customer returnedCustomer = repository.Update(updatedCustomer);
+            Customer returnedCustomer = await repository.Update(updatedCustomer);
 
             // Assert
             Assert.AreEqual(updatedCustomer, returnedCustomer);
-            Assert.AreEqual("9999999999", repository.GetByKey(existingCustomerId).Phone);
-            Assert.AreEqual(40, repository.GetByKey(existingCustomerId).Age);
+
+            // Use await to get the result of GetByKey
+            Customer retrievedCustomer = await repository.GetByKey(existingCustomerId);
+
+            Assert.AreEqual("9999999999", retrievedCustomer.Phone);
+            Assert.AreEqual(40, retrievedCustomer.Age);
         }
+
 
         [Test]
         public void Update_NonExistingCustomer_ThrowsException()

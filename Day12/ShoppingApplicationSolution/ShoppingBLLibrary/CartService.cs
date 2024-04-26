@@ -18,15 +18,15 @@ namespace ShoppingBLLibrary
             _productRepository = productRepository;
         }
 
-        public Cart AddProductToCart(int cartId, int productId, int quantity)
+        public async Task<Cart> AddProductToCart(int cartId, int productId, int quantity)
         {
-            Cart cart = _cartRepository.GetByKey(cartId);
+            Cart cart = await _cartRepository.GetByKey(cartId);
             if (cart == null)
             {
                 throw new CartNotFoundException($"Cart with ID {cartId} not found.");
             }
 
-            Product product = _productRepository.GetByKey(productId);
+            Product product = await _productRepository.GetByKey(productId);
             if (product == null)
             {
                 throw new ProductNotFoundException($"Product with ID {productId} not found.");
@@ -37,7 +37,7 @@ namespace ShoppingBLLibrary
                 throw new InsufficientQuantityException($"Product with ID {productId} has insufficient quantity in hand.");
             }
 
-            if (ExceedsMaxQuantityLimit(cart, productId, quantity))
+            if (await ExceedsMaxQuantityLimit(cart, productId, quantity))
             {
                 throw new MaxQuantityExceededException($"Adding product to cart exceeds maximum quantity limit.");
             }
@@ -55,15 +55,15 @@ namespace ShoppingBLLibrary
 
             // Updating product quantity in hand
             product.QuantityInHand -= quantity;
-            _productRepository.Update(product);
+            await  _productRepository.Update(product);
 
-            return _cartRepository.Update(cart);
+            return await _cartRepository.Update(cart);
         }
 
 
-        public Cart RemoveProductFromCart(int cartId, int productId)
+        public async Task<Cart> RemoveProductFromCart(int cartId, int productId)
         {
-            Cart cart = _cartRepository.GetByKey(cartId);
+            Cart cart = await _cartRepository.GetByKey(cartId);
             if (cart == null)
             {
                 throw new CartNotFoundException($"Cart with ID {cartId} not found.");
@@ -75,26 +75,26 @@ namespace ShoppingBLLibrary
                 throw new ProductNotFoundException($"Product with ID {productId} not found in cart.");
             }
 
-            Product product = _productRepository.GetByKey(productId);
+            Product product = await _productRepository.GetByKey(productId);
             if (product == null)
             {
                 throw new ProductNotFoundException($"Product with ID {productId} not found.");
             }
 
             product.QuantityInHand += cartItem.Quantity;
-            _productRepository.Update(product);
+            await _productRepository.Update(product);
 
             cart.CartItems.Remove(cartItem);
 
-            return _cartRepository.Update(cart);
+            return await _cartRepository.Update(cart);
         }
 
-        public void IncreaseCartItemQuantity(Cart cart, int productId, int quantity)
+        public async Task IncreaseCartItemQuantity(Cart cart, int productId, int quantity)
         {
             CartItem cartItem = cart.CartItems.FirstOrDefault(item => item.ProductId == productId);
             if (cartItem != null)
             {
-                Product product = _productRepository.GetByKey(productId);
+                Product product = await _productRepository.GetByKey(productId);
                 if (product != null)
                 {
                     int totalQuantity = cartItem.Quantity + quantity;
@@ -117,7 +117,7 @@ namespace ShoppingBLLibrary
             }
         }
 
-        public void DecreaseCartItemQuantity(Cart cart, int productId, int decreaseQuantity)
+        public async Task DecreaseCartItemQuantity(Cart cart, int productId, int decreaseQuantity)
         {
             CartItem cartItem = cart.CartItems.FirstOrDefault(item => item.ProductId == productId);
             if (cartItem == null)
@@ -135,7 +135,7 @@ namespace ShoppingBLLibrary
                 throw new ArgumentOutOfRangeException("Quantity to decrease exceeds the current quantity in cart.");
             }
 
-            Product product = _productRepository.GetByKey(productId);
+            Product product = await _productRepository.GetByKey(productId);
             if (product == null)
             {
                 throw new ProductNotFoundException($"Product with ID {productId} not found.");
@@ -154,9 +154,9 @@ namespace ShoppingBLLibrary
         }
 
 
-        public Cart GetCartById(int cartId)
+        public async Task<Cart> GetCartById(int cartId)
         {
-            Cart cart = _cartRepository.GetByKey(cartId);
+            Cart cart = await _cartRepository.GetByKey(cartId);
             if (cart == null)
             {
                 throw new CartNotFoundException($"Cart with ID {cartId} not found.");
@@ -165,12 +165,12 @@ namespace ShoppingBLLibrary
             return cart;
         }
 
-        public IEnumerable<Cart> GetAllCarts()
+        public async Task<IEnumerable<Cart>> GetAllCarts()
         {
-            return _cartRepository.GetAll();
+            return await _cartRepository.GetAll();
         }
 
-        public double CalculateShippingCharges(Cart cart)
+        public async Task<double> CalculateShippingCharges(Cart cart)
         {
   
             double totalPurchaseValue = 0;
@@ -190,7 +190,7 @@ namespace ShoppingBLLibrary
             }
         }
 
-        public double ApplyDiscounts(Cart cart)
+        public async Task<double> ApplyDiscounts(Cart cart)
         {
             double totalValue = cart.CartItems.Sum(item => item.Price * item.Quantity);
 
@@ -205,7 +205,7 @@ namespace ShoppingBLLibrary
             }
         }
 
-        public bool ExceedsMaxQuantityLimit(Cart cart, int productId, int quantity)
+        public async Task<bool> ExceedsMaxQuantityLimit(Cart cart, int productId, int quantity)
         {
             int currentQuantity = cart.CartItems.Where(item => item.ProductId == productId).Sum(item => item.Quantity);
             return currentQuantity + quantity > 5; 

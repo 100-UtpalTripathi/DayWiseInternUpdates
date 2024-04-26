@@ -68,13 +68,13 @@ namespace ShoppingApplicationTests
         }
 
         [Test]
-        public void GetByKey_ExistingProductId_ReturnsProduct()
+        public async Task GetByKey_ExistingProductId_ReturnsProduct()
         {
             // Arrange
             int existingProductId = 2;
 
             // Act
-            Product retrievedProduct = repository.GetByKey(existingProductId);
+            Product retrievedProduct = await repository.GetByKey(existingProductId);
 
             // Assert
             Assert.IsNotNull(retrievedProduct);
@@ -92,21 +92,25 @@ namespace ShoppingApplicationTests
         }
 
         [Test]
-        public void Update_ExistingProduct_ReturnsUpdatedProduct()
+        public async Task Update_ExistingProduct_ReturnsUpdatedProduct()
         {
             // Arrange
             int existingProductId = 1;
             Product updatedProduct = new Product(existingProductId, 15.0, "UpdatedProduct", 150);
 
             // Act
-            Product returnedProduct = repository.Update(updatedProduct);
+            Product returnedProduct = await repository.Update(updatedProduct);
 
             // Assert
             Assert.AreEqual(updatedProduct, returnedProduct);
-            Assert.AreEqual("UpdatedProduct", repository.GetByKey(existingProductId).Name);
-            Assert.AreEqual(15.0, repository.GetByKey(existingProductId).Price);
-            Assert.AreEqual(150, repository.GetByKey(existingProductId).QuantityInHand);
+
+            // Await GetByKey before accessing properties
+            Product retrievedProduct = await repository.GetByKey(existingProductId);
+            Assert.AreEqual("UpdatedProduct", retrievedProduct.Name);
+            Assert.AreEqual(15.0, retrievedProduct.Price);
+            Assert.AreEqual(150, retrievedProduct.QuantityInHand);
         }
+
 
         [Test]
         public void Update_NonExistingProduct_ThrowsException()

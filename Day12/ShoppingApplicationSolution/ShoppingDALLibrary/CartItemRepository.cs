@@ -12,7 +12,7 @@ namespace ShoppingDALLibrary
     {
         private IList<CartItem> items = new List<CartItem>();
 
-        public CartItem Add(CartItem item)
+        public async Task<CartItem> Add(CartItem item)
         {
             if (items.Contains(item))
             {
@@ -22,9 +22,9 @@ namespace ShoppingDALLibrary
             return item;
         }
 
-        public CartItem Delete(int cartId, int productId)
+        public async Task<CartItem> Delete(int cartId, int productId)
         {
-            CartItem item = GetByKey(cartId, productId);
+            CartItem item = await GetByKey(cartId, productId);
             if (item != null)
             {
                 items.Remove(item);
@@ -33,9 +33,9 @@ namespace ShoppingDALLibrary
             throw new KeyNotFoundException($"CartItem with CartId: {cartId} and ProductId: {productId} not found.");
         }
 
-        public CartItem Update(CartItem item)
+        public async Task<CartItem> Update(CartItem item)
         {
-            CartItem existingItem = GetByKey(item.CartId, item.ProductId);
+            CartItem existingItem = await GetByKey(item.CartId, item.ProductId);
             if (existingItem != null)
             {
                 existingItem.Quantity = item.Quantity;
@@ -47,7 +47,7 @@ namespace ShoppingDALLibrary
             throw new KeyNotFoundException($"CartItem with CartId: {item.CartId} and ProductId: {item.ProductId} not found.");
         }
 
-        public CartItem GetByKey(int cartId, int productId)
+        public async Task<CartItem> GetByKey(int cartId, int productId)
         {
             CartItem cartItem = items.FirstOrDefault(item => item.CartId == cartId && item.ProductId == productId);
             if (cartItem == null)
@@ -57,7 +57,7 @@ namespace ShoppingDALLibrary
             return cartItem;
         }
 
-        public ICollection<CartItem> GetAll()
+        public async Task<ICollection<CartItem>> GetAll()
         {
             return items;
         }

@@ -5,9 +5,9 @@ namespace ShoppingDALLibrary
 {
     public class CustomerRepository : AbstractRepository<int, Customer>
     {
-        public override Customer Delete(int key)
+        public override async Task<Customer> Delete(int key)
         {
-            Customer customer = GetByKey(key);
+            Customer customer = await GetByKey(key);
             if (customer != null)
             {
                 items.Remove(customer);
@@ -16,7 +16,7 @@ namespace ShoppingDALLibrary
             throw new CustomerNotFoundException($"No Customer with ID {key} found to delete!");
         }
 
-        public override Customer GetByKey(int key)
+        public override async Task<Customer> GetByKey(int key)
         {
             for (int i = 0; i < items.Count; i++)
             {
@@ -26,9 +26,9 @@ namespace ShoppingDALLibrary
             throw new CustomerNotFoundException($"No Customer with ID {key} found!");
         }
 
-        public override Customer Update(Customer item)
+        public override async Task<Customer> Update(Customer item)
         {
-            Customer customer = GetByKey(item.Id);
+            Customer customer = await GetByKey(item.Id);
             if (customer != null)
             {
                 customer.Name = item.Name;  

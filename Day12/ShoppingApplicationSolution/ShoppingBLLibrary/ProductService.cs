@@ -15,7 +15,7 @@ namespace ShoppingBLLibrary
             _productRepository = productRepository;
         }
 
-        public Product AddProduct(Product product)
+        public async Task<Product> AddProduct(Product product)
         {
             if (product == null)
             {
@@ -28,7 +28,7 @@ namespace ShoppingBLLibrary
                 throw new DuplicateProductException($"Product with ID {product.Id} already exists.");
             }
 
-            return _productRepository.Add(product);
+            return await _productRepository.Add(product);
         }
 
         public void DeleteProduct(int productId)

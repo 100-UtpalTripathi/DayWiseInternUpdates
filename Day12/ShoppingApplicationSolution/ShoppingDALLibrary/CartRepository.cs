@@ -4,9 +4,9 @@ namespace ShoppingDALLibrary
 {
     public class CartRepository : AbstractRepository<int, Cart>
     {
-        public override Cart Delete(int key)
+        public override async Task<Cart> Delete(int key)
         {
-            Cart cart = GetByKey(key);
+            Cart cart = await GetByKey(key);
 
             if (cart != null)
             {
@@ -16,7 +16,7 @@ namespace ShoppingDALLibrary
             throw new CartNotFoundException($"No cart with ID {key} found to delete!");
         }
 
-        public override Cart GetByKey(int key)
+        public override async Task<Cart> GetByKey(int key)
         {
             // Find the cart with the specified key
             foreach (var cart in items)
@@ -29,10 +29,10 @@ namespace ShoppingDALLibrary
             throw new CartNotFoundException($"Cart with ID {key} was not found.");
         }
 
-        public override Cart Update(Cart item)
+        public override async Task<Cart> Update(Cart item)
         {
             // Find the existing cart by its key
-            Cart existingCart = GetByKey(item.Id);
+            Cart existingCart = await GetByKey(item.Id);
 
             if (existingCart != null)
             {

@@ -10,7 +10,7 @@ namespace ShoppingDALLibrary
     public abstract class AbstractRepository<K, T> : IRepository<K, T>
     {
         protected IList<T> items = new List<T>();
-        public T Add(T item)
+        public async Task<T> Add(T item)
         {
             if (items.Contains(item))
             {
@@ -20,18 +20,18 @@ namespace ShoppingDALLibrary
             return item;
         }
 
-        public ICollection<T> GetAll()
+        public async Task<ICollection<T>> GetAll()
         {
             return items.ToList<T>();
         }
 
-        public abstract T Delete(K key);
+        public abstract Task<T> Delete(K key);
 
 
 
-        public abstract T GetByKey(K key);
+        public abstract Task<T> GetByKey(K key);
 
-        public abstract T Update(T item);
+        public abstract Task<T> Update(T item);
 
     }
 }

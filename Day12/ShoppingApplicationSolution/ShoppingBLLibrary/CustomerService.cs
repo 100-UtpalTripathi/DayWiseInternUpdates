@@ -16,7 +16,7 @@ namespace ShoppingBLLibrary
             _customerRepository = repository;
         }
 
-        public Customer AddCustomer(Customer customer)
+        public async Task<Customer> AddCustomer(Customer customer)
         {
             if (customer == null)
             {
@@ -24,33 +24,34 @@ namespace ShoppingBLLibrary
             }
 
             // Check if the customer already exists
-            if (_customerRepository.GetAll().Any(c => c.Id == customer.Id))
+            var existingCustomer = await _customerRepository.GetByKey(customer.Id);
+            if (existingCustomer != null)
             {
-                throw new DuplicateCustomerException("Customer with ID {customer.Id} already exists.");
+                throw new DuplicateCustomerException($"Customer with ID {customer.Id} already exists.");
             }
 
-            return _customerRepository.Add(customer);
+            return await _customerRepository.Add(customer);
         }
 
-        public void DeleteCustomer(int customerId)
+        public async Task DeleteCustomer(int customerId)
         {
-            Customer customer = _customerRepository.GetByKey(customerId);
+            Customer customer = await _customerRepository.GetByKey(customerId);
             if (customer == null)
             {
                 throw new CustomerNotFoundException($"Customer with ID {customerId} not found.");
             }
 
-            _customerRepository.Delete(customerId);
+            await _customerRepository.Delete(customerId);
         }
 
-        public IEnumerable<Customer> GetAllCustomers()
+        public async Task<IEnumerable<Customer>> GetAllCustomers()
         {
-            return _customerRepository.GetAll();
+            return await _customerRepository.GetAll();
         }
 
-        public Customer GetCustomerById(int customerId)
+        public async Task<Customer> GetCustomerById(int customerId)
         {
-            Customer customer = _customerRepository.GetByKey(customerId);
+            Customer customer = await _customerRepository.GetByKey(customerId);
             if (customer == null)
             {
                 throw new CustomerNotFoundException($"Customer with ID {customerId} not found.");
@@ -59,34 +60,36 @@ namespace ShoppingBLLibrary
             return customer;
         }
 
-        public IEnumerable<Customer> SearchCustomersByName(string name)
+        public async Task<IEnumerable<Customer>> SearchCustomersByName(string name)
         {
             if (string.IsNullOrEmpty(name))
             {
                 throw new InvalidCustomerDataException("Name cannot be empty.");
             }
 
-            return _customerRepository.GetAll().Where(c => c.Name.Contains(name));
+            var customers = await _customerRepository.GetAll();
+            return customers.Where(c => c.Name.Contains(name)).ToList();
         }
 
-        public IEnumerable<Customer> SearchCustomersByAge(int minAge, int maxAge)
+        public async Task<IEnumerable<Customer>> SearchCustomersByAge(int minAge, int maxAge)
         {
             if (minAge < 0 || maxAge < 0 || minAge > maxAge)
             {
                 throw new InvalidCustomerDataException("Invalid age range.");
             }
 
-            return _customerRepository.GetAll().Where(c => c.Age >= minAge && c.Age <= maxAge);
+            var customers = await _customerRepository.GetAll();
+            return customers.Where(c => c.Age >= minAge && c.Age <= maxAge).ToList();
         }
 
-        public Customer UpdateCustomer(Customer customer)
+        public async Task<Customer> UpdateCustomer(Customer customer)
         {
             if (customer == null)
             {
                 throw new InvalidCustomerDataException("Customer data cannot be null.");
             }
 
-            Customer existingCustomer = _customerRepository.GetByKey(customer.Id);
+            Customer existingCustomer = await _customerRepository.GetByKey(customer.Id);
             if (existingCustomer == null)
             {
                 throw new CustomerNotFoundException($"Customer with ID {customer.Id} not found.");
@@ -96,7 +99,7 @@ namespace ShoppingBLLibrary
             existingCustomer.Phone = customer.Phone;
             existingCustomer.Age = customer.Age;
 
-            return _customerRepository.Update(existingCustomer);
+            return await _customerRepository.Update(existingCustomer);
         }
     }
 }

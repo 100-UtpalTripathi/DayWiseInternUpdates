@@ -11,7 +11,7 @@ namespace ShoppingDALLibrary
     public class ProductRepository : AbstractRepository<int, Product>
     {
 
-        public override Product Delete(int key)
+        public override async Task<Product> Delete(int key)
         {
             Product product = items.FirstOrDefault(p => p.Id == key);
             if (product != null)
@@ -22,7 +22,7 @@ namespace ShoppingDALLibrary
             throw new ProductNotFoundException($"No Product with ID {key} found to delete!");
         }
 
-        public override Product GetByKey(int key)
+        public override async Task<Product> GetByKey(int key)
         {
             Product product = items.FirstOrDefault(p => p.Id == key);
             if (product == null)
@@ -32,7 +32,7 @@ namespace ShoppingDALLibrary
             return product;
         }
 
-        public override Product Update(Product item)
+        public override async Task<Product> Update(Product item)
         {
             Product product = items.FirstOrDefault(p => p.Id == item.Id);
             if (product == null)

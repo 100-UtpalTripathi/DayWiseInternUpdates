@@ -18,16 +18,20 @@ namespace ShoppingApplicationTests
         }
 
         [Test]
-        public void AddCustomer_ValidCustomer_ReturnsAddedCustomer()
+        public async Task AddCustomer_ValidCustomer_ReturnsAddedCustomer()
         {
             // Arrange
             var customer = new Customer { Id = 1, Name = "John Doe", Phone = "1234567890", Age = 30 };
 
             // Act
-            var addedCustomer = _customerService.AddCustomer(customer);
+            var addedCustomer = await _customerService.AddCustomer(customer);
 
+            
             // Assert
-            Assert.AreEqual(customer, addedCustomer);
+            Assert.AreEqual(customer.Id, addedCustomer.Id);
+            Assert.AreEqual(customer.Name, addedCustomer.Name);
+            Assert.AreEqual(customer.Phone, addedCustomer.Phone);
+            Assert.AreEqual(customer.Age, addedCustomer.Age);
         }
 
         [Test]
@@ -70,7 +74,7 @@ namespace ShoppingApplicationTests
         }
 
         [Test]
-        public void GetAllCustomers_ReturnsAllCustomers()
+        public async Task GetAllCustomers_ReturnsAllCustomers()
         {
             // Arrange
             var customers = new List<Customer>
@@ -81,26 +85,27 @@ namespace ShoppingApplicationTests
 
             foreach (var customer in customers)
             {
-                _customerService.AddCustomer(customer);
+                await _customerService.AddCustomer(customer);
             }
 
             // Act
-            var retrievedCustomers = _customerService.GetAllCustomers();
+            var retrievedCustomers = await _customerService.GetAllCustomers();
 
             // Assert
             CollectionAssert.AreEquivalent(customers, retrievedCustomers);
         }
 
 
+
         [Test]
-        public void GetCustomerById_ExistingCustomerId_ReturnsCustomer()
+        public async Task GetCustomerById_ExistingCustomerId_ReturnsCustomer()
         {
             // Arrange
             var customer = new Customer { Id = 1, Name = "John Doe", Phone = "1234567890", Age = 30 };
             _customerService.AddCustomer(customer);
 
             // Act
-            var retrievedCustomer = _customerService.GetCustomerById(customer.Id);
+            var retrievedCustomer = await _customerService.GetCustomerById(customer.Id);
 
             // Assert
             Assert.AreEqual(customer, retrievedCustomer);
@@ -115,7 +120,7 @@ namespace ShoppingApplicationTests
 
         [Test]
 
-        public void SearchCustomersByName_ExistingName_ReturnsMatchingCustomers()
+        public async Task SearchCustomersByName_ExistingName_ReturnsMatchingCustomers()
         {
             // Arrange
             var customer1 = new Customer { Id = 1, Name = "John Doe", Phone = "1234567890", Age = 30 };
@@ -124,7 +129,7 @@ namespace ShoppingApplicationTests
             _customerService.AddCustomer(customer2);
 
             // Act
-            var searchResults = _customerService.SearchCustomersByName("John");
+            var searchResults = await _customerService.SearchCustomersByName("John");
 
             // Assert
             Assert.IsTrue(searchResults.Contains(customer1));
@@ -132,21 +137,21 @@ namespace ShoppingApplicationTests
 
 
         [Test]
-        public void SearchCustomersByName_NonExistingName_ReturnsEmptyCollection()
+        public async Task SearchCustomersByName_NonExistingName_ReturnsEmptyCollection()
         {
             // Arrange
             var customer = new Customer { Id = 1, Name = "John Doe", Phone = "1234567890", Age = 30 };
             _customerService.AddCustomer(customer);
 
             // Act
-            var searchResults = _customerService.SearchCustomersByName("Jane");
+            var searchResults = await _customerService.SearchCustomersByName("Jane");
 
             // Assert
             Assert.IsEmpty(searchResults);
         }
 
         [Test]
-        public void SearchCustomersByAge_ValidRange_ReturnsMatchingCustomers()
+        public async Task SearchCustomersByAge_ValidRange_ReturnsMatchingCustomers()
         {
             // Arrange
             var customer1 = new Customer { Id = 1, Name = "John Doe", Phone = "1234567890", Age = 30 };
@@ -155,7 +160,7 @@ namespace ShoppingApplicationTests
             _customerService.AddCustomer(customer2);
 
             // Act
-            var searchResults = _customerService.SearchCustomersByAge(20, 29);
+            var searchResults = await _customerService.SearchCustomersByAge(20, 29);
 
             // Assert
             Assert.IsTrue(searchResults.Any(c => c.Id == customer2.Id)); // Check if customer2 is in the searchResults
@@ -170,7 +175,7 @@ namespace ShoppingApplicationTests
         }
 
         [Test]
-        public void UpdateCustomer_ExistingCustomer_ReturnsUpdatedCustomer()
+        public async Task UpdateCustomer_ExistingCustomer_ReturnsUpdatedCustomer()
         {
             // Arrange
             var customer = new Customer { Id = 1, Name = "John Doe", Phone = "1234567890", Age = 30 };
@@ -178,7 +183,7 @@ namespace ShoppingApplicationTests
 
             // Act
             customer.Name = "Jane Smith";
-            var updatedCustomer = _customerService.UpdateCustomer(customer);
+            var updatedCustomer = await _customerService.UpdateCustomer(customer);
 
             // Assert
             Assert.AreEqual(customer, updatedCustomer);
