@@ -16,5 +16,9 @@ namespace ShoppingBLLibrary
         double CalculateShippingCharges(Cart cart);
         double ApplyDiscounts(Cart cart);
         bool ExceedsMaxQuantityLimit(Cart cart, int productId, int quantity);
+
+        void IncreaseCartItemQuantity(Cart cart, int productId, int quantity);
+
+        void DecreaseCartItemQuantity(Cart cart, int productId, int quantity);
     }
 }

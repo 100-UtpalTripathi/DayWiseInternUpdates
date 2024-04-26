@@ -117,29 +117,42 @@ namespace ShoppingBLLibrary
             }
         }
 
-        public void DecreaseCartItemQuantity(Cart cart, int productId, int quantity)
+        public void DecreaseCartItemQuantity(Cart cart, int productId, int decreaseQuantity)
         {
             CartItem cartItem = cart.CartItems.FirstOrDefault(item => item.ProductId == productId);
-            if (cartItem != null)
+            if (cartItem == null)
             {
-                Product product = _productRepository.GetByKey(productId);
-                if (product != null)
-                {
-                    int totalQuantity = cartItem.Quantity - quantity;
-
-                    if (totalQuantity <= 0)
-                    {
-                        cart.CartItems.Remove(cartItem);
-                    }
-
-                    product.QuantityInHand += quantity;
-
-                
-                    _productRepository.Update(product);
-                    _cartRepository.Update(cart);
-                }
+                throw new ProductNotFoundException($"Product with ID {productId} not found in cart.");
             }
+
+            if (decreaseQuantity <= 0)
+            {
+                throw new ArgumentException("Quantity to decrease must be greater than zero.");
+            }
+
+            if (decreaseQuantity > cartItem.Quantity)
+            {
+                throw new ArgumentOutOfRangeException("Quantity to decrease exceeds the current quantity in cart.");
+            }
+
+            Product product = _productRepository.GetByKey(productId);
+            if (product == null)
+            {
+                throw new ProductNotFoundException($"Product with ID {productId} not found.");
+            }
+
+            cartItem.Quantity -= decreaseQuantity;
+            if (cartItem.Quantity == 0)
+            {
+                cart.CartItems.Remove(cartItem); // Remove the cart item if its quantity becomes zero
+            }
+
+            product.QuantityInHand += decreaseQuantity;
+            _productRepository.Update(product);
+
+            _cartRepository.Update(cart);
         }
+
 
         public Cart GetCartById(int cartId)
         {

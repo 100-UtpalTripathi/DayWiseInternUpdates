@@ -185,5 +185,109 @@ namespace ShoppingApplicationTests
             // Act & Assert
             Assert.Throws<InsufficientQuantityException>(() => _cartService.AddProductToCart(cartId, productId, quantity));
         }
+
+        [Test]
+        public void IncreaseCartItemQuantity_ValidQuantity_QuantityIncreasedAndProductQuantityDecreased()
+        {
+            // Arrange
+            int cartId = 1;
+            int productId = 1;
+            int initialQuantity = 2;
+            int increaseQuantity = 3;
+
+            // Add a cart with the product to the repository
+            var cart = new Cart { Id = cartId, CustomerId = 1 };
+            cart.CartItems.Add(new CartItem(cartId, productId, initialQuantity, 10.0, 0, DateTime.Now.AddDays(7)));
+            _cartRepository.Add(cart);
+
+            // Add the product to the product repository
+            _productRepository.Add(new Product { Id = productId, Name = "Product1", Price = 10.0, QuantityInHand = 10 });
+
+            // Act
+            _cartService.IncreaseCartItemQuantity(cart, productId, increaseQuantity);
+
+            // Assert
+            var updatedCart = _cartRepository.GetByKey(cartId);
+            Assert.AreEqual(initialQuantity + increaseQuantity, updatedCart.CartItems.First(item => item.ProductId == productId).Quantity);
+
+            var updatedProduct = _productRepository.GetByKey(productId);
+            Assert.AreEqual(10 - increaseQuantity, updatedProduct.QuantityInHand);
+        }
+        [Test]
+        public void IncreaseCartItemQuantity_ExceedsMaxQuantityLimit_ThrowsMaxQuantityExceededException()
+        {
+            // Arrange
+            int cartId = 1;
+            int productId = 1;
+            int initialQuantity = 4;
+            int increaseQuantity = 2; // Exceeds the maximum limit
+
+            // Add a cart with the product to the repository
+            var cart = new Cart { Id = cartId, CustomerId = 1 };
+            cart.CartItems.Add(new CartItem(cartId, productId, initialQuantity, 10.0, 0, DateTime.Now.AddDays(7)));
+            _cartRepository.Add(cart);
+
+            // Add the product to the product repository
+            _productRepository.Add(new Product { Id = productId, Name = "Product1", Price = 10.0, QuantityInHand = 10 });
+
+            // Act & Assert
+            Assert.Throws<MaxQuantityExceededException>(() => _cartService.IncreaseCartItemQuantity(cart, productId, increaseQuantity));
+        }
+
+        [Test]
+        public void DecreaseCartItemQuantity_ValidQuantity_QuantityDecreasedAndProductQuantityIncreased()
+        {
+            // Arrange
+            int cartId = 1;
+            int productId = 1;
+            int initialQuantity = 5;
+            int decreaseQuantity = 3;
+
+            // Add a cart with the product to the repository
+            var cart = new Cart { Id = cartId, CustomerId = 1 };
+            cart.CartItems.Add(new CartItem(cartId, productId, initialQuantity, 10.0, 0, DateTime.Now.AddDays(7)));
+            _cartRepository.Add(cart);
+
+            // Add the product to the product repository
+            _productRepository.Add(new Product { Id = productId, Name = "Product1", Price = 10.0, QuantityInHand = 5 });
+
+            // Act
+            _cartService.DecreaseCartItemQuantity(cart, productId, decreaseQuantity);
+
+            // Assert
+            var updatedCart = _cartRepository.GetByKey(cartId);
+            Assert.AreEqual(initialQuantity - decreaseQuantity, updatedCart.CartItems.First(item => item.ProductId == productId).Quantity);
+
+            var updatedProduct = _productRepository.GetByKey(productId);
+            Assert.AreEqual(5 + decreaseQuantity, updatedProduct.QuantityInHand);
+        }
+
+        [Test]
+        public void DecreaseCartItemQuantity_RemovesItemWhenQuantityBecomesZero()
+        {
+            // Arrange
+            int cartId = 1;
+            int productId = 1;
+            int initialQuantity = 3;
+            int decreaseQuantity = 3;
+
+            // Add a cart with the product to the repository
+            var cart = new Cart { Id = cartId, CustomerId = 1 };
+            cart.CartItems.Add(new CartItem(cartId, productId, initialQuantity, 10.0, 0, DateTime.Now.AddDays(7)));
+            _cartRepository.Add(cart);
+
+            // Add the product to the product repository
+            _productRepository.Add(new Product { Id = productId, Name = "Product1", Price = 10.0, QuantityInHand = 5 });
+
+            // Act
+            _cartService.DecreaseCartItemQuantity(cart, productId, decreaseQuantity);
+
+            // Assert
+            var updatedCart = _cartRepository.GetByKey(cartId);
+            Assert.AreEqual(0, updatedCart.CartItems.Count); // Item removed from cart
+
+            var updatedProduct = _productRepository.GetByKey(productId);
+            Assert.AreEqual(5 + initialQuantity, updatedProduct.QuantityInHand); // Product quantity restored
+        }
     }
 }
