@@ -20,18 +20,22 @@ namespace ShoppingApplicationTests
         }
 
         [Test]
-        public void Add_ValidProduct_ReturnsAddedProduct()
+        public async Task Add_ValidProduct_ReturnsAddedProduct()
         {
             // Arrange
             Product newProduct = new Product(3, 30.0, "Product3", 300);
 
             // Act
-            Product addedProduct = repository.Add(newProduct);
+            Product addedProduct = await repository.Add(newProduct);
 
             // Assert
             Assert.AreEqual(newProduct, addedProduct);
-            Assert.IsTrue(repository.GetAll().Contains(newProduct));
+
+            // Await GetAll() before using Contains()
+            IEnumerable<Product> allProducts = await repository.GetAll();
+            Assert.IsTrue(allProducts.Contains(newProduct));
         }
+
 
         [Test]
         public void Add_DuplicateProduct_ThrowsException()
@@ -44,17 +48,19 @@ namespace ShoppingApplicationTests
         }
 
         [Test]
-        public void Delete_ExistingProductId_RemovesProduct()
+        public async Task Delete_ExistingProductId_RemovesProduct()
         {
             // Arrange
             int productIdToDelete = 1;
 
             // Act
-            Product deletedProduct = repository.Delete(productIdToDelete);
+            Product deletedProduct = await repository.Delete(productIdToDelete);
+
 
             // Assert
-            Assert.AreEqual(1, repository.GetAll().Count);
-            Assert.IsFalse(repository.GetAll().Contains(deletedProduct));
+            var allProducts = await repository.GetAll();
+            Assert.AreEqual(1, allProducts.Count);
+            Assert.IsFalse(allProducts.Contains(deletedProduct));
         }
 
         [Test]

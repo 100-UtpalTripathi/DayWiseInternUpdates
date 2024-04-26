@@ -27,18 +27,24 @@ namespace ShoppingApplicationTests
         }
 
         [Test]
-        public void Add_ValidCartItem_ReturnsAddedCartItem()
+        public async Task Add_ValidCartItem_ReturnsAddedCartItem()
         {
             // Arrange
             CartItem newCartItem = new CartItem { CartId = 2, ProductId = 201, Quantity = 3, Price = 8.49, Discount = 2.0, PriceExpiryDate = DateTime.Today.AddDays(10) };
 
             // Act
-            CartItem addedCartItem = repository.Add(newCartItem);
+            CartItem addedCartItem = await repository.Add(newCartItem);
 
             // Assert
             Assert.AreEqual(newCartItem, addedCartItem);
-            Assert.IsTrue(repository.GetAll().Contains(newCartItem));
+
+            // Get all items asynchronously
+            var allItems = await repository.GetAll();
+
+            // Assert that the new item is contained in the collection
+            Assert.IsTrue(allItems.Contains(newCartItem));
         }
+
         [Test]
         public void Add_DuplicateCartItem_ThrowsException()
         {
@@ -64,18 +70,18 @@ namespace ShoppingApplicationTests
         }
 
         [Test]
-        public void Delete_ExistingCartItem_RemovesCartItem()
+        public async Task Delete_ExistingCartItem_RemovesCartItem()
         {
             // Arrange
             int cartIdToDelete = 1;
             int productIdToDelete = 101;
 
             // Act
-            CartItem deletedCartItem = repository.Delete(cartIdToDelete, productIdToDelete);
-
+            CartItem deletedCartItem = await repository.Delete(cartIdToDelete, productIdToDelete);
+            var allItems = repository.GetAll();
             // Assert
-            Assert.AreEqual(cartItems.Count - 1, repository.GetAll().Count);
-            Assert.IsFalse(repository.GetAll().Contains(deletedCartItem));
+            Assert.AreEqual(cartItems.Count - 1, allItems.Count);
+            Assert.IsFalse(allItems.Contains(deletedCartItem));
         }
 
         [Test]
@@ -116,14 +122,14 @@ namespace ShoppingApplicationTests
         }
 
         [Test]
-        public void GetByKey_ExistingCartItem_ReturnsCartItem()
+        public async Task GetByKey_ExistingCartItem_ReturnsCartItem()
         {
             // Arrange
             int existingCartId = 1;
             int existingProductId = 102;
 
             // Act
-            CartItem retrievedCartItem = repository.GetByKey(existingCartId, existingProductId);
+            CartItem retrievedCartItem = await repository.GetByKey(existingCartId, existingProductId);
 
             // Assert
             Assert.IsNotNull(retrievedCartItem);

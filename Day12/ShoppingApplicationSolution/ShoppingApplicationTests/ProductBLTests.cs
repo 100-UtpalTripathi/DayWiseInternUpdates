@@ -25,17 +25,17 @@ namespace ShoppingApplicationTests
         }
 
         [Test]
-        public void AddProduct_ValidProduct_ReturnsAddedProduct()
+        public async Task AddProduct_ValidProduct_ReturnsAddedProduct()
         {
             // Arrange
             Product newProduct = new Product { Id = 1, Name = "Product1", Price = 10.0, QuantityInHand = 100 };
 
             // Act
-            Product addedProduct = _productService.AddProduct(newProduct);
-
+            Product addedProduct = await _productService.AddProduct(newProduct);
+            var allProducts = await _productRepository.GetAll();
             // Assert
             Assert.AreEqual(newProduct, addedProduct);
-            Assert.IsTrue(_productRepository.GetAll().Contains(newProduct));
+            Assert.IsTrue(allProducts.Contains(newProduct));
         }
 
         [Test]
@@ -52,7 +52,7 @@ namespace ShoppingApplicationTests
         }
 
         [Test]
-        public void DeleteProduct_ExistingProductId_RemovesProduct()
+        public async Task DeleteProduct_ExistingProductId_RemovesProduct()
         {
             // Arrange
             int productIdToDelete = 1;
@@ -65,7 +65,8 @@ namespace ShoppingApplicationTests
             _productService.DeleteProduct(productIdToDelete);
 
             // Assert
-            Assert.IsFalse(_productRepository.GetAll().Contains(productToDelete));
+            var allProducts = await _productRepository.GetAll();
+            Assert.IsFalse(allProducts.Contains(productToDelete));
         }
 
         [Test]
@@ -79,7 +80,7 @@ namespace ShoppingApplicationTests
         }
 
         [Test]
-        public void GetProductById_ExistingProductId_ReturnsProduct()
+        public async Task GetProductById_ExistingProductId_ReturnsProduct()
         {
             // Arrange
             int existingProductId = 1;
@@ -89,7 +90,7 @@ namespace ShoppingApplicationTests
             _productService.AddProduct(existingProduct);
 
             // Act
-            Product retrievedProduct = _productService.GetProductById(existingProductId);
+            Product retrievedProduct = await _productService.GetProductById(existingProductId);
 
             // Assert
             Assert.IsNotNull(retrievedProduct);
@@ -107,7 +108,7 @@ namespace ShoppingApplicationTests
         }
 
         [Test]
-        public void SearchProductsByName_ExistingName_ReturnsMatchingProducts()
+        public async Task SearchProductsByName_ExistingName_ReturnsMatchingProducts()
         {
             // Arrange
             var product1 = new Product { Id = 1, Name = "Product1", Price = 10.0, QuantityInHand = 100 };
@@ -116,7 +117,7 @@ namespace ShoppingApplicationTests
             _productService.AddProduct(product2);
 
             // Act
-            var searchResults = _productService.SearchProductsByName("Product1");
+            var searchResults = await _productService.SearchProductsByName("Product1");
 
             // Convert searchResults to a list
             var searchResultsList = searchResults.ToList();
@@ -136,7 +137,7 @@ namespace ShoppingApplicationTests
         }
 
         [Test]
-        public void SearchProductsByPriceRange_ValidRange_ReturnsMatchingProducts()
+        public async Task SearchProductsByPriceRange_ValidRange_ReturnsMatchingProducts()
         {
             // Arrange
             var product1 = new Product { Id = 1, Name = "Product1", Price = 10.0, QuantityInHand = 100 };
@@ -145,7 +146,7 @@ namespace ShoppingApplicationTests
             _productService.AddProduct(product2);
 
             // Act
-            var searchResults = _productService.SearchProductsByPriceRange(5.0, 15.0);
+            var searchResults = await _productService.SearchProductsByPriceRange(5.0, 15.0);
 
             // Assert
             Assert.Contains(product1, searchResults.ToList());
@@ -160,7 +161,7 @@ namespace ShoppingApplicationTests
         }
 
         [Test]
-        public void UpdateProduct_ExistingProduct_ReturnsUpdatedProduct()
+        public async Task UpdateProduct_ExistingProduct_ReturnsUpdatedProduct()
         {
             // Arrange
             int existingProductId = 1;
@@ -170,11 +171,13 @@ namespace ShoppingApplicationTests
             _productService.AddProduct(new Product { Id = existingProductId, Name = "Product1", Price = 10.0, QuantityInHand = 100 });
 
             // Act
-            Product returnedProduct = _productService.UpdateProduct(updatedProduct);
+            Product returnedProduct = await _productService.UpdateProduct(updatedProduct);
 
             // Assert
             Assert.AreEqual(updatedProduct, returnedProduct);
-            Assert.AreEqual("UpdatedProduct1", _productRepository.GetByKey(existingProductId).Name);
+
+            var existingProduct = await _productRepository.GetByKey(existingProductId);
+            Assert.AreEqual("UpdatedProduct1", existingProduct.Name);
         }
 
         [Test]

@@ -28,17 +28,18 @@ namespace ShoppingApplicationTests
         }
 
         [Test]
-        public void Add_ValidCart_ReturnsAddedCart()
+        public async Task Add_ValidCart_ReturnsAddedCart()
         {
             // Arrange
             Cart newCart = new Cart { Id = 3, CustomerId = 103, Customer = new Customer { Id = 103, Phone = "9876543210", Age = 35 }, CartItems = new List<CartItem>() };
 
             // Act
-            Cart addedCart = repository.Add(newCart);
+            Cart addedCart = await repository.Add(newCart);
+            var allCarts = await repository.GetAll();
 
             // Assert
             Assert.AreEqual(newCart, addedCart);
-            Assert.IsTrue(repository.GetAll().Contains(newCart));
+            Assert.IsTrue(allCarts.Contains(newCart));
         }
 
         [Test]
@@ -52,17 +53,17 @@ namespace ShoppingApplicationTests
         }
 
         [Test]
-        public void Delete_ExistingCartId_RemovesCart()
+        public async Task Delete_ExistingCartId_RemovesCart()
         {
             // Arrange
             int cartIdToDelete = 1;
 
             // Act
-            Cart deletedCart = repository.Delete(cartIdToDelete);
-
+            Cart deletedCart = await repository.Delete(cartIdToDelete);
+            var allCarts = await repository.GetAll();
             // Assert
-            Assert.AreEqual(1, repository.GetAll().Count);
-            Assert.IsFalse(repository.GetAll().Contains(deletedCart));
+            Assert.AreEqual(1, allCarts.Count);
+            Assert.IsFalse(allCarts.Contains(deletedCart));
         }
 
         [Test]
@@ -76,13 +77,13 @@ namespace ShoppingApplicationTests
         }
 
         [Test]
-        public void GetByKey_ExistingCartId_ReturnsCart()
+        public async Task GetByKey_ExistingCartId_ReturnsCart()
         {
             // Arrange
             int existingCartId = 2;
 
             // Act
-            Cart retrievedCart = repository.GetByKey(existingCartId);
+            Cart retrievedCart = await repository.GetByKey(existingCartId);
 
             // Assert
             Assert.IsNotNull(retrievedCart);
@@ -100,18 +101,18 @@ namespace ShoppingApplicationTests
         }
 
         [Test]
-        public void Update_ExistingCart_ReturnsUpdatedCart()
+        public async Task Update_ExistingCart_ReturnsUpdatedCart()
         {
             // Arrange
             int existingCartId = 1;
             Cart updatedCart = new Cart { Id = existingCartId, CustomerId = 101, Customer = new Customer { Id = 101, Phone = "1234567890", Age = 30 }, CartItems = new List<CartItem>() };
 
             // Act
-            Cart returnedCart = repository.Update(updatedCart);
-
+            Cart returnedCart = await repository.Update(updatedCart);
+            var existingCart = await repository.GetByKey(existingCartId);
             // Assert
             Assert.AreEqual(updatedCart, returnedCart);
-            Assert.AreEqual("1234567890", repository.GetByKey(existingCartId).Customer.Phone);
+            Assert.AreEqual("1234567890", existingCart.Customer.Phone);
         }
 
         [Test]
