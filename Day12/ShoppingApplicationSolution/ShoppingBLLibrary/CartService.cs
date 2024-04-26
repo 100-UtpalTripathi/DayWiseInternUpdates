@@ -89,6 +89,58 @@ namespace ShoppingBLLibrary
             return _cartRepository.Update(cart);
         }
 
+        public void IncreaseCartItemQuantity(Cart cart, int productId, int quantity)
+        {
+            CartItem cartItem = cart.CartItems.FirstOrDefault(item => item.ProductId == productId);
+            if (cartItem != null)
+            {
+                Product product = _productRepository.GetByKey(productId);
+                if (product != null)
+                {
+                    int totalQuantity = cartItem.Quantity + quantity;
+
+                    if (totalQuantity > 5)
+                    {
+                        throw new MaxQuantityExceededException($"Exceeds maximum quantity limit for product {productId}.");
+                    }
+
+           
+                    cartItem.Quantity += quantity;
+
+                
+                    product.QuantityInHand -= quantity;
+
+           
+                    _productRepository.Update(product);
+                    _cartRepository.Update(cart);
+                }
+            }
+        }
+
+        public void DecreaseCartItemQuantity(Cart cart, int productId, int quantity)
+        {
+            CartItem cartItem = cart.CartItems.FirstOrDefault(item => item.ProductId == productId);
+            if (cartItem != null)
+            {
+                Product product = _productRepository.GetByKey(productId);
+                if (product != null)
+                {
+                    int totalQuantity = cartItem.Quantity - quantity;
+
+                    if (totalQuantity <= 0)
+                    {
+                        cart.CartItems.Remove(cartItem);
+                    }
+
+                    product.QuantityInHand += quantity;
+
+                
+                    _productRepository.Update(product);
+                    _cartRepository.Update(cart);
+                }
+            }
+        }
+
         public Cart GetCartById(int cartId)
         {
             Cart cart = _cartRepository.GetByKey(cartId);
@@ -135,6 +187,7 @@ namespace ShoppingBLLibrary
             }
             else
             {
+
                 return 0; 
             }
         }
