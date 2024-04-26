@@ -72,7 +72,7 @@ namespace ShoppingApplicationTests
             int nonExistingCartId = 100;
 
             // Assert
-            Assert.Throws<KeyNotFoundException>(() => repository.Delete(nonExistingCartId));
+            Assert.Throws<CartNotFoundException>(() => repository.Delete(nonExistingCartId));
         }
 
         [Test]
@@ -96,7 +96,7 @@ namespace ShoppingApplicationTests
             int nonExistingCartId = 100;
 
             // Assert
-            Assert.Throws<KeyNotFoundException>(() => repository.GetByKey(nonExistingCartId));
+            Assert.Throws<CartNotFoundException>(() => repository.GetByKey(nonExistingCartId));
         }
 
         [Test]
@@ -121,7 +121,7 @@ namespace ShoppingApplicationTests
             Cart nonExistingCart = new Cart { Id = 100, CustomerId = 100, Customer = new Customer { Id = 100, Phone = "1112223333", Age = 40 }, CartItems = new List<CartItem>() };
 
             // Assert
-            Assert.Throws<KeyNotFoundException>(() => repository.Update(nonExistingCart));
+            Assert.Throws<CartNotFoundException>(() => repository.Update(nonExistingCart));
         }
     }
 }

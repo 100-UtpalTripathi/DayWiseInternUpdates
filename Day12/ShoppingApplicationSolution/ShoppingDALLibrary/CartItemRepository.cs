@@ -22,11 +22,6 @@ namespace ShoppingDALLibrary
             return item;
         }
 
-        public ICollection<CartItem> GetAll()
-        {
-            return items.ToList();
-        }
-
         public CartItem Delete(int cartId, int productId)
         {
             CartItem item = GetByKey(cartId, productId);
@@ -60,6 +55,11 @@ namespace ShoppingDALLibrary
                 throw new KeyNotFoundException($"Cart item with CartId: {cartId} and ProductId: {productId} was not found.");
             }
             return cartItem;
+        }
+
+        public ICollection<CartItem> GetAll()
+        {
+            return items;
         }
     }
 }

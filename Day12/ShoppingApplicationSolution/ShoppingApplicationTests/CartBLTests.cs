@@ -81,8 +81,11 @@ namespace ShoppingApplicationTests
 
             // Add a cart with the product to the repository
             var cart = new Cart { Id = cartId, CustomerId = 1 };
-            cart.CartItems.Add(new CartItem { CartId = cartId, ProductId = productId, Quantity = 1 });
+            cart.CartItems.Add(new CartItem(cartId, productId, 1,  150.0, 100.0, DateTime.Now.AddDays(5)));
             _cartRepository.Add(cart);
+
+            // Add the product to the product repository
+            _productRepository.Add(new Product { Id = productId, Name = "Product1", Price = 10.0, QuantityInHand = 100 });
 
             // Act
             var updatedCart = _cartService.RemoveProductFromCart(cartId, productId);
@@ -163,6 +166,24 @@ namespace ShoppingApplicationTests
 
             // Assert
             Assert.IsTrue(exceedsLimit);
+        }
+
+        [Test]
+        public void AddProductToCart_InsufficientProductQuantity_ThrowsInsufficientQuantityException()
+        {
+            // Arrange
+            int cartId = 1;
+            int productId = 1;
+            int quantity = 2;
+
+            // Add a cart to the repository
+            _cartRepository.Add(new Cart { Id = cartId, CustomerId = 1 });
+
+           
+            _productRepository.Add(new Product { Id = productId, Name = "Product1", Price = 10.0, QuantityInHand = 1 });
+
+            // Act & Assert
+            Assert.Throws<InsufficientQuantityException>(() => _cartService.AddProductToCart(cartId, productId, quantity));
         }
     }
 }

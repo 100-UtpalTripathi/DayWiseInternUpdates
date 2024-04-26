@@ -20,7 +20,6 @@ namespace ShoppingBLLibrary
 
         public Cart AddProductToCart(int cartId, int productId, int quantity)
         {
-           
             Cart cart = _cartRepository.GetByKey(cartId);
             if (cart == null)
             {
@@ -32,37 +31,59 @@ namespace ShoppingBLLibrary
             {
                 throw new ProductNotFoundException($"Product with ID {productId} not found.");
             }
-            
 
-           // Checking if adding the product exceeds the maximum quantity limit
+            if (product.QuantityInHand < quantity)
+            {
+                throw new InsufficientQuantityException($"Product with ID {productId} has insufficient quantity in hand.");
+            }
+
             if (ExceedsMaxQuantityLimit(cart, productId, quantity))
             {
                 throw new MaxQuantityExceededException($"Adding product to cart exceeds maximum quantity limit.");
             }
 
-            // Add the product to the cart
-            cart.CartItems.Add(new CartItem(cartId, productId, quantity, product.Price, 0, DateTime.Now.AddDays(7)));
+            // checking if product already exists in teh card... if yes, then update the quantity
+            CartItem existingItem = cart.CartItems.FirstOrDefault(item => item.ProductId == productId);
+            if (existingItem != null)
+            {
+                existingItem.Quantity += quantity;
+            }
+            else
+            {
+                cart.CartItems.Add(new CartItem(cartId, productId, quantity, product.Price, 0, DateTime.Now.AddDays(7)));
+            }
+
+            // Updating product quantity in hand
+            product.QuantityInHand -= quantity;
+            _productRepository.Update(product);
 
             return _cartRepository.Update(cart);
         }
 
+
         public Cart RemoveProductFromCart(int cartId, int productId)
         {
-            // Check if cart exists
             Cart cart = _cartRepository.GetByKey(cartId);
             if (cart == null)
             {
                 throw new CartNotFoundException($"Cart with ID {cartId} not found.");
             }
 
-            // Check if the product exists in the cart
             CartItem cartItem = cart.CartItems.FirstOrDefault(item => item.ProductId == productId);
             if (cartItem == null)
             {
                 throw new ProductNotFoundException($"Product with ID {productId} not found in cart.");
             }
 
-            // Remove the product from the cart
+            Product product = _productRepository.GetByKey(productId);
+            if (product == null)
+            {
+                throw new ProductNotFoundException($"Product with ID {productId} not found.");
+            }
+
+            product.QuantityInHand += cartItem.Quantity;
+            _productRepository.Update(product);
+
             cart.CartItems.Remove(cartItem);
 
             return _cartRepository.Update(cart);
