@@ -12,7 +12,7 @@ namespace ShoppingDALLibrary
     {
         private IList<CartItem> items = new List<CartItem>();
 
-        public async Task<CartItem> Add(CartItem item)
+        public CartItem Add(CartItem item)
         {
             if (items.Contains(item))
             {

@@ -21,7 +21,7 @@ namespace ShoppingApplicationTests
         }
 
         [Test]
-        public void AddProductToCart_ValidProductIdAndQuantity_ProductAddedToCart()
+        public async Task AddProductToCart_ValidProductIdAndQuantity_ProductAddedToCart()
         {
             // Arrange
             int cartId = 1;
@@ -35,7 +35,7 @@ namespace ShoppingApplicationTests
             _productRepository.Add(new Product { Id = productId, Name = "Product1", Price = 10.0, QuantityInHand = 100 });
 
             // Act
-            var cart = _cartService.AddProductToCart(cartId, productId, quantity);
+            var cart = await _cartService.AddProductToCart(cartId, productId, quantity);
 
             // Assert
             Assert.AreEqual(1, cart.CartItems.Count);
@@ -73,7 +73,7 @@ namespace ShoppingApplicationTests
 
 
         [Test]
-        public void RemoveProductFromCart_ValidProductId_ProductRemovedFromCart()
+        public async Task RemoveProductFromCart_ValidProductId_ProductRemovedFromCart()
         {
             // Arrange
             int cartId = 1;
@@ -88,7 +88,7 @@ namespace ShoppingApplicationTests
             _productRepository.Add(new Product { Id = productId, Name = "Product1", Price = 10.0, QuantityInHand = 100 });
 
             // Act
-            var updatedCart = _cartService.RemoveProductFromCart(cartId, productId);
+            var updatedCart = await _cartService.RemoveProductFromCart(cartId, productId);
 
             // Assert
             Assert.AreEqual(0, updatedCart.CartItems.Count);
@@ -114,14 +114,14 @@ namespace ShoppingApplicationTests
 
         // CalculateShippingCharges
         [Test]
-        public void CalculateShippingCharges_TotalValueBelow100_ReturnsShippingCharge100()
+        public async Task CalculateShippingCharges_TotalValueBelow100_ReturnsShippingCharge100()
         {
             // Arrange
             var cart = new Cart { Id = 1, CustomerId = 1 };
             cart.CartItems.Add(new CartItem { CartId = 1, ProductId = 1, Quantity = 1, Price = 50.0 });
 
             // Act
-            var shippingCharge = _cartService.CalculateShippingCharges(cart);
+            var shippingCharge = await _cartService.CalculateShippingCharges(cart);
 
             // Assert
             Assert.AreEqual(100.0, shippingCharge); // Corrected assertion
@@ -130,7 +130,7 @@ namespace ShoppingApplicationTests
         // ApplyDiscounts
         [Test]
 
-        public void ApplyDiscounts_ThreeItemsWithValue1500_Apply5PercentDiscount()
+        public async Task  ApplyDiscounts_ThreeItemsWithValue1500_Apply5PercentDiscount()
         {
             // Arrange
             var cart = new Cart { Id = 1, CustomerId = 1 };
@@ -139,7 +139,7 @@ namespace ShoppingApplicationTests
             cart.CartItems.Add(new CartItem { CartId = 1, ProductId = 3, Quantity = 1, Price = 500.0 });
 
             // Act
-            double discount = _cartService.ApplyDiscounts(cart);
+            double discount = await _cartService.ApplyDiscounts(cart);
 
             // Assert
             Assert.AreEqual(75.0, discount); // Ensure correct discount amount is applied
@@ -151,7 +151,7 @@ namespace ShoppingApplicationTests
 
         // ExceedsMaxQuantityLimit
         [Test]
-        public void ExceedsMaxQuantityLimit_CartItemQuantityGreaterThan5_ReturnsTrue()
+        public async Task ExceedsMaxQuantityLimit_CartItemQuantityGreaterThan5_ReturnsTrue()
         {
             // Arrange
             var cart = new Cart { Id = 1, CustomerId = 1 };
@@ -162,7 +162,7 @@ namespace ShoppingApplicationTests
             cart.CartItems.Add(new CartItem { CartId = 1, ProductId = productId, Quantity = 3 }); // Existing quantity
 
             // Act
-            var exceedsLimit = _cartService.ExceedsMaxQuantityLimit(cart, productId, quantity);
+            var exceedsLimit = await _cartService.ExceedsMaxQuantityLimit(cart, productId, quantity);
 
             // Assert
             Assert.IsTrue(exceedsLimit);
@@ -187,7 +187,7 @@ namespace ShoppingApplicationTests
         }
 
         [Test]
-        public void IncreaseCartItemQuantity_ValidQuantity_QuantityIncreasedAndProductQuantityDecreased()
+        public async Task IncreaseCartItemQuantity_ValidQuantity_QuantityIncreasedAndProductQuantityDecreased()
         {
             // Arrange
             int cartId = 1;
@@ -207,10 +207,10 @@ namespace ShoppingApplicationTests
             _cartService.IncreaseCartItemQuantity(cart, productId, increaseQuantity);
 
             // Assert
-            var updatedCart = _cartRepository.GetByKey(cartId);
+            var updatedCart = await _cartRepository.GetByKey(cartId);
             Assert.AreEqual(initialQuantity + increaseQuantity, updatedCart.CartItems.First(item => item.ProductId == productId).Quantity);
 
-            var updatedProduct = _productRepository.GetByKey(productId);
+            var updatedProduct = await _productRepository.GetByKey(productId);
             Assert.AreEqual(10 - increaseQuantity, updatedProduct.QuantityInHand);
         }
         [Test]
@@ -235,7 +235,7 @@ namespace ShoppingApplicationTests
         }
 
         [Test]
-        public void DecreaseCartItemQuantity_ValidQuantity_QuantityDecreasedAndProductQuantityIncreased()
+        public async Task DecreaseCartItemQuantity_ValidQuantity_QuantityDecreasedAndProductQuantityIncreased()
         {
             // Arrange
             int cartId = 1;
@@ -255,15 +255,15 @@ namespace ShoppingApplicationTests
             _cartService.DecreaseCartItemQuantity(cart, productId, decreaseQuantity);
 
             // Assert
-            var updatedCart = _cartRepository.GetByKey(cartId);
+            var updatedCart = await _cartRepository.GetByKey(cartId);
             Assert.AreEqual(initialQuantity - decreaseQuantity, updatedCart.CartItems.First(item => item.ProductId == productId).Quantity);
 
-            var updatedProduct = _productRepository.GetByKey(productId);
+            var updatedProduct = await _productRepository.GetByKey(productId);
             Assert.AreEqual(5 + decreaseQuantity, updatedProduct.QuantityInHand);
         }
 
         [Test]
-        public void DecreaseCartItemQuantity_RemovesItemWhenQuantityBecomesZero()
+        public async Task DecreaseCartItemQuantity_RemovesItemWhenQuantityBecomesZero()
         {
             // Arrange
             int cartId = 1;
@@ -283,10 +283,10 @@ namespace ShoppingApplicationTests
             _cartService.DecreaseCartItemQuantity(cart, productId, decreaseQuantity);
 
             // Assert
-            var updatedCart = _cartRepository.GetByKey(cartId);
+            var updatedCart = await _cartRepository.GetByKey(cartId);
             Assert.AreEqual(0, updatedCart.CartItems.Count); // Item removed from cart
 
-            var updatedProduct = _productRepository.GetByKey(productId);
+            var updatedProduct = await _productRepository.GetByKey(productId);
             Assert.AreEqual(5 + initialQuantity, updatedProduct.QuantityInHand); // Product quantity restored
         }
     }

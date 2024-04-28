@@ -9,7 +9,7 @@ namespace ShoppingDALLibrary
 {
     public interface ICartItemRepository
     {
-        Task<CartItem> Add(CartItem item);
+        CartItem Add(CartItem item);
         Task<ICollection<CartItem>> GetAll();
         Task<CartItem> Delete(int cartId, int productId);
         Task<CartItem> Update(CartItem item);

@@ -33,7 +33,7 @@ namespace ShoppingApplicationTests
             CartItem newCartItem = new CartItem { CartId = 2, ProductId = 201, Quantity = 3, Price = 8.49, Discount = 2.0, PriceExpiryDate = DateTime.Today.AddDays(10) };
 
             // Act
-            CartItem addedCartItem = await repository.Add(newCartItem);
+            CartItem addedCartItem = repository.Add(newCartItem);
 
             // Assert
             Assert.AreEqual(newCartItem, addedCartItem);
@@ -51,15 +51,17 @@ namespace ShoppingApplicationTests
             // Arrange
             CartItem existingCartItem = new CartItem { CartId = 1, ProductId = 101, Quantity = 2, Price = 10.99, Discount = 1.5, PriceExpiryDate = DateTime.Today.AddDays(7) };
 
-            // Assert
+            // Act and Assert
             Assert.Throws<DuplicateItemFoundException>(() => repository.Add(existingCartItem));
         }
 
+
+
         [Test]
-        public void GetAll_ReturnsAllCartItems()
+        public async Task GetAll_ReturnsAllCartItems()
         {
             // Act
-            ICollection<CartItem> retrievedItems = repository.GetAll();
+            ICollection<CartItem> retrievedItems = await repository.GetAll();
 
             // Assert
             Assert.AreEqual(cartItems.Count, retrievedItems.Count);
@@ -78,7 +80,7 @@ namespace ShoppingApplicationTests
 
             // Act
             CartItem deletedCartItem = await repository.Delete(cartIdToDelete, productIdToDelete);
-            var allItems = repository.GetAll();
+            var allItems = await repository.GetAll();
             // Assert
             Assert.AreEqual(cartItems.Count - 1, allItems.Count);
             Assert.IsFalse(allItems.Contains(deletedCartItem));
@@ -96,7 +98,7 @@ namespace ShoppingApplicationTests
         }
 
         [Test]
-        public void Update_ExistingCartItem_ReturnsUpdatedCartItem()
+        public async Task Update_ExistingCartItem_ReturnsUpdatedCartItem()
         {
             // Arrange
             int existingCartId = 1;
@@ -104,11 +106,11 @@ namespace ShoppingApplicationTests
             CartItem updatedCartItem = new CartItem { CartId = existingCartId, ProductId = existingProductId, Quantity = 5, Price = 12.99, Discount = 2.5, PriceExpiryDate = DateTime.Today.AddDays(15) };
 
             // Act
-            CartItem returnedCartItem = repository.Update(updatedCartItem);
+            CartItem returnedCartItem = await repository.Update(updatedCartItem);
 
             // Assert
             Assert.AreEqual(updatedCartItem, returnedCartItem);
-            Assert.AreEqual(5, repository.GetByKey(existingCartId, existingProductId).Quantity);
+            Assert.AreEqual(5, (await repository.GetByKey(existingCartId, existingProductId)).Quantity);
         }
 
         [Test]
