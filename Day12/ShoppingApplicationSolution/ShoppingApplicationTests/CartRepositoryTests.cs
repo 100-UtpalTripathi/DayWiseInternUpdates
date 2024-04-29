@@ -43,13 +43,13 @@ namespace ShoppingApplicationTests
         }
 
         [Test]
-        public void Add_DuplicateCart_ThrowsException()
+        public async Task Add_DuplicateCart_ThrowsException()
         {
             // Arrange
             Cart existingCart = new Cart { Id = 1, CustomerId = 101, Customer = new Customer { Id = 101, Phone = "1234567890", Age = 30 }, CartItems = new List<CartItem>() };
 
             // Assert
-            Assert.Throws<DuplicateItemFoundException>(() => repository.Add(existingCart));
+            Assert.ThrowsAsync<DuplicateItemFoundException>(async () => await repository.Add(existingCart));
         }
 
         [Test]
@@ -67,13 +67,13 @@ namespace ShoppingApplicationTests
         }
 
         [Test]
-        public void Delete_NonExistingCartId_ThrowsException()
+        public async Task Delete_NonExistingCartId_ThrowsException()
         {
             // Arrange
             int nonExistingCartId = 100;
 
             // Assert
-            Assert.Throws<CartNotFoundException>(() => repository.Delete(nonExistingCartId));
+            Assert.ThrowsAsync<CartNotFoundException>(async () => await repository.Delete(nonExistingCartId));
         }
 
         [Test]
@@ -91,13 +91,13 @@ namespace ShoppingApplicationTests
         }
 
         [Test]
-        public void GetByKey_NonExistingCartId_ThrowsException()
+        public async Task GetByKey_NonExistingCartId_ThrowsException()
         {
             // Arrange
             int nonExistingCartId = 100;
 
             // Assert
-            Assert.Throws<CartNotFoundException>(() => repository.GetByKey(nonExistingCartId));
+            Assert.ThrowsAsync<CartNotFoundException>(async () => await repository.GetByKey(nonExistingCartId));
         }
 
         [Test]
@@ -116,13 +116,13 @@ namespace ShoppingApplicationTests
         }
 
         [Test]
-        public void Update_NonExistingCart_ThrowsException()
+        public async Task Update_NonExistingCart_ThrowsException()
         {
             // Arrange
             Cart nonExistingCart = new Cart { Id = 100, CustomerId = 100, Customer = new Customer { Id = 100, Phone = "1112223333", Age = 40 }, CartItems = new List<CartItem>() };
 
             // Assert
-            Assert.Throws<CartNotFoundException>(() => repository.Update(nonExistingCart));
+            Assert.ThrowsAsync<CartNotFoundException>(async() => await repository.Update(nonExistingCart));
         }
     }
 }

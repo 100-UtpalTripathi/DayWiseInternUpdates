@@ -38,13 +38,13 @@ namespace ShoppingApplicationTests
 
 
         [Test]
-        public void Add_DuplicateProduct_ThrowsException()
+        public async Task Add_DuplicateProduct_ThrowsException()
         {
             // Arrange
             Product existingProduct = new Product(1, 10.0, "Product1", 100);
 
             // Assert
-            Assert.Throws<DuplicateItemFoundException>(() => repository.Add(existingProduct));
+            Assert.ThrowsAsync<DuplicateItemFoundException>(async () => await repository.Add(existingProduct));
         }
 
         [Test]
@@ -64,13 +64,13 @@ namespace ShoppingApplicationTests
         }
 
         [Test]
-        public void Delete_NonExistingProductId_ThrowsException()
+        public async Task Delete_NonExistingProductId_ThrowsException()
         {
             // Arrange
             int nonExistingProductId = 100;
 
             // Assert
-            Assert.Throws<ProductNotFoundException>(() => repository.Delete(nonExistingProductId));
+            Assert.ThrowsAsync<ProductNotFoundException>(async() => await repository.Delete(nonExistingProductId));
         }
 
         [Test]
@@ -88,13 +88,13 @@ namespace ShoppingApplicationTests
         }
 
         [Test]
-        public void GetByKey_NonExistingProductId_ThrowsException()
+        public async Task GetByKey_NonExistingProductId_ThrowsException()
         {
             // Arrange
             int nonExistingProductId = 100;
 
             // Assert
-            Assert.Throws<ProductNotFoundException>(() => repository.GetByKey(nonExistingProductId));
+            Assert.ThrowsAsync<ProductNotFoundException>(async() => await repository.GetByKey(nonExistingProductId));
         }
 
         [Test]
@@ -119,13 +119,13 @@ namespace ShoppingApplicationTests
 
 
         [Test]
-        public void Update_NonExistingProduct_ThrowsException()
+        public async Task Update_NonExistingProduct_ThrowsException()
         {
             // Arrange
             Product nonExistingProduct = new Product(100, 100.0, "NonExistingProduct", 1000);
 
             // Assert
-            Assert.Throws<ProductNotFoundException>(() => repository.Update(nonExistingProduct));
+            Assert.ThrowsAsync<ProductNotFoundException>(async() => await repository.Update(nonExistingProduct));
         }
     }
 }

@@ -39,16 +39,16 @@ namespace ShoppingApplicationTests
         }
 
         [Test]
-        public void AddProduct_DuplicateProduct_ThrowsException()
+        public async Task AddProduct_DuplicateProduct_ThrowsException()
         {
             // Arrange
             Product existingProduct = new Product { Id = 1, Name = "Product1", Price = 10.0, QuantityInHand = 100 };
 
             // Add the existing product
-            _productService.AddProduct(existingProduct);
+            await _productService.AddProduct(existingProduct);
 
             // Assert
-            Assert.Throws<DuplicateProductException>(() => _productService.AddProduct(existingProduct));
+            Assert.ThrowsAsync<DuplicateProductException>(async () => await _productService.AddProduct(existingProduct));
         }
 
         [Test]
@@ -70,13 +70,13 @@ namespace ShoppingApplicationTests
         }
 
         [Test]
-        public void DeleteProduct_NonExistingProductId_ThrowsException()
+        public async Task DeleteProduct_NonExistingProductId_ThrowsException()
         {
             // Arrange
             int nonExistingProductId = 100;
 
             // Assert
-            Assert.Throws<ProductNotFoundException>(() => _productService.DeleteProduct(nonExistingProductId));
+            Assert.ThrowsAsync<ProductNotFoundException>(async() => await _productService.DeleteProduct(nonExistingProductId));
         }
 
         [Test]
@@ -98,13 +98,13 @@ namespace ShoppingApplicationTests
         }
 
         [Test]
-        public void GetProductById_NonExistingProductId_ThrowsException()
+        public async Task GetProductById_NonExistingProductId_ThrowsException()
         {
             // Arrange
             int nonExistingProductId = 100;
 
             // Assert
-            Assert.Throws<ProductNotFoundException>(() => _productService.GetProductById(nonExistingProductId));
+            Assert.ThrowsAsync<ProductNotFoundException>(async() => await _productService.GetProductById(nonExistingProductId));
         }
 
         [Test]
@@ -130,10 +130,10 @@ namespace ShoppingApplicationTests
 
 
         [Test]
-        public void SearchProductsByName_EmptyName_ThrowsException()
+        public async Task SearchProductsByName_EmptyName_ThrowsException()
         {
             // Assert
-            Assert.Throws<InvalidProductDataException>(() => _productService.SearchProductsByName(string.Empty));
+            Assert.ThrowsAsync<InvalidProductDataException>(async() => await _productService.SearchProductsByName(string.Empty));
         }
 
         [Test]
@@ -154,10 +154,10 @@ namespace ShoppingApplicationTests
         }
 
         [Test]
-        public void SearchProductsByPriceRange_InvalidRange_ThrowsException()
+        public async Task SearchProductsByPriceRange_InvalidRange_ThrowsException()
         {
             // Assert
-            Assert.Throws<InvalidProductDataException>(() => _productService.SearchProductsByPriceRange(20.0, 10.0));
+            Assert.ThrowsAsync<InvalidProductDataException>(async() => await _productService.SearchProductsByPriceRange(20.0, 10.0));
         }
 
         [Test]
@@ -181,13 +181,13 @@ namespace ShoppingApplicationTests
         }
 
         [Test]
-        public void UpdateProduct_NonExistingProduct_ThrowsException()
+        public async Task UpdateProduct_NonExistingProduct_ThrowsException()
         {
             // Arrange
             Product nonExistingProduct = new Product { Id = 100, Name = "NonExistingProduct", Price = 20.0, QuantityInHand = 50 };
 
             // Assert
-            Assert.Throws<ProductNotFoundException>(() => _productService.UpdateProduct(nonExistingProduct));
+            Assert.ThrowsAsync<ProductNotFoundException>(async() => await _productService.UpdateProduct(nonExistingProduct));
         }
     }
 }

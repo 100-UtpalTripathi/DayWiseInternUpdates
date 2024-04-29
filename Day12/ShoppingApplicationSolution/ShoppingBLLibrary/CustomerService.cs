@@ -24,13 +24,18 @@ namespace ShoppingBLLibrary
             }
 
             // Check if the customer already exists
-            var existingCustomer = await _customerRepository.GetByKey(customer.Id);
-            if (existingCustomer != null)
+            //var existingCustomer = await _customerRepository.GetByKey(customer.Id);
+            //if (existingCustomer != null)
+            //{
+            //    throw new DuplicateCustomerException($"Customer with ID {customer.Id} already exists.");
+            //}
+
+            Customer existingCustomer = await _customerRepository.Add(customer);
+            if (existingCustomer == null)
             {
                 throw new DuplicateCustomerException($"Customer with ID {customer.Id} already exists.");
             }
-
-            return await _customerRepository.Add(customer);
+            return customer;
         }
 
         public async Task DeleteCustomer(int customerId)

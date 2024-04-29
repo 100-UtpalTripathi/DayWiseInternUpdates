@@ -35,42 +35,42 @@ namespace ShoppingApplicationTests
         }
 
         [Test]
-        public void AddCustomer_NullCustomer_ThrowsInvalidCustomerDataException()
+        public async Task AddCustomer_NullCustomer_ThrowsInvalidCustomerDataException()
         {
             // Arrange & Act & Assert
-            Assert.Throws<InvalidCustomerDataException>(() => _customerService.AddCustomer(null));
+            Assert.ThrowsAsync<InvalidCustomerDataException>(async () => await _customerService.AddCustomer(null));
         }
 
         [Test]
-        public void AddCustomer_DuplicateCustomerId_ThrowsDuplicateCustomerException()
+        public async Task AddCustomer_DuplicateCustomerId_ThrowsDuplicateCustomerException()
         {
             // Arrange
-            var customer = new Customer { Id = 1, Name = "John Doe", Phone = "1234567890", Age = 30 };
-            _customerService.AddCustomer(customer);
+            var customer = new Customer(1, "John Doe","1234567890", 30 );
+            await _customerService.AddCustomer(customer);
 
             // Act & Assert
-            Assert.Throws<DuplicateCustomerException>(() => _customerService.AddCustomer(customer));
+            Assert.ThrowsAsync<DuplicateItemFoundException>(async () => await _customerService.AddCustomer(customer));
         }
 
         [Test]
-        public void DeleteCustomer_ExistingCustomerId_RemovesCustomer()
+        public async Task DeleteCustomer_ExistingCustomerId_RemovesCustomer()
         {
             // Arrange
             var customer = new Customer { Id = 1, Name = "John Doe", Phone = "1234567890", Age = 30 };
-            _customerService.AddCustomer(customer);
+            await _customerService.AddCustomer(customer);
 
             // Act
-            _customerService.DeleteCustomer(customer.Id);
+            await _customerService.DeleteCustomer(customer.Id);
 
             // Assert
-            Assert.Throws<CustomerNotFoundException>(() => _customerService.GetCustomerById(customer.Id));
+            Assert.ThrowsAsync<CustomerNotFoundException>(async() => await _customerService.GetCustomerById(customer.Id));
         }
 
         [Test]
-        public void DeleteCustomer_NonExistingCustomerId_ThrowsCustomerNotFoundException()
+        public async Task DeleteCustomer_NonExistingCustomerId_ThrowsCustomerNotFoundException()
         {
             // Arrange & Act & Assert
-            Assert.Throws<CustomerNotFoundException>(() => _customerService.DeleteCustomer(100));
+            Assert.ThrowsAsync<CustomerNotFoundException>(async () => await _customerService.DeleteCustomer(100));
         }
 
         [Test]
@@ -102,7 +102,7 @@ namespace ShoppingApplicationTests
         {
             // Arrange
             var customer = new Customer { Id = 1, Name = "John Doe", Phone = "1234567890", Age = 30 };
-            _customerService.AddCustomer(customer);
+            await _customerService.AddCustomer(customer);
 
             // Act
             var retrievedCustomer = await _customerService.GetCustomerById(customer.Id);
@@ -112,10 +112,10 @@ namespace ShoppingApplicationTests
         }
 
         [Test]
-        public void GetCustomerById_NonExistingCustomerId_ThrowsCustomerNotFoundException()
+        public async Task GetCustomerById_NonExistingCustomerId_ThrowsCustomerNotFoundException()
         {
             // Arrange & Act & Assert
-            Assert.Throws<CustomerNotFoundException>(() => _customerService.GetCustomerById(100));
+            Assert.ThrowsAsync<CustomerNotFoundException>(async() => await _customerService.GetCustomerById(100));
         }
 
         [Test]
@@ -125,8 +125,8 @@ namespace ShoppingApplicationTests
             // Arrange
             var customer1 = new Customer { Id = 1, Name = "John Doe", Phone = "1234567890", Age = 30 };
             var customer2 = new Customer { Id = 2, Name = "Jane Smith", Phone = "0987654321", Age = 25 };
-            _customerService.AddCustomer(customer1);
-            _customerService.AddCustomer(customer2);
+            await _customerService.AddCustomer(customer1);
+            await _customerService.AddCustomer(customer2);
 
             // Act
             var searchResults = await _customerService.SearchCustomersByName("John");
@@ -141,7 +141,7 @@ namespace ShoppingApplicationTests
         {
             // Arrange
             var customer = new Customer { Id = 1, Name = "John Doe", Phone = "1234567890", Age = 30 };
-            _customerService.AddCustomer(customer);
+            await _customerService.AddCustomer(customer);
 
             // Act
             var searchResults = await _customerService.SearchCustomersByName("Jane");
@@ -156,8 +156,8 @@ namespace ShoppingApplicationTests
             // Arrange
             var customer1 = new Customer { Id = 1, Name = "John Doe", Phone = "1234567890", Age = 30 };
             var customer2 = new Customer { Id = 2, Name = "Jane Smith", Phone = "0987654321", Age = 25 };
-            _customerService.AddCustomer(customer1);
-            _customerService.AddCustomer(customer2);
+            await _customerService.AddCustomer(customer1);
+            await _customerService.AddCustomer(customer2);
 
             // Act
             var searchResults = await _customerService.SearchCustomersByAge(20, 29);
@@ -168,10 +168,10 @@ namespace ShoppingApplicationTests
 
 
         [Test]
-        public void SearchCustomersByAge_InvalidRange_ThrowsInvalidCustomerDataException()
+        public async Task SearchCustomersByAge_InvalidRange_ThrowsInvalidCustomerDataException()
         {
             // Arrange & Act & Assert
-            Assert.Throws<InvalidCustomerDataException>(() => _customerService.SearchCustomersByAge(30, 20));
+            Assert.ThrowsAsync<InvalidCustomerDataException>(async() => await _customerService.SearchCustomersByAge(30, 20));
         }
 
         [Test]
@@ -179,7 +179,7 @@ namespace ShoppingApplicationTests
         {
             // Arrange
             var customer = new Customer { Id = 1, Name = "John Doe", Phone = "1234567890", Age = 30 };
-            _customerService.AddCustomer(customer);
+            await  _customerService.AddCustomer(customer);
 
             // Act
             customer.Name = "Jane Smith";
@@ -191,13 +191,13 @@ namespace ShoppingApplicationTests
         }
 
         [Test]
-        public void UpdateCustomer_NonExistingCustomer_ThrowsCustomerNotFoundException()
+        public async Task UpdateCustomer_NonExistingCustomer_ThrowsCustomerNotFoundException()
         {
             // Arrange
             var customer = new Customer { Id = 1, Name = "John Doe", Phone = "1234567890", Age = 30 };
 
             // Act & Assert
-            Assert.Throws<CustomerNotFoundException>(() => _customerService.UpdateCustomer(customer));
+            Assert.ThrowsAsync<CustomerNotFoundException>(async() => await _customerService.UpdateCustomer(customer));
         }
 
 

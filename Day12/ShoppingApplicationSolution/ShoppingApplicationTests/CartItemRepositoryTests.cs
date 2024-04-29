@@ -57,6 +57,7 @@ namespace ShoppingApplicationTests
 
 
 
+
         [Test]
         public async Task GetAll_ReturnsAllCartItems()
         {
@@ -87,14 +88,17 @@ namespace ShoppingApplicationTests
         }
 
         [Test]
-        public void Delete_NonExistingCartItem_ThrowsException()
+        public async Task Delete_NonExistingCartItem_ThrowsException()
         {
             // Arrange
             int nonExistingCartId = 100;
             int nonExistingProductId = 999;
 
             // Assert
-            Assert.Throws<KeyNotFoundException>(() => repository.Delete(nonExistingCartId, nonExistingProductId));
+            Assert.ThrowsAsync<KeyNotFoundException>(async () =>
+            {
+                await repository.Delete(nonExistingCartId, nonExistingProductId);
+            });
         }
 
         [Test]
@@ -114,13 +118,13 @@ namespace ShoppingApplicationTests
         }
 
         [Test]
-        public void Update_NonExistingCartItem_ThrowsException()
+        public async Task Update_NonExistingCartItem_ThrowsException()
         {
             // Arrange
             CartItem nonExistingCartItem = new CartItem { CartId = 100, ProductId = 999, Quantity = 3, Price = 9.99, Discount = 1.0, PriceExpiryDate = DateTime.Today.AddDays(20) };
 
             // Assert
-            Assert.Throws<KeyNotFoundException>(() => repository.Update(nonExistingCartItem));
+            Assert.ThrowsAsync<KeyNotFoundException>(async() => await repository.Update(nonExistingCartItem));
         }
 
         [Test]
@@ -140,14 +144,14 @@ namespace ShoppingApplicationTests
         }
 
         [Test]
-        public void GetByKey_NonExistingCartItem_ThrowsException()
+        public async Task GetByKey_NonExistingCartItem_ThrowsException()
         {
             // Arrange
             int nonExistingCartId = 100;
             int nonExistingProductId = 999;
 
             // Assert
-            Assert.Throws<KeyNotFoundException>(() => repository.GetByKey(nonExistingCartId, nonExistingProductId));
+            Assert.ThrowsAsync<KeyNotFoundException>(async () => await repository.GetByKey(nonExistingCartId, nonExistingProductId));
         }
     }
 }

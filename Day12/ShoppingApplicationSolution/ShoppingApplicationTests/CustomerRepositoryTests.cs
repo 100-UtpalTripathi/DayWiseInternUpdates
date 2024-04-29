@@ -37,13 +37,13 @@ namespace ShoppingApplicationTests
 
 
         [Test]
-        public void Add_DuplicateCustomer_ThrowsException()
+        public async Task Add_DuplicateCustomer_ThrowsException()
         {
             // Arrange
             Customer existingCustomer = new Customer(1, "Somu", "1234567890", 30);
 
             // Assert
-            Assert.Throws<DuplicateItemFoundException>(() => repository.Add(existingCustomer));
+            Assert.ThrowsAsync<DuplicateItemFoundException>(async() => await repository.Add(existingCustomer));
         }
 
         [Test]
@@ -67,13 +67,13 @@ namespace ShoppingApplicationTests
 
 
         [Test]
-        public void Delete_NonExistingCustomerId_ThrowsException()
+        public async Task Delete_NonExistingCustomerId_ThrowsException()
         {
             // Arrange
             int nonExistingCustomerId = 100;
 
             // Assert
-            Assert.Throws<CustomerNotFoundException>(() => repository.Delete(nonExistingCustomerId));
+            Assert.ThrowsAsync<CustomerNotFoundException>(async() => await repository.Delete(nonExistingCustomerId));
         }
 
         [Test]
@@ -91,13 +91,13 @@ namespace ShoppingApplicationTests
         }
 
         [Test]
-        public void GetByKey_NonExistingCustomerId_ThrowsException()
+        public async Task GetByKey_NonExistingCustomerId_ThrowsException()
         {
             // Arrange
             int nonExistingCustomerId = 100;
 
             // Assert
-            Assert.Throws<CustomerNotFoundException>(() => repository.GetByKey(nonExistingCustomerId));
+            Assert.ThrowsAsync<CustomerNotFoundException>(async() => await repository.GetByKey(nonExistingCustomerId));
         }
 
         [Test]
@@ -122,13 +122,13 @@ namespace ShoppingApplicationTests
 
 
         [Test]
-        public void Update_NonExistingCustomer_ThrowsException()
+        public async Task Update_NonExistingCustomer_ThrowsException()
         {
             // Arrange
             Customer nonExistingCustomer = new Customer(100, "Somu", "1231231234", 50);
 
             // Assert
-            Assert.Throws<CustomerNotFoundException>(() => repository.Update(nonExistingCustomer));
+            Assert.ThrowsAsync<CustomerNotFoundException>(async() => await repository.Update(nonExistingCustomer));
         }
     }
 }

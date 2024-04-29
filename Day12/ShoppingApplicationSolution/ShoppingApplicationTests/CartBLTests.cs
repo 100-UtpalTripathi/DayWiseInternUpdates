@@ -29,10 +29,10 @@ namespace ShoppingApplicationTests
             int quantity = 2;
 
             // Add a cart to the repository
-            _cartRepository.Add(new Cart { Id = cartId, CustomerId = 1 });
+            await _cartRepository.Add(new Cart { Id = cartId, CustomerId = 1 });
 
             // Add the product to the product repository
-            _productRepository.Add(new Product { Id = productId, Name = "Product1", Price = 10.0, QuantityInHand = 100 });
+            await _productRepository.Add(new Product { Id = productId, Name = "Product1", Price = 10.0, QuantityInHand = 100 });
 
             // Act
             var cart = await _cartService.AddProductToCart(cartId, productId, quantity);
@@ -45,7 +45,7 @@ namespace ShoppingApplicationTests
 
 
         [Test]
-        public void AddProductToCart_NonExistingCart_ThrowsCartNotFoundException()
+        public async Task AddProductToCart_NonExistingCart_ThrowsCartNotFoundException()
         {
             // Arrange
             int cartId = 100;
@@ -53,11 +53,11 @@ namespace ShoppingApplicationTests
             int quantity = 2;
 
             // Act & Assert
-            Assert.Throws<CartNotFoundException>(() => _cartService.AddProductToCart(cartId, productId, quantity));
+            Assert.ThrowsAsync<CartNotFoundException>(async () => await _cartService.AddProductToCart(cartId, productId, quantity));
         }
 
         [Test]
-        public void AddProductToCart_NonExistingProduct_ThrowsProductNotFoundException()
+        public async Task AddProductToCart_NonExistingProduct_ThrowsProductNotFoundException()
         {
             // Arrange
             int cartId = 1;
@@ -65,10 +65,10 @@ namespace ShoppingApplicationTests
             int quantity = 2;
 
             // Add a cart to the repository
-            _cartRepository.Add(new Cart { Id = cartId, CustomerId = 1 });
+            await _cartRepository.Add(new Cart { Id = cartId, CustomerId = 1 });
 
             // Act & Assert
-            Assert.Throws<ProductNotFoundException>(() => _cartService.AddProductToCart(cartId, productId, quantity));
+            Assert.ThrowsAsync<ProductNotFoundException>(async() => await _cartService.AddProductToCart(cartId, productId, quantity));
         }
 
 
@@ -82,10 +82,10 @@ namespace ShoppingApplicationTests
             // Add a cart with the product to the repository
             var cart = new Cart { Id = cartId, CustomerId = 1 };
             cart.CartItems.Add(new CartItem(cartId, productId, 1,  150.0, 100.0, DateTime.Now.AddDays(5)));
-            _cartRepository.Add(cart);
+            await _cartRepository.Add(cart);
 
             // Add the product to the product repository
-            _productRepository.Add(new Product { Id = productId, Name = "Product1", Price = 10.0, QuantityInHand = 100 });
+            await _productRepository.Add(new Product { Id = productId, Name = "Product1", Price = 10.0, QuantityInHand = 100 });
 
             // Act
             var updatedCart = await _cartService.RemoveProductFromCart(cartId, productId);
@@ -96,7 +96,7 @@ namespace ShoppingApplicationTests
 
 
         [Test]
-        public void RemoveProductFromCart_NonExistingProduct_ThrowsProductNotFoundException()
+        public async Task RemoveProductFromCart_NonExistingProduct_ThrowsProductNotFoundException()
         {
             int cartId = 1;
             int productId = 100;
@@ -108,7 +108,7 @@ namespace ShoppingApplicationTests
             _cartRepository.Add(cart);
 
             // Act & Assert
-            Assert.Throws<ProductNotFoundException>(() => _cartService.RemoveProductFromCart(cartId, productId));
+            Assert.ThrowsAsync<ProductNotFoundException>(async() => await _cartService.RemoveProductFromCart(cartId, productId));
         }
 
 
@@ -169,7 +169,7 @@ namespace ShoppingApplicationTests
         }
 
         [Test]
-        public void AddProductToCart_InsufficientProductQuantity_ThrowsInsufficientQuantityException()
+        public async Task AddProductToCart_InsufficientProductQuantity_ThrowsInsufficientQuantityException()
         {
             // Arrange
             int cartId = 1;
@@ -177,13 +177,13 @@ namespace ShoppingApplicationTests
             int quantity = 2;
 
             // Add a cart to the repository
-            _cartRepository.Add(new Cart { Id = cartId, CustomerId = 1 });
+            await _cartRepository.Add(new Cart { Id = cartId, CustomerId = 1 });
 
            
-            _productRepository.Add(new Product { Id = productId, Name = "Product1", Price = 10.0, QuantityInHand = 1 });
+            await _productRepository.Add(new Product { Id = productId, Name = "Product1", Price = 10.0, QuantityInHand = 1 });
 
             // Act & Assert
-            Assert.Throws<InsufficientQuantityException>(() => _cartService.AddProductToCart(cartId, productId, quantity));
+            Assert.ThrowsAsync<InsufficientQuantityException>(async () => await _cartService.AddProductToCart(cartId, productId, quantity));
         }
 
         [Test]
@@ -198,13 +198,13 @@ namespace ShoppingApplicationTests
             // Add a cart with the product to the repository
             var cart = new Cart { Id = cartId, CustomerId = 1 };
             cart.CartItems.Add(new CartItem(cartId, productId, initialQuantity, 10.0, 0, DateTime.Now.AddDays(7)));
-            _cartRepository.Add(cart);
+            await _cartRepository.Add(cart);
 
             // Add the product to the product repository
-            _productRepository.Add(new Product { Id = productId, Name = "Product1", Price = 10.0, QuantityInHand = 10 });
+            await _productRepository.Add(new Product { Id = productId, Name = "Product1", Price = 10.0, QuantityInHand = 10 });
 
             // Act
-            _cartService.IncreaseCartItemQuantity(cart, productId, increaseQuantity);
+            await _cartService.IncreaseCartItemQuantity(cart, productId, increaseQuantity);
 
             // Assert
             var updatedCart = await _cartRepository.GetByKey(cartId);
@@ -214,7 +214,7 @@ namespace ShoppingApplicationTests
             Assert.AreEqual(10 - increaseQuantity, updatedProduct.QuantityInHand);
         }
         [Test]
-        public void IncreaseCartItemQuantity_ExceedsMaxQuantityLimit_ThrowsMaxQuantityExceededException()
+        public async Task IncreaseCartItemQuantity_ExceedsMaxQuantityLimit_ThrowsMaxQuantityExceededException()
         {
             // Arrange
             int cartId = 1;
@@ -225,13 +225,13 @@ namespace ShoppingApplicationTests
             // Add a cart with the product to the repository
             var cart = new Cart { Id = cartId, CustomerId = 1 };
             cart.CartItems.Add(new CartItem(cartId, productId, initialQuantity, 10.0, 0, DateTime.Now.AddDays(7)));
-            _cartRepository.Add(cart);
+            await  _cartRepository.Add(cart);
 
             // Add the product to the product repository
-            _productRepository.Add(new Product { Id = productId, Name = "Product1", Price = 10.0, QuantityInHand = 10 });
+            await _productRepository.Add(new Product { Id = productId, Name = "Product1", Price = 10.0, QuantityInHand = 10 });
 
             // Act & Assert
-            Assert.Throws<MaxQuantityExceededException>(() => _cartService.IncreaseCartItemQuantity(cart, productId, increaseQuantity));
+            Assert.ThrowsAsync<MaxQuantityExceededException>(async() => await _cartService.IncreaseCartItemQuantity(cart, productId, increaseQuantity));
         }
 
         [Test]
@@ -246,13 +246,13 @@ namespace ShoppingApplicationTests
             // Add a cart with the product to the repository
             var cart = new Cart { Id = cartId, CustomerId = 1 };
             cart.CartItems.Add(new CartItem(cartId, productId, initialQuantity, 10.0, 0, DateTime.Now.AddDays(7)));
-            _cartRepository.Add(cart);
+            await _cartRepository.Add(cart);
 
             // Add the product to the product repository
-            _productRepository.Add(new Product { Id = productId, Name = "Product1", Price = 10.0, QuantityInHand = 5 });
+            await _productRepository.Add(new Product { Id = productId, Name = "Product1", Price = 10.0, QuantityInHand = 5 });
 
             // Act
-            _cartService.DecreaseCartItemQuantity(cart, productId, decreaseQuantity);
+            await _cartService.DecreaseCartItemQuantity(cart, productId, decreaseQuantity);
 
             // Assert
             var updatedCart = await _cartRepository.GetByKey(cartId);
@@ -274,13 +274,13 @@ namespace ShoppingApplicationTests
             // Add a cart with the product to the repository
             var cart = new Cart { Id = cartId, CustomerId = 1 };
             cart.CartItems.Add(new CartItem(cartId, productId, initialQuantity, 10.0, 0, DateTime.Now.AddDays(7)));
-            _cartRepository.Add(cart);
+            await _cartRepository.Add(cart);
 
             // Add the product to the product repository
-            _productRepository.Add(new Product { Id = productId, Name = "Product1", Price = 10.0, QuantityInHand = 5 });
+            await _productRepository.Add(new Product { Id = productId, Name = "Product1", Price = 10.0, QuantityInHand = 5 });
 
             // Act
-            _cartService.DecreaseCartItemQuantity(cart, productId, decreaseQuantity);
+            await _cartService.DecreaseCartItemQuantity(cart, productId, decreaseQuantity);
 
             // Assert
             var updatedCart = await _cartRepository.GetByKey(cartId);
