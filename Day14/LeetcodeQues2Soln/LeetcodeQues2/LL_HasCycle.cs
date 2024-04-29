@@ -15,7 +15,7 @@ namespace LeetcodeQues2
             }
         }
 
-        public bool HasCycle(ListNode head)
+        public async Task<bool> HasCycle(ListNode head)
         {
             if (head == null) 
                 return false;
@@ -35,7 +35,7 @@ namespace LeetcodeQues2
             return false;
         }
 
-        public static void Main(string[] args)
+        public static async Task Main(string[] args)
         { 
             ListNode head = new ListNode(1);
             ListNode node2 = new ListNode(2);
@@ -50,7 +50,7 @@ namespace LeetcodeQues2
             node5.next = node2; // creates a cycle
 
             LL_HasCycle solution = new LL_HasCycle();
-            bool hasCycle = solution.HasCycle(head);
+            bool hasCycle = await solution.HasCycle(head);
             Console.WriteLine("\nLinked list has cycle: " + hasCycle);
         }
     }

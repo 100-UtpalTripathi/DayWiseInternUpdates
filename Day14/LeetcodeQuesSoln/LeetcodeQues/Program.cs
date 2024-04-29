@@ -2,7 +2,7 @@
 {
     internal class Program
     {
-        public string ConvertToTitle(int columnNumber)
+        public async Task<string> ConvertToTitle(int columnNumber)
         {
             string result = "";
             while (columnNumber > 0)
@@ -13,7 +13,7 @@
             }
             return result;
         }
-        static void Main(string[] args)
+        static async Task Main(string[] args)
         {
             Console.WriteLine("Enter the number of test cases: ");
             int t = Convert.ToInt32(Console.ReadLine());
@@ -24,7 +24,7 @@
                 Console.WriteLine("Enter the column number: ");
                 int columnNumber = Convert.ToInt32(Console.ReadLine());
                 
-                Console.WriteLine("The column title is: " + p.ConvertToTitle(columnNumber));
+                Console.WriteLine("The column title is: " + await p.ConvertToTitle(columnNumber));
             }
         }
     }

@@ -17,7 +17,7 @@ namespace LeetcodeQues3
         }
 
         // helper function to calculate the minimum depth of the binary tree
-        public int MinDepth(TreeNode root)
+        public async Task<int> MinDepth(TreeNode root)
         {
             if (root == null)
                 return 0;
@@ -26,13 +26,13 @@ namespace LeetcodeQues3
             if (root.left == null && root.right == null)
                 return 1;
 
-            int leftDepth = root.left != null ? MinDepth(root.left) : int.MaxValue;
-            int rightDepth = root.right != null ? MinDepth(root.right) : int.MaxValue;
+            int leftDepth = root.left != null ? await MinDepth(root.left) : int.MaxValue;
+            int rightDepth = root.right != null ? await MinDepth(root.right) : int.MaxValue;
 
             return Math.Min(leftDepth, rightDepth) + 1;
         }
 
-        public static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
             // Constructing the temporary binary tree 
             TreeNode root = new TreeNode(3);        // root
@@ -43,7 +43,7 @@ namespace LeetcodeQues3
 
             MinimumDepthOfBinaryTree solution = new MinimumDepthOfBinaryTree();
 
-            int minDepth = solution.MinDepth(root);
+            int minDepth = await solution.MinDepth(root);
 
             Console.WriteLine("Minimum depth of the binary tree: " + minDepth);
         }
