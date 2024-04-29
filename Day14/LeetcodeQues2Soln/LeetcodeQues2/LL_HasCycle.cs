@@ -51,7 +51,7 @@ namespace LeetcodeQues2
 
             LL_HasCycle solution = new LL_HasCycle();
             bool hasCycle = solution.HasCycle(head);
-            Console.WriteLine("Linked list has cycle: " + hasCycle);
+            Console.WriteLine("\nLinked list has cycle: " + hasCycle);
         }
     }
 }
