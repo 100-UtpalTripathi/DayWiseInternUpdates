@@ -1,0 +1,3 @@
+A shop wants to record the stock available and billed in a shop. 
+one product could be supplied by multiple suppliers. 
+one supplier can supply multiple products. 
