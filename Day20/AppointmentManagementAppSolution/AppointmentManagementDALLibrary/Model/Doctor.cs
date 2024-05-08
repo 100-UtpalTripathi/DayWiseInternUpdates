@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace AppointmentManagementApp.Model
+namespace AppointmentManagementDALLibrary.Model
 {
     public partial class Doctor
     {

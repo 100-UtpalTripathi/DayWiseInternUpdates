@@ -1,68 +1,52 @@
-﻿using AppointmentManagementModelLibrary;
+﻿
 using System.Collections.Generic;
 using System.Linq;
+using AppointmentManagementDALLibrary.Model;
 
 namespace AppointmentManagementDALLibrary
 {
     public class PatientRepository : IRepository<int, Patient>
     {
-        private readonly Dictionary<int, Patient> _patients;
+        private readonly DoctorPatientContext _dbContext;
 
-        public PatientRepository()
+        public PatientRepository(DoctorPatientContext dbContext)
         {
-            _patients = new Dictionary<int, Patient>();
-        }
-
-        private int GenerateId()
-        {
-            if (_patients.Count == 0)
-                return 1;
-            int id = _patients.Keys.Max();
-            return ++id;
+            _dbContext = dbContext;
         }
 
         public Patient Add(Patient item)
         {
-            if (_patients.ContainsValue(item))
-            {
-                return null;
-            }
-            item.Id = GenerateId();
-            _patients.Add(item.Id, item);
+            _dbContext.Patients.Add(item);
+            _dbContext.SaveChanges(); // Save changes to the database
             return item;
         }
 
         public Patient Delete(int key)
         {
-            if (_patients.ContainsKey(key))
+            var patient = _dbContext.Patients.Find(key);
+            if (patient != null)
             {
-                var patient = _patients[key];
-                _patients.Remove(key);
-                return patient;
+                _dbContext.Patients.Remove(patient);
+                _dbContext.SaveChanges();
             }
-            return null;
+            return patient;
         }
 
         public Patient Get(int key)
         {
-            return _patients.ContainsKey(key) ? _patients[key] : null;
+            return _dbContext.Patients.Find(key);
         }
 
         public List<Patient> GetAll()
         {
-            if (_patients.Count == 0)
-                return null;
-            return _patients.Values.ToList();
+            return _dbContext.Patients.ToList();
         }
 
         public Patient Update(Patient item)
         {
-            if (_patients.ContainsKey(item.Id))
-            {
-                _patients[item.Id] = item;
-                return item;
-            }
-            return null;
+            _dbContext.Patients.Update(item);
+            _dbContext.SaveChanges(); 
+            return item;
         }
     }
 }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
-namespace AppointmentManagementApp.Model
+namespace AppointmentManagementDALLibrary.Model
 {
     public partial class DoctorPatientContext : DbContext
     {
