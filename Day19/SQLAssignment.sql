@@ -1,3 +1,4 @@
+use pubs;
 -- 1) Create a stored procedure that will take the author firstname and print all the books polished by him with the publisher's name
 		
 		Create proc proc_GetBooksByAuthor(@FirstName varchar(25))
@@ -22,11 +23,12 @@
 		Create proc proc_GetTitlesSoldByEmployee(@EmployeeFirstName VARCHAR(25))
 		as
 		begin
-			select t.title as 'Title Name', t.price, s.qty as 'Quantity', (t.price * s.qty) as 'Cost'
+			select t.title as 'Title Name', t.price, sum(s.qty) as 'Quantity', sum(t.price * s.qty) as 'Cost'
 			from employee e
 			join Titles t on t.pub_id = e.pub_id
 			join sales s on t.title_id = s.title_id
-			where e.fname = @EmployeeFirstName;
+			where e.fname = @EmployeeFirstName
+			group by t.title, t.price;
 		end;
 
 
