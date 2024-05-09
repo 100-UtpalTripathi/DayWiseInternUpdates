@@ -12,8 +12,8 @@ using RequestTrackerModelLibrary;
 namespace RequestTrackerModelLibrary.Migrations
 {
     [DbContext(typeof(RequestTrackerContext))]
-    [Migration("20240509073659_Initial")]
-    partial class Initial
+    [Migration("20240509115611_initial")]
+    partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -47,6 +47,29 @@ namespace RequestTrackerModelLibrary.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Employees");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 101,
+                            Name = "Ramu",
+                            Password = "ramu123",
+                            Role = "Admin"
+                        },
+                        new
+                        {
+                            Id = 102,
+                            Name = "Somu",
+                            Password = "somu123",
+                            Role = "Admin"
+                        },
+                        new
+                        {
+                            Id = 103,
+                            Name = "Bimu",
+                            Password = "bimu123",
+                            Role = "User"
+                        });
                 });
 
             modelBuilder.Entity("RequestTrackerModelLibrary.Request", b =>

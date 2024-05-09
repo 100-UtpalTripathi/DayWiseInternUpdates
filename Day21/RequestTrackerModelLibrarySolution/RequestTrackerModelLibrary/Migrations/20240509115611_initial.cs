@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace RequestTrackerModelLibrary.Migrations
 {
-    public partial class Initial : Migration
+    public partial class initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -53,6 +53,21 @@ namespace RequestTrackerModelLibrary.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
+
+            migrationBuilder.InsertData(
+                table: "Employees",
+                columns: new[] { "Id", "Name", "Password", "Role" },
+                values: new object[] { 101, "Ramu", "ramu123", "Admin" });
+
+            migrationBuilder.InsertData(
+                table: "Employees",
+                columns: new[] { "Id", "Name", "Password", "Role" },
+                values: new object[] { 102, "Somu", "somu123", "Admin" });
+
+            migrationBuilder.InsertData(
+                table: "Employees",
+                columns: new[] { "Id", "Name", "Password", "Role" },
+                values: new object[] { 103, "Bimu", "bimu123", "User" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Requests_RequestClosedBy",

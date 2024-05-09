@@ -1,5 +1,4 @@
-﻿
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,6 +17,13 @@ namespace RequestTrackerModelLibrary
         public DbSet<Request> Requests { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Employee>().HasData(
+                new Employee { Id = 101, Name = "Ramu", Password = "ramu123", Role = "Admin" },
+                new Employee { Id = 102, Name = "Somu", Password = "somu123", Role = "Admin" },
+                new Employee { Id = 103, Name = "Bimu", Password = "bimu123", Role = "User" }
+                );
+
+            modelBuilder.Entity<Request>().HasKey(r => r.RequestNumber);
 
             modelBuilder.Entity<Request>()
                .HasOne(r => r.RaisedByEmployee)
