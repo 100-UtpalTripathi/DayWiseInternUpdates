@@ -59,7 +59,5 @@ C:\Users\VC\Desktop\DayWiseInternUpdates\Day20\AppointmentManagementAppSolution\
 C:\Users\VC\Desktop\DayWiseInternUpdates\Day20\AppointmentManagementAppSolution\AppointmentManagementApp\obj\Debug\net8.0\ref\AppointmentManagementApp.dll
 C:\Users\VC\Desktop\DayWiseInternUpdates\Day20\AppointmentManagementAppSolution\AppointmentManagementApp\bin\Debug\net8.0\AppointmentManagementBLLibrary.dll
 C:\Users\VC\Desktop\DayWiseInternUpdates\Day20\AppointmentManagementAppSolution\AppointmentManagementApp\bin\Debug\net8.0\AppointmentManagementDALLibrary.dll
-C:\Users\VC\Desktop\DayWiseInternUpdates\Day20\AppointmentManagementAppSolution\AppointmentManagementApp\bin\Debug\net8.0\AppointmentManagementModelLibrary.dll
 C:\Users\VC\Desktop\DayWiseInternUpdates\Day20\AppointmentManagementAppSolution\AppointmentManagementApp\bin\Debug\net8.0\AppointmentManagementBLLibrary.pdb
 C:\Users\VC\Desktop\DayWiseInternUpdates\Day20\AppointmentManagementAppSolution\AppointmentManagementApp\bin\Debug\net8.0\AppointmentManagementDALLibrary.pdb
-C:\Users\VC\Desktop\DayWiseInternUpdates\Day20\AppointmentManagementAppSolution\AppointmentManagementApp\bin\Debug\net8.0\AppointmentManagementModelLibrary.pdb

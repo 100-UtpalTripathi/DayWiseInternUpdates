@@ -16,7 +16,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\AppointmentManagementDALLibrary\AppointmentManagementDALLibrary.csproj" />
-    <ProjectReference Include="..\AppointmentManagementModelLibrary\AppointmentManagementModelLibrary.csproj" />
   </ItemGroup>
 
 </Project>

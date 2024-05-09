@@ -486,7 +486,6 @@
       "AppointmentManagementBLLibrary/1.0.0": {
         "dependencies": {
           "AppointmentManagementDALLibrary": "1.0.0",
-          "AppointmentManagementModelLibrary": "1.0.0",
           "Microsoft.EntityFrameworkCore.SqlServer": "6.0.29"
         },
         "runtime": {
@@ -495,19 +494,10 @@
       },
       "AppointmentManagementDALLibrary/1.0.0": {
         "dependencies": {
-          "AppointmentManagementModelLibrary": "1.0.0",
           "Microsoft.EntityFrameworkCore.SqlServer": "6.0.29"
         },
         "runtime": {
           "AppointmentManagementDALLibrary.dll": {}
-        }
-      },
-      "AppointmentManagementModelLibrary/1.0.0": {
-        "dependencies": {
-          "Microsoft.EntityFrameworkCore.SqlServer": "6.0.29"
-        },
-        "runtime": {
-          "AppointmentManagementModelLibrary.dll": {}
         }
       }
     }
@@ -825,11 +815,6 @@
       "sha512": ""
     },
     "AppointmentManagementDALLibrary/1.0.0": {
-      "type": "project",
-      "serviceable": false,
-      "sha512": ""
-    },
-    "AppointmentManagementModelLibrary/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

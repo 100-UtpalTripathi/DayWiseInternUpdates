@@ -3,9 +3,7 @@ C:\Users\VC\Desktop\DayWiseInternUpdates\Day20\AppointmentManagementAppSolution\
 C:\Users\VC\Desktop\DayWiseInternUpdates\Day20\AppointmentManagementAppSolution\AppointmentManagementBLLibrary\bin\Debug\net8.0\AppointmentManagementBLLibrary.dll
 C:\Users\VC\Desktop\DayWiseInternUpdates\Day20\AppointmentManagementAppSolution\AppointmentManagementBLLibrary\bin\Debug\net8.0\AppointmentManagementBLLibrary.pdb
 C:\Users\VC\Desktop\DayWiseInternUpdates\Day20\AppointmentManagementAppSolution\AppointmentManagementBLLibrary\bin\Debug\net8.0\AppointmentManagementDALLibrary.dll
-C:\Users\VC\Desktop\DayWiseInternUpdates\Day20\AppointmentManagementAppSolution\AppointmentManagementBLLibrary\bin\Debug\net8.0\AppointmentManagementModelLibrary.dll
 C:\Users\VC\Desktop\DayWiseInternUpdates\Day20\AppointmentManagementAppSolution\AppointmentManagementBLLibrary\bin\Debug\net8.0\AppointmentManagementDALLibrary.pdb
-C:\Users\VC\Desktop\DayWiseInternUpdates\Day20\AppointmentManagementAppSolution\AppointmentManagementBLLibrary\bin\Debug\net8.0\AppointmentManagementModelLibrary.pdb
 C:\Users\VC\Desktop\DayWiseInternUpdates\Day20\AppointmentManagementAppSolution\AppointmentManagementBLLibrary\obj\Debug\net8.0\AppointmentManagementBLLibrary.csproj.AssemblyReference.cache
 C:\Users\VC\Desktop\DayWiseInternUpdates\Day20\AppointmentManagementAppSolution\AppointmentManagementBLLibrary\obj\Debug\net8.0\AppointmentManagementBLLibrary.GeneratedMSBuildEditorConfig.editorconfig
 C:\Users\VC\Desktop\DayWiseInternUpdates\Day20\AppointmentManagementAppSolution\AppointmentManagementBLLibrary\obj\Debug\net8.0\AppointmentManagementBLLibrary.AssemblyInfoInputs.cache

@@ -1,11 +1,7 @@
-﻿using AppointmentManagementModelLibrary;
-using AppointmentManagementDALLibrary;
-
+﻿
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using AppointmentManagementDALLibrary.Model;
 
 namespace AppointmentManagementBLLibrary
 {

@@ -788,7 +788,6 @@
         "framework": ".NETCoreApp,Version=v8.0",
         "dependencies": {
           "AppointmentManagementDALLibrary": "1.0.0",
-          "AppointmentManagementModelLibrary": "1.0.0",
           "Microsoft.EntityFrameworkCore.SqlServer": "6.0.29"
         },
         "compile": {
@@ -802,7 +801,6 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v8.0",
         "dependencies": {
-          "AppointmentManagementModelLibrary": "1.0.0",
           "Microsoft.EntityFrameworkCore.SqlServer": "6.0.29"
         },
         "compile": {
@@ -810,19 +808,6 @@
         },
         "runtime": {
           "bin/placeholder/AppointmentManagementDALLibrary.dll": {}
-        }
-      },
-      "AppointmentManagementModelLibrary/1.0.0": {
-        "type": "project",
-        "framework": ".NETCoreApp,Version=v8.0",
-        "dependencies": {
-          "Microsoft.EntityFrameworkCore.SqlServer": "6.0.29"
-        },
-        "compile": {
-          "bin/placeholder/AppointmentManagementModelLibrary.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/AppointmentManagementModelLibrary.dll": {}
         }
       }
     }
@@ -2055,11 +2040,6 @@
       "type": "project",
       "path": "../AppointmentManagementDALLibrary/AppointmentManagementDALLibrary.csproj",
       "msbuildProject": "../AppointmentManagementDALLibrary/AppointmentManagementDALLibrary.csproj"
-    },
-    "AppointmentManagementModelLibrary/1.0.0": {
-      "type": "project",
-      "path": "../AppointmentManagementModelLibrary/AppointmentManagementModelLibrary.csproj",
-      "msbuildProject": "../AppointmentManagementModelLibrary/AppointmentManagementModelLibrary.csproj"
     }
   },
   "projectFileDependencyGroups": {
