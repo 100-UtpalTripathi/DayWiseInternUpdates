@@ -1,2 +1,19 @@
-Take your app built on Day7 Question. Convert the repository layer to EF Core. 
-There should be no changes in BL and FE. Please use Database First approch"
+Request Tracker app
+Login
+|
+|___User
+    Raise Request
+    View Request Status
+       View Solutions
+    Give Feedback
+    Respond to Solution
+|
+|___Admin
+    Raise Request
+    View Request Status(All Requests)
+    View Solutions(All Solutions)
+    Give Feedback(Only for request raised by them)
+    Respond to Solution(Only for request raised by them)
+    Provide Solution
+    Mark Request as Closed
+    View Feedbacks(Only feedbacks given to them)

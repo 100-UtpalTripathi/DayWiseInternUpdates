@@ -21,7 +21,7 @@ namespace AppointmentManagementDALLibrary
             return item;
         }
 
-        public Patient Delete(int key)
+        public Patient DeleteByID(int key)
         {
             var patient = _dbContext.Patients.Find(key);
             if (patient != null)
@@ -32,7 +32,7 @@ namespace AppointmentManagementDALLibrary
             return patient;
         }
 
-        public Patient Get(int key)
+        public Patient GetByID(int key)
         {
             return _dbContext.Patients.Find(key);
         }
