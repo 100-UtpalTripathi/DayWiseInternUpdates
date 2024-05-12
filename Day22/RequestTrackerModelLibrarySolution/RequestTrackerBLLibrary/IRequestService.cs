@@ -12,6 +12,6 @@ namespace RequestTrackerBLLibrary
         Task<Request> RaiseRequest(Request request);
         Task<ICollection<Request>> ViewRequestStatus(Employee employee);
         Task<ICollection<RequestSolution>> ViewSolutions(int requestId);
-        Task<bool> RespondToSolution(int requestId, string response);
+        
     }
 }
