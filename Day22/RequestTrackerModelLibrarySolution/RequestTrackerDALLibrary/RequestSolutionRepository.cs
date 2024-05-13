@@ -22,9 +22,9 @@ namespace RequestTrackerDALLibrary
             return entity;
         }
 
-        public async Task<RequestSolution> Delete(int key)
+        public async Task<RequestSolution> DeleteByKey(int key)
         {
-            var solution = await Get(key);
+            var solution = await GetByKey(key);
             if (solution != null)
             {
                 _context.RequestSolutions.Remove(solution);
@@ -33,7 +33,7 @@ namespace RequestTrackerDALLibrary
             return solution;
         }
 
-        public async Task<RequestSolution> Get(int key)
+        public async Task<RequestSolution> GetByKey(int key)
         {
             var solution = await _context.RequestSolutions.FindAsync(key);
             return solution;
@@ -46,7 +46,7 @@ namespace RequestTrackerDALLibrary
 
         public async Task<RequestSolution> Update(RequestSolution entity)
         {
-            var solution = await Get(entity.SolutionId);
+            var solution = await GetByKey(entity.SolutionId);
             if (solution != null)
             {
                 _context.Entry<RequestSolution>(entity).State = EntityState.Modified;

@@ -27,6 +27,9 @@ namespace RequestTrackerModelLibrary
                 new Employee { Id = 103, Name = "Bimu", Password = "bimu123", Role = "User" }
                 );
 
+         
+           
+
             modelBuilder.Entity<Request>().HasKey(r => r.RequestNumber);
             modelBuilder.Entity<SolutionFeedback>().HasKey(r => r.FeedbackId);
 

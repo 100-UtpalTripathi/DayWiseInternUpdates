@@ -1,7 +1,5 @@
 ﻿using RequestTrackerBLLibrary;
-using RequestTrackerDALLibrary;
 using RequestTrackerModelLibrary;
-using System.Threading.Channels;
 
 namespace RequestTrackerFEAPP
 {
@@ -14,7 +12,7 @@ namespace RequestTrackerFEAPP
 
             while (!exit)
             { 
-                Console.WriteLine("  $$    Welcome to Request Tracker Application!   $$   ");
+                Console.WriteLine("  $$    Welcome to Request Tracker Application!   $$   \n");
                 Console.WriteLine("1. Login");
                 Console.WriteLine("2. Register");
                 Console.WriteLine("3. Exit");
@@ -56,9 +54,9 @@ namespace RequestTrackerFEAPP
             var employeeLoginBL = new EmployeeLoginBL();
             var employee = new Employee { Id = id, Password = password };
 
-            bool isAuthenticated = await employeeLoginBL.Login(employee);
+            employee = await employeeLoginBL.Login(employee);
 
-            if (isAuthenticated)
+            if (employee != null)
             {
                 Console.WriteLine("Login successful!");
 
@@ -81,13 +79,7 @@ namespace RequestTrackerFEAPP
         static async Task Register()
         {
             Console.WriteLine("Registration:");
-            Console.Write("Enter your ID: ");
-            int id;
-            if (!int.TryParse(Console.ReadLine(), out id))
-            {
-                Console.WriteLine("Invalid ID. Please enter a valid integer ID.");
-                return;
-            }
+            
 
             Console.Write("Enter your name: ");
             string name = Console.ReadLine();
@@ -100,7 +92,6 @@ namespace RequestTrackerFEAPP
 
             var employee = new Employee
             {
-                Id = id,
                 Name = name,
                 Password = password,
                 Role = role
@@ -195,33 +186,11 @@ namespace RequestTrackerFEAPP
                         // Implement logic to provide solution
                         break;
                     case "5":
-                        Console.WriteLine("Enter the request ID to mark as closed:");
-                        int closeRequestId;
-                        if (!int.TryParse(Console.ReadLine(), out closeRequestId))
-                        {
-                            Console.WriteLine("Invalid request ID. Please try again.");
-                            break;
-                        }
-                        var adminService = new AdminService();
-                        await adminService.MarkRequestAsClosed(closeRequestId);
-                        Console.WriteLine("Request marked as closed successfully!");
+                        await MarkRequestAsClosed(admin);
                         break;
 
                     case "6":
-                        var adminSer = new AdminService();
-                        var adminFeedbacks = await adminSer.ViewFeedbacks(admin);
-                        if (adminFeedbacks.Count > 0)
-                        {
-                            Console.WriteLine("Feedbacks given to you:");
-                            foreach (var feedback in adminFeedbacks)
-                            {
-                                Console.WriteLine($"Feedback ID: {feedback.FeedbackBy}, Rating: {feedback.Rating}, Remarks: {feedback.Remarks}");
-                            }
-                        }
-                        else
-                        {
-                            Console.WriteLine("No feedbacks found.");
-                        }
+                        await ViewFeedbacks(admin);
                         break;
                     case "7":
                         exitAdminMenu = true;
@@ -403,5 +372,39 @@ namespace RequestTrackerFEAPP
                 Console.WriteLine("Failed to submit the feedback. Please try again.");
             }
         }
+
+        static async Task MarkRequestAsClosed(Employee admin)
+        {
+            await ViewRequestStatus(admin);
+            Console.WriteLine("Enter the request ID to mark as closed:");
+            int closeRequestId;
+            if (!int.TryParse(Console.ReadLine(), out closeRequestId))
+            {
+                Console.WriteLine("Invalid request ID. Please try again.");
+                return;
+            }
+            var adminService = new AdminService();
+            await adminService.MarkRequestAsClosed(closeRequestId);
+            Console.WriteLine("Request marked as closed successfully!");
+        }
+
+        static async Task ViewFeedbacks(Employee admin)
+        {
+            var adminSer = new AdminService();
+            var adminFeedbacks = await adminSer.ViewFeedbacks(admin);
+            if (adminFeedbacks.Count > 0)
+            {
+                Console.WriteLine("Feedbacks given to you:");
+                foreach (var feedback in adminFeedbacks)
+                {
+                    Console.WriteLine($"Feedback ID: {feedback.FeedbackBy}, Rating: {feedback.Rating}, Remarks: {feedback.Remarks}");
+                }
+            }
+            else
+            {
+                Console.WriteLine("No feedbacks found.");
+            }
+        }
+
     }
 }

@@ -22,9 +22,9 @@ namespace RequestTrackerDALLibrary
             return entity;
         }
 
-        public async Task<SolutionFeedback> Delete(int key)
+        public async Task<SolutionFeedback> DeleteByKey(int key)
         {
-            var feedback = await Get(key);
+            var feedback = await GetByKey(key);
             if (feedback != null)
             {
                 _context.SolutionFeedbacks.Remove(feedback);
@@ -33,7 +33,7 @@ namespace RequestTrackerDALLibrary
             return feedback;
         }
 
-        public async Task<SolutionFeedback> Get(int key)
+        public async Task<SolutionFeedback> GetByKey(int key)
         {
             var feedback = await _context.SolutionFeedbacks.FindAsync(key);
             return feedback;
@@ -46,7 +46,7 @@ namespace RequestTrackerDALLibrary
 
         public async Task<SolutionFeedback> Update(SolutionFeedback entity)
         {
-            var feedback = await Get(entity.FeedbackId);
+            var feedback = await GetByKey(entity.FeedbackId);
             if (feedback != null)
             {
                 _context.Entry<SolutionFeedback>(entity).State = EntityState.Modified;

@@ -43,7 +43,7 @@ namespace RequestTrackerBLLibrary
         public async Task<ICollection<RequestSolution>> ViewSolutions(int requestId)
         {
          
-            var request = await _repository.Get(requestId);
+            var request = await _repository.GetByKey(requestId);
 
             if (request != null)
             {

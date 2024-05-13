@@ -20,7 +20,7 @@ namespace RequestTrackerBLLibrary
 
         public async Task MarkRequestAsClosed(int requestId)
         {
-            var request = await _requestRepository.Get(requestId);
+            var request = await _requestRepository.GetByKey(requestId);
             if (request != null)
             {
                 request.RequestStatus = "Closed";

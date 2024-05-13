@@ -23,9 +23,9 @@ namespace RequestTrackerDALLibrary
             return entity;
         }
 
-        public async Task<Request> Delete(int key)
+        public async Task<Request> DeleteByKey(int key)
         {
-            var request = await Get(key);
+            var request = await GetByKey(key);
             if (request != null)
             {
                 _context.Requests.Remove(request);
@@ -34,9 +34,11 @@ namespace RequestTrackerDALLibrary
             return request;
         }
 
-        public async Task<Request> Get(int key)
+        public async Task<Request> GetByKey(int key)
         {
-            var request = await _context.Requests.FindAsync(key);
+            var request = await _context.Requests.Include(r => r.RequestSolutions)
+        .FirstOrDefaultAsync(r => r.RequestNumber == key);
+
             return request;
         }
 
@@ -47,7 +49,7 @@ namespace RequestTrackerDALLibrary
 
         public async Task<Request> Update(Request entity)
         {
-            var request = await Get(entity.RequestNumber);
+            var request = await GetByKey(entity.RequestNumber);
             if (request != null)
             {
                 _context.Entry<Request>(entity).State = EntityState.Modified;

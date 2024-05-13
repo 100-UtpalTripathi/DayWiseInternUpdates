@@ -25,7 +25,7 @@ namespace RequestTrackerBLLibrary
         public async Task<bool> RespondToSolution(int requestId, string response)
         {
             
-            var requestSolution = await _repository.Get(requestId);
+            var requestSolution = await _repository.GetByKey(requestId);
             if (requestSolution == null)
             {
                 

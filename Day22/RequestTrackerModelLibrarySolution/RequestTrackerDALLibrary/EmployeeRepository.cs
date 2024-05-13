@@ -14,14 +14,15 @@ namespace RequestTrackerDALLibrary
         }
         public async Task<Employee> Add(Employee entity)
         {
+            
             _context.Employees.Add(entity);
             await _context.SaveChangesAsync();
             return entity;
         }
 
-        public async Task<Employee> Delete(int key)
+        public async Task<Employee> DeleteByKey(int key)
         {
-            var employee = await Get(key);
+            var employee = await GetByKey(key);
             if (employee != null)
             {
                 _context.Employees.Remove(employee);
@@ -30,7 +31,7 @@ namespace RequestTrackerDALLibrary
             return employee;
         }
 
-        public async Task<Employee> Get(int key)
+        public async Task<Employee> GetByKey(int key)
         {
             var employee = _context.Employees.SingleOrDefault(e => e.Id == key);
             return employee;
@@ -43,7 +44,7 @@ namespace RequestTrackerDALLibrary
 
         public async Task<Employee> Update(Employee entity)
         {
-            var employee = await Get(entity.Id);
+            var employee = await GetByKey(entity.Id);
             if (employee != null)
             {
                 _context.Entry<Employee>(entity).State = EntityState.Modified;
