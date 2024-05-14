@@ -1,0 +1,6 @@
+ClinicAPI
+
+Doctors
+   List Doctors
+   Update Doctor Experience
+   List doctor based on speciality
