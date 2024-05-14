@@ -24,7 +24,7 @@ namespace ClinicAPI.Services
             return doctors;
         }
 
-        public async Task UpdateDoctorExperience(int id, int years)  //updating doctor experience by taking id and years as input
+        public async Task<Doctor> UpdateDoctorExperience(int id, int years)  //updating doctor experience by taking id and years as input
         {
             var doctor = await _repository.GetByKey(id); //getting doctor by id
 
@@ -33,6 +33,8 @@ namespace ClinicAPI.Services
 
             doctor.ExperienceInYears = years;  // updating experience
             await _repository.Update(doctor);  //updating doctor
+
+            return doctor;
         }
 
         public async Task<IEnumerable<Doctor>> GetDoctorsBySpecialization(string specialization)

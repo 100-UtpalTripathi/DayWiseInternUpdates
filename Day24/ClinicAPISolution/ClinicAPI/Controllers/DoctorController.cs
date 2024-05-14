@@ -23,29 +23,26 @@ namespace ClinicAPI.Controllers
             try
             {
                 var doctors = await _doctorService.GetDoctors();
-                return Ok(doctors);
+                return Ok(doctors.ToList());
             }
-            catch (Exception ex)
+            catch (NoDoctorsFoundException ndfe)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+                return NotFound(ndfe.Message);
             }
         }
 
-        [HttpPut("{id}/experience")]
-        public async Task<IActionResult> UpdateDoctorExperience(int id, [FromBody] int years)
+        [HttpPut]
+        public async Task<ActionResult<Doctor>> UpdateDoctorExperience(int id, int years)
         {
             try
             {
-                await _doctorService.UpdateDoctorExperience(id, years);
-                return Ok("Doctor experience updated successfully.");
+                var doctor = await _doctorService.UpdateDoctorExperience(id, years);
+
+                return Ok(doctor);
             }
-            catch (NoSuchDoctorException)
+            catch (NoSuchDoctorException nsde)
             {
-                return NotFound("Doctor not found.");
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+                return NotFound(nsde.Message);
             }
         }
 

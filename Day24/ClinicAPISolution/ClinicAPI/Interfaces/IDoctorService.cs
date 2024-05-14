@@ -7,7 +7,7 @@ namespace ClinicAPI.Interfaces
     public interface IDoctorService
     {
         Task<IEnumerable<Doctor>> GetDoctors();
-        Task UpdateDoctorExperience(int id, int years);
+        Task<Doctor> UpdateDoctorExperience(int id, int years);
         Task<IEnumerable<Doctor>> GetDoctorsBySpecialization(string specialization);
     }
 }
