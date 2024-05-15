@@ -1,0 +1,22 @@
+1. 
+
+select top 1 city, len(city)
+from station
+order by len(city), city
+
+select top 1 city, len(city)
+from station
+order by len(city) desc, city
+
+2.
+select id, age, coins_needed, power
+from 
+(
+    select w.id, wp.age, w.coins_needed, w.power,
+    RANK() over(partition by wp.age, w.power order by w.coins_needed) as rank
+    from wands w
+    join wands_property wp on w.code = wp.code
+    where wp.is_evil = 0
+ ) tmp
+    where tmp.rank = 1
+    order by power desc, age desc;
