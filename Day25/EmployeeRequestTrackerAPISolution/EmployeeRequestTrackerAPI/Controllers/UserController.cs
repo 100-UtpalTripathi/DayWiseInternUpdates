@@ -1,6 +1,7 @@
 ﻿using EmployeeRequestTrackerAPI.Interfaces;
-using EmployeeRequestTrackerAPI.Models.DTOs;
 using EmployeeRequestTrackerAPI.Models;
+using EmployeeRequestTrackerAPI.Models.DTOs;
+using EmployeeRequestTrackerAPI.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,9 +17,9 @@ namespace EmployeeRequestTrackerAPI.Controllers
             _userService = userService;
         }
         [HttpPost("Login")]
-        [ProducesResponseType(typeof(Employee), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(LoginReturnDTO), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ErrorModel), StatusCodes.Status401Unauthorized)]
-        public async Task<ActionResult<Employee>> Login(UserLoginDTO userLoginDTO)
+        public async Task<ActionResult<LoginReturnDTO>> Login(UserLoginDTO userLoginDTO)
         {
             try
             {

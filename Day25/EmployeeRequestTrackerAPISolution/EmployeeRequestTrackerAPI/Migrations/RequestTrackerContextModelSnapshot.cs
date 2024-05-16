@@ -45,6 +45,10 @@ namespace EmployeeRequestTrackerAPI.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Role")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.ToTable("Employees");
@@ -56,7 +60,8 @@ namespace EmployeeRequestTrackerAPI.Migrations
                             DateOfBirth = new DateTime(2000, 2, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Image = "",
                             Name = "Ramu",
-                            Phone = "9876543321"
+                            Phone = "9876543321",
+                            Role = "Admin"
                         },
                         new
                         {
@@ -64,7 +69,8 @@ namespace EmployeeRequestTrackerAPI.Migrations
                             DateOfBirth = new DateTime(2002, 3, 24, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Image = "",
                             Name = "Somu",
-                            Phone = "9988776655"
+                            Phone = "9988776655",
+                            Role = "Admin"
                         });
                 });
 
