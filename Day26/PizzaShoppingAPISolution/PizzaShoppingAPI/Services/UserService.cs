@@ -55,26 +55,29 @@ namespace PizzaShoppingAPI.Services
             return true;
         }
 
-        public async Task<Customer> Register(CustomerUserDTO CustomerDTO)
+        public async Task<Customer> Register(CustomerUserDTO customerDTO)
         {
-            Customer Customer = null;
+            Customer customer = null;
             User user = null;
             try
             {
-                Customer = CustomerDTO;
-                user = MapCustomerUserDTOToUser(CustomerDTO);
-                Customer = await _CustomerRepo.Add(Customer);
-                user.CustomerId = Customer.Id;
-                user = await _userRepo.Add(user);
-                ((CustomerUserDTO)Customer).Password = string.Empty;
+                customer = MapToCustomer(customerDTO);
+                user = MapCustomerUserDTOToUser(customerDTO);
+                customer = await _CustomerRepo.Add(customer);
 
-                return Customer;
+                user.CustomerId = customer.Id;
+
+                user = await _userRepo.Add(user);
+
+                return customer;
             }
             catch (Exception) { }
-            if (Customer != null)
-                await RevertCustomerInsert(Customer);
-            if (user != null && Customer == null)
+            if (customer != null)
+                await RevertCustomerInsert(customer);
+
+            if (user != null && customer == null)
                 await RevertUserInsert(user);
+
             throw new UnableToRegisterException("Not able to register at this moment");
         }
 
@@ -101,12 +104,23 @@ namespace PizzaShoppingAPI.Services
         private User MapCustomerUserDTOToUser(CustomerUserDTO CustomerDTO)
         {
             User user = new User();
-            user.CustomerId = CustomerDTO.Id;
             user.Status = "Disabled";
             HMACSHA512 hMACSHA = new HMACSHA512();
             user.PasswordHashKey = hMACSHA.Key;
             user.Password = hMACSHA.ComputeHash(Encoding.UTF8.GetBytes(CustomerDTO.Password));
             return user;
+        }
+
+        public static Customer MapToCustomer(CustomerUserDTO customerDTO)
+        {
+            return new Customer
+            {
+                Name = customerDTO.Name,
+                DateOfBirth = customerDTO.DateOfBirth,
+                Phone = customerDTO.Phone,
+                Image = customerDTO.Image,
+                Role = customerDTO.Role
+            };
         }
     }
 }
