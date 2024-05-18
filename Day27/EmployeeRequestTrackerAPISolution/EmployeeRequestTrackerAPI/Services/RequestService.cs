@@ -1,16 +1,20 @@
-﻿using RequestTrackerModelLibrary;
-using RequestTrackerDALLibrary;
+﻿using EmployeeRequestTrackerAPI.Contexts;
+using EmployeeRequestTrackerAPI.Interfaces;
+using EmployeeRequestTrackerAPI.Models;
+using EmployeeRequestTrackerAPI.Repositories;
+using Microsoft.EntityFrameworkCore;
 
-
-namespace RequestTrackerBLLibrary
+namespace EmployeeRequestTrackerAPI.Services
 {
     public class RequestService : IRequestService
     {
         private readonly IRepository<int, Request> _repository;
-        public RequestService()
+        private readonly IRepository<int, Employee> _employeeRepository;
+
+        public RequestService(IRepository<int, Request> repository, IRepository<int, Employee> employeeRepository)
         {
-            IRepository<int, Request> repo = new RequestRepository(new RequestTrackerContext());
-            _repository = repo;
+            _repository = repository;
+            _employeeRepository = employeeRepository;
         }
 
         public async Task<Request> RaiseRequest(Request request)
@@ -19,27 +23,29 @@ namespace RequestTrackerBLLibrary
             return addedRequest;
         }
 
-        public async Task<ICollection<Request>> ViewRequestStatus(Employee employee)
+        public async Task<IEnumerable<Request>> ViewOpenRequests(int id)
         {
-            ICollection<Request> requests;
+            IEnumerable<Request> requests;
+            var employee = await _employeeRepository.GetByKey(id);
 
             // If the user is an admin, view all requests
             if (employee.Role == "Admin")
             {
-                requests = await _repository.GetAll();
+                requests = await _repository.Get();
             }
             else // For normal users, view only their requests
             {
-                requests = await _repository.GetAll();
+                requests = await _repository.Get();
                 requests = requests.Where(r => r.RequestRaisedBy == employee.Id).ToList();
             }
-
+            requests = requests.Where(r => r.RequestStatus == "Open").ToList();
+            requests = requests.OrderBy(r => r.RequestDate);
             return requests;
         }
 
         public async Task<ICollection<RequestSolution>> ViewSolutions(int requestId)
         {
-         
+
             var request = await _repository.GetByKey(requestId);
 
             if (request != null)
