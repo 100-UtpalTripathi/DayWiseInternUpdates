@@ -62,20 +62,23 @@ namespace EmployeeRequestTrackerAPI.Services
             User user = null;
             try
             {
-                employee = employeeDTO;
+                employee = MapToEmployee(employeeDTO);
                 user = MapEmployeeUserDTOToUser(employeeDTO);
                 employee = await _employeeRepo.Add(employee);
+
                 user.EmployeeId = employee.Id;
+
                 user = await _userRepo.Add(user);
-                ((EmployeeUserDTO)employee).Password = string.Empty;
 
                 return employee;
             }
             catch (Exception) { }
             if (employee != null)
                 await RevertEmployeeInsert(employee);
+
             if (user != null && employee == null)
                 await RevertUserInsert(user);
+
             throw new UnableToRegisterException("Not able to register at this moment");
         }
 
@@ -102,7 +105,6 @@ namespace EmployeeRequestTrackerAPI.Services
         private User MapEmployeeUserDTOToUser(EmployeeUserDTO employeeDTO)
         {
             User user = new User();
-            user.EmployeeId = employeeDTO.Id;
             user.Status = "Disabled";
             HMACSHA512 hMACSHA = new HMACSHA512();
             user.PasswordHashKey = hMACSHA.Key;
@@ -160,6 +162,18 @@ namespace EmployeeRequestTrackerAPI.Services
             {
                 throw new Exception("Unable to activate user at this moment.", ex);
             }
+        }
+
+        public static Employee MapToEmployee(EmployeeUserDTO customerDTO)
+        {
+            return new Employee
+            {
+                Name = customerDTO.Name,
+                DateOfBirth = customerDTO.DateOfBirth,
+                Phone = customerDTO.Phone,
+                Image = customerDTO.Image,
+                Role = customerDTO.Role
+            };
         }
     }
 }
