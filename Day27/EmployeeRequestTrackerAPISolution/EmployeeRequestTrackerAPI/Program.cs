@@ -9,8 +9,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Text;
-using System.Diagnostics;
-using Microsoft.AspNetCore.Mvc.NewtonsoftJson;
 
 namespace EmployeeRequestTrackerAPI
 {
@@ -32,6 +30,8 @@ namespace EmployeeRequestTrackerAPI
 
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
+            builder.Services.AddLogging(l => l.AddLog4Net());
+
 
             builder.Services.AddSwaggerGen(option =>
             {

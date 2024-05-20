@@ -18,10 +18,12 @@ namespace EmployeeRequestTrackerAPI.Controllers
     public class RequestController : ControllerBase
     {
         private readonly IRequestService _requestService;
+        private readonly ILogger<RequestController> _logger;
 
-        public RequestController(IRequestService requestService)
+        public RequestController(IRequestService requestService, ILogger<RequestController> logger)
         {
             _requestService = requestService;
+            _logger = logger;
         }
 
         [Authorize]
@@ -33,6 +35,7 @@ namespace EmployeeRequestTrackerAPI.Controllers
                 var employeeId = User.FindFirstValue("eid");
                 if (employeeId == null)
                 {
+                    _logger.LogError("User is not logged in.");
                     throw new NotLoggedInException("User is not logged in.");
                 }
 
@@ -49,10 +52,12 @@ namespace EmployeeRequestTrackerAPI.Controllers
             }
             catch (NotLoggedInException ex)
             {
+                _logger.LogError("User is not logged in.");
                 return Unauthorized(new ErrorModel(401, ex.Message));
             }
             catch (Exception ex)
             {
+                _logger.LogError(ex.Message);
                 return StatusCode(500, new ErrorModel(500, ex.Message));
             }
         }
@@ -68,6 +73,7 @@ namespace EmployeeRequestTrackerAPI.Controllers
                 var employeeId = User.FindFirstValue("eid");
                 if (employeeId == null)
                 {
+                    _logger.LogError("User is not logged in.");
                     throw new NotLoggedInException("User is not logged in.");
                 }
 
@@ -76,14 +82,17 @@ namespace EmployeeRequestTrackerAPI.Controllers
             }
             catch (NotLoggedInException ex)
             {
+                _logger.LogError("User is not logged in.");
                 return Unauthorized(new ErrorModel(401, ex.Message));
             }
             catch (NoRequestsFoundException ex)
             {
+                _logger.LogError(ex.Message);
                 return NotFound(new ErrorModel(404, ex.Message));
             }
             catch (Exception ex)
             {
+                _logger.LogError(ex.Message);
                 return StatusCode(500, new ErrorModel(500, ex.Message));
             }
         }

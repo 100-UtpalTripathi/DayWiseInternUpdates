@@ -13,9 +13,11 @@ namespace EmployeeRequestTrackerAPI.Controllers
     public class UserController : ControllerBase
     {
         private readonly IUserService _userService;
-        public UserController(IUserService userService)
+        private readonly ILogger<UserController> _logger;
+        public UserController(IUserService userService, ILogger<UserController> logger)
         {
             _userService = userService;
+            _logger = logger;
         }
         [HttpPost("Login")]
         [ProducesResponseType(typeof(LoginReturnDTO), StatusCodes.Status200OK)]
@@ -29,6 +31,7 @@ namespace EmployeeRequestTrackerAPI.Controllers
             }
             catch (Exception ex)
             {
+                _logger.LogError(ex.Message);
                 return Unauthorized(new ErrorModel(401, ex.Message));
             }
         }
@@ -44,7 +47,8 @@ namespace EmployeeRequestTrackerAPI.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest(new ErrorModel(501, ex.Message));
+                _logger.LogError(ex.Message);
+                return BadRequest(new ErrorModel(400, ex.Message));
             }
         }
 
@@ -59,6 +63,7 @@ namespace EmployeeRequestTrackerAPI.Controllers
             }
             catch (Exception ex)
             {
+                _logger.LogError(ex.Message);
                 return BadRequest(new ErrorModel(400, ex.Message));
             }
             
