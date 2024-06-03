@@ -1,11 +1,11 @@
-﻿using Microsoft.IdentityModel.Tokens;
-using PizzaShoppingAPI.Interfaces;
+﻿using EmployeeRequestTrackerAPI.Interfaces;
+using EmployeeRequestTrackerAPI.Models;
+using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
-using PizzaShoppingAPI.Models;
 
-namespace PizzaShoppingAPI.Services
+namespace EmployeeRequestTrackerAPI.Services
 {
     public class TokenService : ITokenService
     {
@@ -17,12 +17,12 @@ namespace PizzaShoppingAPI.Services
             _secretKey = configuration.GetSection("TokenKey").GetSection("JWT").Value.ToString();
             _key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_secretKey));
         }
-        public string GenerateToken(Customer Customer)
+        public string GenerateToken(Employee employee)
         {
             string token = string.Empty;
             var claims = new List<Claim>(){
-                new Claim("eid",Customer.Id.ToString()),
-                new Claim(ClaimTypes.Role, Customer.Role)
+                new Claim("eid",employee.Id.ToString()),
+                new Claim(ClaimTypes.Role,employee.Role)
             };
             var credentials = new SigningCredentials(_key, SecurityAlgorithms.HmacSha256);
             var myToken = new JwtSecurityToken(null, null, claims, expires: DateTime.Now.AddDays(2), signingCredentials: credentials);

@@ -18,7 +18,9 @@ namespace PizzaShoppingAPI.Controllers
         {
             _pizzaService = pizzaService;
         }
-        [Authorize]
+
+
+        [Authorize(Roles = "Admin")]
         [HttpGet("in-stock")]
         [ProducesResponseType(typeof(IList<Pizza>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ErrorModel), StatusCodes.Status404NotFound)]
