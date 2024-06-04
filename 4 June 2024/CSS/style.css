@@ -7,7 +7,7 @@ body {
 }
 
 .container {
-    width: 80%;
+    width: 85%;
     margin: auto;
     overflow: hidden;
 }
@@ -28,12 +28,12 @@ h1 {
     font-size: 16px;
 }
 
-header ul {
+header ul.navbar {
     padding: 0;
     list-style: none;
 }
 
-header li {
+header ul.navbar li {
     display: inline;
     padding: 0 20px 0 20px;
 }
@@ -43,7 +43,7 @@ header #branding {
 }
 
 header nav {
-    float: right;
+    float: left;
     margin-top: 10px;
 }
 
@@ -80,21 +80,14 @@ th {
 }
 
 ul {
-    list-style: none;
+    list-style: circle;
     padding: 0;
+    margin-left: 10px;
 }
 
 ul li {
-    margin: 5px 0;
+    margin: 5px 0px;
     padding: 10px;
-    
-}
-
-iframe {
-    border: none;
-    width: 100%;
-    height: 400px;
-    margin-top: 20px;
 }
 
 .contact-info {
@@ -105,4 +98,20 @@ iframe {
 
 .contact-info p {
     margin: 5px 0;
+}
+
+.certifications {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.certifications img {
+    width: 30%;
+    height: auto;
+    margin-bottom: 10px;
+}
+
+#achievements ul li {
+    list-style: circle;
 }
