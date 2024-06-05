@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ABC Corp. Home</title>
+    <link rel="stylesheet" href="styles.css" />
+
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f4f4f4;
+        color: #333;
+      }
+
+      header {
+        background-color: #003028;
+        color: white;
+        padding: 20px 0;
+        text-align: center;
+        border-bottom: 3px solid #e8491d;
+      }
+
+      header h1 {
+        margin: 0;
+        font-size: 2em;
+      }
+
+      nav {
+        background-color: #004d40;
+        padding: 10px 0;
+        text-align: center;
+      }
+
+      nav span a {
+        color: white;
+        text-decoration: none;
+        margin: 0 15px;
+        font-weight: bold;
+      }
+
+      nav span a:hover {
+        color: #e8491d;
+      }
+
+      section {
+        padding: 20px;
+        text-align: center;
+      }
+
+      iframe {
+        border: none;
+        width: 100%;
+        height: 800px;
+      }
+
+      @media (max-width: 768px) {
+        iframe {
+          height: 600px;
+        }
+      }
+
+      @media (max-width: 480px) {
+        nav span a {
+          display: block;
+          margin: 10px 0;
+        }
+
+        iframe {
+          height: 400px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>ABC Corp</h1>
+    </header>
+    <nav>
+      <span><a href="Home.html" target="main">Home</a></span
+      >&nbsp;&nbsp;|&nbsp;&nbsp;
+      <span><a href="Employees.html" target="main">Employees</a></span
+      >&nbsp;&nbsp;|&nbsp;&nbsp;
+      <span><a href="AddEmployee.html" target="main">Register</a></span
+      >&nbsp;&nbsp;|&nbsp;&nbsp;
+    </nav>
+    <section>
+      <iframe name="main" src="Home.html" height="800" width="100%"></iframe>
+    </section>
+  </body>
+</html>

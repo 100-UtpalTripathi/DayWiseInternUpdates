@@ -1,0 +1,230 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+.container {
+    width: 85%;
+    margin: auto;
+    overflow: hidden;
+}
+
+header {
+    background: #003028;
+    color: #fff;
+    padding-top: 30px;
+    min-height: 70px;
+    border-bottom: #e8491d 3px solid;
+}
+
+header a,
+h1 {
+    color: #fff;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: 16px;
+}
+
+header ul.navbar {
+    padding: 0;
+    list-style: none;
+}
+
+header ul.navbar li {
+    display: inline;
+    padding: 0 20px 0 20px;
+}
+
+header #branding {
+    float: left;
+}
+
+header nav {
+    float: left;
+    margin-top: 10px;
+}
+
+.profile-photo {
+    border-radius: 50%;
+    height: 170px;
+    width: 140px;
+}
+
+.main-content {
+    background: #fff;
+    padding: 20px;
+    margin-top: 20px;
+}
+
+h2 {
+    border-bottom: 2px solid #e8491d;
+    padding-bottom: 10px;
+}
+
+.table-container {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+th, td {
+    padding: 10px;
+    border: 1px solid #ddd;
+}
+
+th {
+    background-color: #f4f4f4;
+}
+
+ul {
+    list-style: circle;
+    padding: 0;
+    margin-left: 10px;
+}
+
+ul li {
+    margin: 5px 0px;
+    padding: 10px;
+}
+
+.contact-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.contact-info p {
+    margin: 5px 0;
+}
+
+.certifications {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.certifications img {
+    width: 30%;
+    height: auto;
+    margin-bottom: 10px;
+}
+
+#achievements ul li {
+    list-style: circle;
+}
+
+                                    /* Media Queries */
+
+
+@media (max-width: 1024px) {
+    .container {
+        width: 90%;
+    }
+    
+    header nav {
+        float: none;
+        text-align: center;
+    }
+    
+    header ul.navbar li {
+        padding: 0 10px;
+    }
+    
+    .contact-info {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+    
+    .profile-photo {
+        height: 150px;
+        width: 120px;
+    }
+}
+
+@media (max-width: 768px) {
+    .container {
+        width: 95%;
+    }
+    
+    header {
+        text-align: center;
+    }
+    
+    header #branding,
+    header nav {
+        float: none;
+    }
+    
+    header ul.navbar {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    header ul.navbar li {
+        padding: 10px 0;
+    }
+    
+    .profile-photo {
+        height: 120px;
+        width: 100px;
+    }
+    
+    .certifications img {
+        width: 45%;
+    }
+    
+    table th,
+    table td {
+        padding: 8px;
+    }
+}
+
+@media (max-width: 480px) {
+    header {
+        padding-top: 20px;
+    }
+    
+    .main-content {
+        padding: 10px;
+    }
+    
+    h2 {
+        font-size: 18px;
+        padding-bottom: 5px;
+    }
+    
+    .contact-info {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+    
+    .contact-info p {
+        margin: 3px 0;
+    }
+    
+    .profile-photo {
+        height: 100px;
+        width: 80px;
+    }
+    
+    table th,
+    table td {
+        font-size: 14px;
+        padding: 5px;
+    }
+    
+    .certifications img {
+        width: 100%;
+        margin-bottom: 5px;
+    }
+}
