@@ -1,89 +1,206 @@
 body {
-    background: linear-gradient(to top left, #007bff 50%, white 50%);
-    height: 100vh;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: flex-start;
-  }
+  background: linear-gradient(to top left, #007bff 50%, white 50%);
+  height: 100vh;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
 
+.header {
+  font-size: 3rem;
+  font-weight: bold;
+  margin: 15px 30px;
+  width: 40%;
+  line-height: 1.1;
+}
+
+.device-list {
+  font-weight: bold;
+  margin: 30px;
+  line-height: 1.2;
+}
+
+.device-list:hover {
+  text-decoration: underline;
+  text-decoration-color: blue;
+  text-decoration-thickness: 2px;
+}
+
+.images-container img {
+  width: 180px;
+  height: 400px;
+  position: absolute;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Adding box shadow */
+  transition: border-color 0.3s ease; /* For Smooth transition for border color */
+}
+
+/* Adding blue border on hover */
+.images-container img:hover {
+  border: 2px solid blue;
+}
+
+#img-1 {
+  bottom: 30px;
+  right: 300px;
+  z-index: 1;
+}
+
+#img-2 {
+  bottom: 70px;
+  right: 270px;
+  transition: z-index 0.3s ease, transform 0.3s ease;
+}
+
+#img-2:hover {
+  z-index: 1;
+}
+
+#img-3 {
+  z-index: 1;
+  bottom: 30px;
+  right: 70px;
+}
+
+#img-4 {
+  bottom: 70px;
+  right: 40px;
+  transition: z-index 0.3s ease, transform 0.3s ease; /* Add transition for z-index and transform */
+}
+
+#img-4:hover {
+  z-index: 1;
+}
+
+span#h1 {
+  color: blue;
+  font-weight: bolder;
+}
+
+span#h2 {
+  color: black;
+}
+
+span#h3 {
+  font-weight: 600;
+  color: black;
+}
+
+.header:hover {
+  text-decoration: underline;
+  text-decoration-color: blue;
+  text-decoration-thickness: 2px;
+}
+
+ul.list-styled {
+  margin: 0px 30px;
+  padding: 0;
+  font-size: 1.5rem;
+  font-weight: bolder;
+}
+
+                                       /* Media Queries */
+@media (max-width: 1200px) {
   .header {
-    font-size: 3rem;
-    font-weight: bold;
-    margin: 15px 30px;
-    width: 40%;
-    line-height: 1.1;
-  }
-
-  .device-list {
-    font-weight: bold;
-    margin: 30px;
-    line-height: 1.2;
-  }
-  .device-list:hover {
-    text-decoration: underline;
-    text-decoration-color: blue;
-    text-decoration-thickness: 2px;
+    font-size: 2.5rem;
+    width: 50%;
   }
 
   .images-container img {
-    width: 180px;
-    height: 400px;
-    position: absolute;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Adding box shadow */
-    transition: border-color 0.3s ease; /* For Smooth transition for border color */
-  }
-
-  /* Adding blue border on hover */
-  .images-container img:hover {
-    border: 2px solid blue;
+    width: 150px;
+    height: 300px;
   }
 
   #img-1 {
-    bottom: 30px;
-    right: 300px;
-    z-index: 1;
+    right: 250px;
   }
 
   #img-2 {
-    bottom: 70px;
-    right: 270px;
+    right: 220px;
   }
 
- 
-
   #img-3 {
-    z-index: 1;
-    bottom: 30px;
-    right: 70px;
+    right: 50px;
   }
 
   #img-4 {
-    bottom: 70px;
-    right: 40px;
+    right: 20px;
+  }
+}
+
+@media (max-width: 992px) {
+  .header {
+    font-size: 2rem;
+    width: 60%;
   }
 
-  span#h1 {
-    color: blue;
-    font-weight: bolder;
-  }
-  span#h2 {
-    color: black;
-  }
-  span#h3 {
-    font-weight: 600;
-    color: black;
-  }
-  .header:hover {
-    text-decoration: underline;
-    text-decoration-color: blue;
-    text-decoration-thickness: 2px;
+  .images-container img {
+    width: 120px;
+    height: 250px;
   }
 
-  ul.list-styled {
-    margin: 0px 30px;
-    padding: 0;
+  #img-1 {
+    right: 200px;
+  }
+
+  #img-2 {
+    right: 170px;
+  }
+
+  #img-3 {
+    right: 30px;
+  }
+
+  #img-4 {
+    right: 0px;
+  }
+}
+
+@media (max-width: 768px) {
+  body {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .header {
     font-size: 1.5rem;
-    font-weight: bolder;
+    width: 80%;
+    text-align: center;
   }
+
+  .device-list {
+    margin: 20px;
+    text-align: center;
+  }
+
+  .images-container {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+  }
+
+  .images-container img {
+    width: 100px;
+    height: 200px;
+    position: static;
+  }
+}
+
+@media (max-width: 576px) {
+  .header {
+    font-size: 1.2rem;
+    width: 100%;
+  }
+
+  .device-list {
+    font-size: 1rem;
+  }
+
+  .images-container img {
+    width: 80px;
+    height: 150px;
+  }
+}
