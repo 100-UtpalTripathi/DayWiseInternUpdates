@@ -27,10 +27,12 @@ body {
   }
   
   tbody tr td.description {
-    white-space: nowrap;
+    white-space: normal;
     max-width: 140px;
     overflow: hidden;
     text-overflow: ellipsis;
+
+    
   }
   
   .header-content {
