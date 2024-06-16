@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Registration Page</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="index.css" />
+    
+  </head>
+
+  <body>
+    <div class="container mt-5">
+      <h2>Registration Form</h2>
+      <form id="registrationForm">
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input
+            type="text"
+            class="form-control"
+            id="name"
+            required
+            onblur="validateName()"
+          />
+          <div id="nameError" class="error-message"></div>
+        </div>
+        <div class="form-group">
+          <label for="phone">Phone</label>
+          <input
+            type="number"
+            class="form-control"
+            id="phone"
+            required
+            min="1000000000"
+            max="9999999999"
+            onblur="validatePhone()"
+          />
+          <div id="phoneError" class="error-message"></div>
+        </div>
+        <div class="form-group">
+          <label for="dob">Date of Birth</label>
+          <input
+            type="date"
+            class="form-control"
+            id="dob"
+            required
+            onblur="validateDOB()"
+            max=""
+          />
+          <div id="dobError" class="error-message"></div>
+        </div>
+        <div class="form-group">
+          <label for="age">Age</label>
+          <input type="number" class="form-control" id="age" readonly />
+        </div>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input
+            type="email"
+            class="form-control"
+            id="email"
+            required
+            onblur="validateEmail()"
+          />
+          <div id="emailError" class="error-message"></div>
+        </div>
+        <div class="form-group">
+          <label>Gender</label><br />
+          <div class="form-check form-check-inline">
+            <input
+              class="form-check-input"
+              type="radio"
+              name="gender"
+              id="genderMale"
+              value="Male"
+              required
+            />
+            <label class="form-check-label" for="genderMale">Male</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input
+              class="form-check-input"
+              type="radio"
+              name="gender"
+              id="genderFemale"
+              value="Female"
+            />
+            <label class="form-check-label" for="genderFemale">Female</label>
+          </div>
+          <div id="genderError" class="error-message"></div>
+        </div>
+        <div class="form-group">
+          <label>Qualification</label><br />
+          <div class="form-check form-check-inline">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              id="qualification1"
+              value="High School"
+            />
+            <label class="form-check-label" for="qualification1"
+              >High School</label
+            >
+          </div>
+          <div class="form-check form-check-inline">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              id="qualification2"
+              value="Bachelor's"
+            />
+            <label class="form-check-label" for="qualification2"
+              >Bachelor's</label
+            >
+          </div>
+          <div class="form-check form-check-inline">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              id="qualification3"
+              value="Master's"
+            />
+            <label class="form-check-label" for="qualification3">Master's</label>
+          </div>
+          <div id="qualificationError" class="error-message"></div>
+        </div>
+        <div class="form-group">
+          <label for="profession">Profession</label>
+          <input
+            list="professions"
+            class="form-control"
+            id="profession"
+            required
+            onblur="validateProfession()"
+          />
+          <datalist id="professions">
+            <!-- Predefined values loaded from an array in JavaScript -->
+          </datalist>
+          <div id="professionError" class="error-message"></div>
+        </div>
+        <div id="consolidatedError" class="error-message"></div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
+    </div>
+
+    <script src="index.js"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>
