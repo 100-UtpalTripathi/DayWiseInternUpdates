@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product List</title>
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+
+    <h1>Product List</h1>
+
+    <div class="form">
+        <form id="productForm">
+            <label for="productName">Product Name: <span id="nameError"></span></label>
+            <input type="text" id="productName" name="productName">
+            <br><br>
+            <label for="productCategory">Category: <span id="categoryError"></span></label>
+            <input type="text" id="productCategory" name="productCategory">
+            <br><br>
+            <label for="productPrice">Price: <span id="priceError"></span></label>
+            <input type="number" id="productPrice" name="productPrice">
+            <br><br>
+            <label for="productQuantity">Quantity: <span id="quantityError"></span></label>
+            <input type="number" id="productQuantity" name="productQuantity">
+            <br><br>
+            <button type="submit">Add Product</button>
+        </form>
+    </div>
+
+    <table id="productTable">
+        <thead>
+            <tr>
+                <th>Product Id</th>
+                <th>Product Name</th>
+                <th>Category</th>
+                <th>Quantity</th>
+                <th>Price</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Product rows will be added here -->
+        </tbody>
+    </table>
+
+    <div id="toast" class="toast">
+        <span class="close">&times;</span>
+        Product added successfully!
+    </div>
+
+    <script src="index.js"></script>
+    
+</body>
+</html>
