@@ -9,13 +9,20 @@ function showHome() {
 }
 
 
-// Function to show Quotes content with pagination and search
+// Function to show Quotes content with pagination, search, and sorting
 function showQuotes() {
     document.getElementById("content").innerHTML = `
           <div class="mt-3">
               <div class="input-group mb-3">
                   <input type="text" id="search-input" class="form-control" placeholder="Search by author" aria-label="Search by author" aria-describedby="search-button">
                   <button class="btn btn-outline-secondary" type="button" id="search-button">Search</button>
+              </div>
+              <div class="input-group mb-3">
+                  <label class="input-group-text" for="sort-select">Sort by:</label>
+                  <select class="form-select" id="sort-select">
+                      <option value="asc">Author (A-Z)</option>
+                      <option value="desc">Author (Z-A)</option>
+                  </select>
               </div>
               <div id="quotes-container" class="row"></div>
               <nav>
@@ -25,6 +32,7 @@ function showQuotes() {
       `;
     fetchQuotes();
   }
+  
   
 
   const apiUrl = "https://dummyjson.com/quotes";
@@ -42,8 +50,9 @@ function showQuotes() {
       const data = await response.json();
   
       quotes = data.quotes;
-      filteredQuotes = quotes;
+      filteredQuotes = [...quotes]; // Make a copy for filtering and sorting
   
+      applyFilters(); // Apply initial filters and sorting
       displayQuotes();
       setupPagination();
   
@@ -51,6 +60,22 @@ function showQuotes() {
       console.error("Error fetching quotes:", error);
     }
   }
+  
+
+  // Function to apply filters and sorting
+  function applyFilters() {
+    filterQuotes(); // Apply current search filter
+  
+    const sortSelect = document.getElementById("sort-select");
+    const sortOption = sortSelect.value;
+  
+    if (sortOption === "asc") {
+      filteredQuotes.sort((a, b) => a.author.localeCompare(b.author));
+    } else if (sortOption === "desc") {
+      filteredQuotes.sort((a, b) => b.author.localeCompare(a.author));
+    }
+  }
+  
   
   function displayQuotes() {
     const quotesContainer = document.getElementById("quotes-container");
@@ -126,4 +151,13 @@ function showQuotes() {
       filterQuotes();
     }
   });
+
+  document.addEventListener("change", (event) => {
+    if (event.target && event.target.id === 'sort-select') {
+      applyFilters();
+      displayQuotes();
+      setupPagination();
+    }
+  });
+  
   

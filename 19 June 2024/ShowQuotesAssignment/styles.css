@@ -72,4 +72,8 @@ body {
       opacity: 1;
     }
   }
+
+  #search-button {
+    margin-left: 10px;
+  }
   
