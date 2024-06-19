@@ -1,0 +1,75 @@
+body {
+    background-color: #121212;
+    color: #ffffff;
+    box-sizing: border-box;
+    margin: 0px;
+    padding: 0px;
+  }
+  
+  .navbar {
+    margin-bottom: 30px;
+  }
+  
+  .navbar-nav {
+    margin-left: auto;
+    margin-right: 40px;
+    font-size: 20px;
+  }
+  
+  .navbar-brand,
+  .nav-link {
+    color: #ffffff !important;
+    margin-left: 20px;
+    transition: color 0.5s ease;
+    
+  }
+
+  .navbar-brand {
+    font-size: 30px;
+  }
+  
+  .nav-link:hover {
+    color: #25037a !important; /* Change color on hover */
+    font-weight: bolder;
+  }
+  
+  .lead {
+    color: #aaaaaa;
+  }
+  
+  .quote-card {
+    background-color: #1f1f1f;
+    border: 1px solid #333333;
+    border-radius: 5px;
+    padding: 15px;
+    margin-bottom: 15px;
+    width: 100%;
+    
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .quote-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+  }
+  
+  .quote-text {
+    font-size: 1.2em;
+    margin-bottom: 10px;
+    opacity: 0;
+    animation: fadeIn 0.5s forwards;
+  }
+  
+  .quote-author {
+    text-align: right;
+    font-style: italic;
+    opacity: 0;
+    animation: fadeIn 0.5s 0.5s forwards; /* Delay for a staggered effect */
+  }
+  
+  @keyframes fadeIn {
+    to {
+      opacity: 1;
+    }
+  }
+  
