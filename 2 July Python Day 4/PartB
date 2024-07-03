@@ -1,0 +1,162 @@
+
+1. 
+# Read the number of available sizes
+n = int(input())
+
+# Read the sizes into the frequency dictionary
+sizes = list(map(int, input().split()))
+freq = {}
+for size in sizes:
+    if size in freq:
+        freq[size] += 1
+    else:
+        freq[size] = 1
+
+# Read the number of customers
+k = int(input())
+ans = 0
+
+# Process each customer's request
+for _ in range(k):
+    size, price = map(int, input().split())
+    
+    # Check if the requested size is available and update the total revenue
+    if size in freq and freq[size] > 0:
+        ans += price
+        freq[size] -= 1
+
+# Print the total revenue
+print(ans)
+
+2.
+def merge_the_tools(string, k):
+    # Iterate over the string in steps of k
+    for i in range(0, len(string), k):
+        temp = ""
+        seen = set()
+        # Iterate over each character in the current substring
+        for j in range(i, i + k):
+            if string[j] not in seen:
+                temp += string[j]
+                seen.add(string[j])
+        print(temp)
+
+3.
+import math
+import os
+import random
+import re
+import sys
+from collections import Counter
+
+
+if __name__ == '__main__':
+    s = input()
+    freq = Counter(s)
+    
+    # Sort the characters first by frequency (descending) then by alphabetical order (ascending)
+    sorted_chars = sorted(freq.items(), key=lambda item: (-item[1], item[0]))
+    
+    # Print the top three most common characters with their counts
+    for char, count in sorted_chars[:3]:
+        print(f"{char} {count}")
+
+4.
+#!/bin/python3
+
+import math
+import os
+import random
+import re
+import sys
+
+
+
+if __name__ == '__main__':
+    n = int(input().strip())
+    if (n & 1):
+        print("Weird")
+    elif (n >= 2 and n <= 5):
+        print("Not Weird")
+    elif (n >= 6 and n <= 20):
+        print("Weird")
+    else:
+        print("Not Weird")
+
+5.
+if __name__ == '__main__':
+    a = int(input())
+    b = int(input())
+    
+    print(a + b)
+    print(a - b)
+    print(a * b)
+
+6.
+if __name__ == '__main__':
+    a = int(input())
+    b = int(input())
+    
+    print(a // b)
+    print(a / b)
+
+7.
+if __name__ == '__main__':
+    n = int(input())
+    
+    for i in range(0, n):
+        print(i * i)
+
+8.
+def is_leap(year):
+
+    
+    if year % 400 == 0:
+        return True
+    if year % 100 == 0:
+        return False
+    if year % 4 == 0:
+        return True
+    return False
+    
+    
+
+year = int(input())
+print(is_leap(year))
+
+9.
+if __name__ == '__main__':
+    n = int(input())
+    
+    for i in range(1, n + 1):
+        print(i, end = "")
+
+10.
+if __name__ == '__main__':
+    x = int(input())
+    y = int(input())
+    z = int(input())
+    n = int(input())
+    
+    # Generate the list of coordinates as lists
+    coordinates = [[i, j, k] for i in range(x + 1) for j in range(y + 1) for k in range(z + 1) if i + j + k != n]
+
+# Print the result
+    print(coordinates)  
+
+11. 
+if __name__ == '__main__':
+    n = int(input())
+    arr = map(int, input().split())
+    
+    maxi = -101
+    ans = -101
+    
+    for num in arr:
+        if num > maxi:
+            ans = maxi
+            maxi = num
+        elif num > ans and num != maxi:
+            ans = num
+            
+    print(ans)
