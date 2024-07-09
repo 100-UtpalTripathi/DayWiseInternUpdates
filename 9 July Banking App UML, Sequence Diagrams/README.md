@@ -1,34 +1,34 @@
 ## Banking System Class Diagram
  
-![](./assets/BankingSystem.drawio.png)
+![](./BankingSystem.drawio.png)
  
 ## Sequence Diagram
  
 <details>
 <summary> Transaction</summary>
  
-![](./assets/Transaction.png)
+![](./Transaction.png)
  
 </details>
  
 <details>
 <summary> Loan </summary>
  
-![](./assets/Loan.png)
+![](./Loan.png)
  
 </details>
  
 <details>
 <summary> Fixed Deposit </summary>
  
-![](./assets/FD.png)
+![](./FD.png)
  
 </details>
  
 <details>
 <summary> Reccuring Deposit </summary>
  
-![](./assets/RD.png)
+![](./RD.png)
  
 </details>
  
