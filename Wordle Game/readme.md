@@ -11,7 +11,7 @@ A Wordle-like game implemented using HTML, CSS, and JavaScript with a dark theme
 
 ## Demo
 
-![Demo Image](path/to/demo.png)
+![Demo Image](demo.png)
 
 ## Getting Started
 
