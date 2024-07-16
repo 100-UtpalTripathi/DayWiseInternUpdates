@@ -2,11 +2,11 @@
 
 ## Video Explanation
 
-A detailed video explanation of the project is available [here](link-to-video).
+A video showcasing of the project is available [here](https://drive.google.com/file/d/1yvr25D5QNCSlHaCJwQZ5KSrEKtQ7fMcI/view?usp=sharing).
 
 ## Overview
 
-This project is a simple ATM application that provides functionalities such as checking balance, withdrawing, and depositing money. The application has been developed using HTML, CSS, and JavaScript for the frontend and C# with .NET for the backend.
+This project is a simple ATM application that provides functionalities such as checking balance, withdrawing, and depositing money. The application has been developed using HTML, CSS, JavaScript and NodeJS for the frontend and C# with .NET for the backend.
 
 ## Table of Contents
 
@@ -15,8 +15,6 @@ This project is a simple ATM application that provides functionalities such as c
 - [Technologies Used](#technologies-used)
 - [Installation](#installation)
 - [Usage](#usage)
-- [Contributing](#contributing)
-- [License](#license)
 
 ## Team Members
 
@@ -24,7 +22,7 @@ This project is a simple ATM application that provides functionalities such as c
 - **Aslam** - Backend Development
 - **Sakthi** - Frontend Development
 - **Avish** - Backend and Frontend Integration
-- **Utpal** - Video Explanation and Documentation
+- **Utpal** - Video showcasing and Short Documentation(ReadME.md)
 
 ## Features
 
@@ -34,7 +32,7 @@ This project is a simple ATM application that provides functionalities such as c
 
 ## Technologies Used
 
-- **Frontend**: HTML, CSS, JavaScript
+- **Frontend**: HTML, CSS, JavaScript, NodeJS
 - **Backend**: C#, .NET, Entity Framework Core
 
 ## Installation
