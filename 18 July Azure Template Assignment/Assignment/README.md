@@ -43,3 +43,19 @@ az deployment group create --resource-group <your-resource-group> \
               adminPassword=<your-admin-password> \
               databaseName=<your-database-name>
 ```
+
+3. **Update the parameters** in the ARM template file (`azureTemplateVaultDeployment.json`) as per your requirements.
+
+## Deploying the Key Vault and Secret
+
+To deploy the Key Vault and add the SQL connection string as a secret, use the following command:
+
+```bash
+az deployment group create --resource-group <your-resource-group> \
+  --template-file azureTemplateVaultDeployment.json \
+  --parameters keyVaultName=<your-key-vault-name> \
+              secretName=<your-secret-name> \
+              sqlConnectionString="Server=tcp:<your-sql-server-name>.database.windows.net,1433;Initial Catalog=<your-database-name>;Persist Security Info=False;User ID=<your-admin-login>;Password=<your-admin-password>;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"
+
+```
+
