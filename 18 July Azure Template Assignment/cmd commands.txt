@@ -1,0 +1,38 @@
+
+1. Without parameters....
+
+az deployment group create --name azurestorage --resource-group rgTemplate --template-file azuretemplateone.json
+
+-------------------------------------------------------------------
+
+2. By passing parameters during run....
+az deployment group create --name azurestorage --resource-group rgTemplate --template-file azuretemplateone.json --parameters storageName=azurestoreg31910  storageAccountType=Standard_LRS
+
+
+Command Breakdown: 
+
+az deployment group create: The Azure CLI command to create a deployment at the resource group level.
+
+--name: Specifies the name of the deployment (azurestorageUtpal).
+
+--resource-group: Specifies the name of the resource group where the resources will be deployed (rgTemplateUtpal). 
+If this resource group doesn't exist, you'll need to create it first with az group create.
+
+--template-file: Specifies the path to the ARM template file (azureTemplateStorage.json).
+
+--parameters: Specifies the template parameters. Here, storageName=myuniquestorage sets the storageName 
+parameter to myuniquestorage.
+
+
+
+Assignment commands to run:
+
+# Deploy the SQL server template
+az deployment group create --resource-group rg0xutpal --template-file azureTemplateSQLDeployment.json --parameters sqlServerName=utpalsqlserver adminLogin=utpaltripathi adminPassword=7M24jr@wcy databaseName=utpalsqldb
+
+# Deploy the Key Vault template
+az deployment group create --resource-group rg0xutpal --template-file azureTemplateVaultDeployment.json --parameters keyVaultName=utpalkeyvault secretName=sqlConnectionString sqlConnectionString=Server=tcp:utpalsqlserver.database.windows.net,1433;Initial Catalog=utpalsqldb;Persist Security Info=False;User ID=utpaltripathi;Password=7M24jr@wcy;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;
+
+
+Connection String:
+Server=tcp:utpalsqlserver.database.windows.net,1433;Initial Catalog=utpalsqldb;Persist Security Info=False;User ID=utpaltripathi;Password=7M24jr@wcy;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;

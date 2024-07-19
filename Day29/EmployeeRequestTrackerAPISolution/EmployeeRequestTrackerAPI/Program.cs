@@ -1,4 +1,3 @@
-
 using EmployeeRequestTrackerAPI.Contexts;
 using EmployeeRequestTrackerAPI.Interfaces;
 using EmployeeRequestTrackerAPI.Models;
@@ -8,6 +7,8 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using Azure.Identity;
+using Azure.Extensions.AspNetCore.Configuration.Secrets;
 using System.Text;
 
 namespace EmployeeRequestTrackerAPI
@@ -18,20 +19,28 @@ namespace EmployeeRequestTrackerAPI
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            // Add services to the container.
+            // Adding Azure Key Vault integration
+            var keyVaultUri = "https://utpalkeyvault.vault.azure.net/";
 
+            if (!string.IsNullOrEmpty(keyVaultUri))
+            {
+                builder.Configuration.AddAzureKeyVault(new Uri(keyVaultUri), new DefaultAzureCredential());
+            }
+
+            var connectionString = builder.Configuration["sqlConnectionString"];
+            Console.WriteLine(connectionString);
+            Console.WriteLine(builder.Configuration.GetConnectionString("defaultConnection"));
+
+
+            // Add services to the container.
             builder.Services.AddControllers();
             builder.Services.AddControllersWithViews().AddNewtonsoftJson(
-    options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
-);
-
-
-
+                options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+            );
 
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddLogging(l => l.AddLog4Net());
-
 
             builder.Services.AddSwaggerGen(option =>
             {
@@ -59,32 +68,32 @@ namespace EmployeeRequestTrackerAPI
                     }
                 });
             });
-            //Debug.WriteLine(builder.Configuration["TokenKey:JWT"]);
+
             builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
                 {
-                    options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters()
+                    options.TokenValidationParameters = new TokenValidationParameters()
                     {
                         ValidateIssuer = false,
                         ValidateAudience = false,
                         ValidateIssuerSigningKey = true,
                         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["TokenKey:JWT"]))
                     };
-
                 });
 
             #region contexts
 
             builder.Services.AddDbContext<RequestTrackerContext>(
-                options => options.UseSqlServer(builder.Configuration.GetConnectionString("defaultConnection"))
-                );
+                options => options.UseSqlServer(builder.Configuration["sqlConnectionString"])
+            );
+
             #endregion
 
             #region Repositories
             builder.Services.AddScoped<IRepository<int, Employee>, EmployeeRepository>();
             builder.Services.AddScoped<IRepository<int, User>, UserRepository>();
             builder.Services.AddScoped<IRepository<int, Request>, RequestRepository>();
-            
+
             #endregion
 
             #region Services
@@ -103,7 +112,6 @@ namespace EmployeeRequestTrackerAPI
                 app.UseSwaggerUI();
             }
 
-            
             app.UseAuthentication();
             app.UseAuthorization();
 

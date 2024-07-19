@@ -39,7 +39,7 @@ namespace EmployeeRequestTrackerAPI.Services
                 return loginReturnDTO;
                 //}
 
-                throw new UserNotActiveException("Your account is not activated");
+                throw new NoSuchUserFoundException("Your account is not activated");
             }
             throw new UnauthorizedUserException("Invalid username or password");
         }

@@ -1,0 +1,52 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "resources": [
+      {
+        "type": "Microsoft.KeyVault/vaults",
+        "apiVersion": "2021-06-01-preview",
+        "location": "East US",
+        "name": "[parameters('keyVaultName')]",
+        "properties": {
+          "sku": {
+            "family": "A",
+            "name": "standard"
+          },
+          "tenantId": "[subscription().tenantId]",
+          "accessPolicies": []
+        }
+      },
+      {
+        "type": "Microsoft.KeyVault/vaults/secrets",
+        "apiVersion": "2021-06-01-preview",
+        "name": "[format('{0}/{1}', parameters('keyVaultName'), parameters('secretName'))]",
+        "properties": {
+          "value": "[parameters('sqlConnectionString')]"
+        },
+        "dependsOn": [
+          "[resourceId('Microsoft.KeyVault/vaults', parameters('keyVaultName'))]"
+        ]
+      }
+    ],
+    "parameters": {
+      "keyVaultName": {
+        "type": "string",
+        "metadata": {
+          "description": "The name of the Key Vault."
+        }
+      },
+      "secretName": {
+        "type": "string",
+        "metadata": {
+          "description": "The name of the secret."
+        }
+      },
+      "sqlConnectionString": {
+        "type": "securestring",
+        "metadata": {
+          "description": "The connection string for the SQL database."
+        }
+      }
+    }
+  }
+  
